@@ -13,7 +13,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
-.vscode
+.vscode/settings.json
 .recommenders
 
 # External tool builders
