@@ -9,7 +9,7 @@ public class App {
     final static String dbName = "futureodissey";
 
     public static void main(String[] args) {
-        //final Controller controller = new ControllerImpl(username, password, dbName);
+        final Controller controller = new ControllerImpl(username, password, dbName);
         System.out.println("ciao");
     }
 
