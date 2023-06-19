@@ -1,4 +1,4 @@
-package lab.db;
+package futureodissey.db;
 
 import java.util.List;
 import java.util.Optional;

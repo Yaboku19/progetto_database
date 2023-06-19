@@ -1,8 +1,8 @@
-package lab;
-import lab.db.ConnectionProvider;
-import lab.db.tables.StudentsTable;
-import lab.model.Student;
-import lab.utils.Utils;
+package futureodissey;
+import futureodissey.db.ConnectionProvider;
+import futureodissey.db.tables.StudentsTable;
+import futureodissey.model.Student;
+import futureodissey.utils.Utils;
 
 public class App {
     final static String username = "root";

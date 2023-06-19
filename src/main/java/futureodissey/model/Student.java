@@ -1,4 +1,4 @@
-package lab.model;
+package futureodissey.model;
 
 import java.util.Date;
 import java.util.Objects;

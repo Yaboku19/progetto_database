@@ -1,4 +1,4 @@
-package lab.db.tables;
+package futureodissey.db.tables;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import lab.db.Table;
-import lab.model.Student;
-import lab.utils.Utils;
+
+import futureodissey.db.Table;
+import futureodissey.model.Student;
+import futureodissey.utils.Utils;
 
 public final class StudentsTable implements Table<Student, Integer> {    
     public static final String TABLE_NAME = "students";
