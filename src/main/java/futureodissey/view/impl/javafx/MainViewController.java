@@ -1,8 +1,6 @@
 package futureodissey.view.impl.javafx;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import futureodissey.view.api.View;
@@ -22,8 +20,6 @@ public class MainViewController {
 
     @FXML
     private ChoiceBox<String> deciderBox;
-
-    private final List<String> deciderList = new ArrayList<>();
 
     @FXML
     void initialize() {
