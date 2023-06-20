@@ -1,4 +1,4 @@
-package futureodissey.db;
+package futureodissey.db.api;
 
 import java.util.List;
 import java.util.Optional;

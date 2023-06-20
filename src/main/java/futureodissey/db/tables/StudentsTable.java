@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import futureodissey.db.Table;
+import futureodissey.db.api.Table;
 import futureodissey.model.Student;
 import futureodissey.utils.Utils;
 

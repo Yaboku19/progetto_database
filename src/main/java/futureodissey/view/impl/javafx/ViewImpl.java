@@ -5,7 +5,6 @@ import futureodissey.controller.impl.ControllerImpl;
 import futureodissey.view.api.View;
 import javafx.scene.Scene;
 import java.io.IOException;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -21,12 +20,6 @@ public class ViewImpl implements View {
     private Parent root;
     private MainViewController mainViewController;
     private AdminViewController adminViewController;
-
-    private final String username = "root";
-    private final String password = "Emanuele2002!";
-    private final String dbName = "futureodissey";
-
-    private static final Logger LOGGER = Logger.getLogger("ViewControllerLog");
     private static final double SETTINGS_MIN_HEIGHT = 430;
     private static final double SETTINGS_MIN_WIDTH = 600;
     private Controller controller;
@@ -38,7 +31,7 @@ public class ViewImpl implements View {
         try {
             root = loader.load();
             mainViewController = loader.getController();
-            controller = new ControllerImpl(username, password, dbName, this);
+            controller = new ControllerImpl(this);
             //controller.setViewResources();
             mainViewController.setViewController(this);
             final Scene mainViewScene = new Scene(root);
