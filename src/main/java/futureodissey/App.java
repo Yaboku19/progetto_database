@@ -11,6 +11,7 @@ public class App {
     public static void main(String[] args) {
         final Controller controller = new ControllerImpl(username, password, dbName);
         System.out.println("ciao");
+        Launch.main(args);
     }
 
 }
