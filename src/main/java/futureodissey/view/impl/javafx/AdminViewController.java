@@ -59,6 +59,7 @@ public class AdminViewController {
     @FXML
     void addNation(MouseEvent event) {
         final String text = addText.getText();
+        addText.clear();
         deciderBox.getItems().removeAll(View.getDeciderList());
         View.addDeciderList(text);
         deciderBox.getItems().addAll(View.getDeciderList());
@@ -67,6 +68,7 @@ public class AdminViewController {
     @FXML
     void removeNation(MouseEvent event) {
         final String text = removeText.getText();
+        removeText.clear();
         deciderBox.getItems().removeAll(View.getDeciderList());
         View.removeDeciderList(text);
         deciderBox.getItems().addAll(View.getDeciderList());
