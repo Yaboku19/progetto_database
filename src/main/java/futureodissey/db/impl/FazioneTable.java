@@ -20,7 +20,7 @@ public class FazioneTable extends AbstractTable<Fazione>{
     public boolean createTable() {
         return createTablePrivate("CREATE TABLE " + tableName + " (" +
             key + " char(40) NOT NULL PRIMARY KEY," +
-            capitano + " CHAR(40) NOT NULL," +
+            capitano + " CHAR(40) NOT NULL" +
             ")");
     }
 

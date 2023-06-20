@@ -29,7 +29,7 @@ public class Fazione {
     @Override
     public boolean equals(final Object other) {
         return (other instanceof Fazione)
-            && ((Fazione) other).getNomeFazione() == this.getNomeFazione()
+            && ((Fazione) other).getNomeFazione().equals(this.getNomeFazione())
             && ((Fazione) other).getNomeCapitano().equals(this.getNomeCapitano());
     }
 
