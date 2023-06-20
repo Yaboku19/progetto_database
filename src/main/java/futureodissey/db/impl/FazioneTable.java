@@ -10,6 +10,8 @@ import futureodissey.db.api.AbstractTable;
 import futureodissey.model.impl.Fazione;
 
 public class FazioneTable extends AbstractTable<Fazione>{
+    private final String key = "nomeFazione";
+    private final String capitano = "NomeCapitano";
 
     public FazioneTable(Connection connection) {
         super("fazione", connection);
@@ -17,13 +19,13 @@ public class FazioneTable extends AbstractTable<Fazione>{
 
     public boolean createTable() {
         return createTablePrivate("CREATE TABLE " + tableName + " (" +
-            "nomeFazione char(40) NOT NULL PRIMARY KEY," +
-            "nomeCapitano CHAR(40) NOT NULL," +
+            key + " char(40) NOT NULL PRIMARY KEY," +
+            capitano + " CHAR(40) NOT NULL," +
             ")");
     }
 
     public Optional<Fazione> findByPrimaryKey(final String name) {
-        return findByPrimaryKeyPrivate(name, " WHERE NomeFazione = ?");
+        return findByPrimaryKeyPrivate(name, " WHERE " + key + " = ?");
     }
 
     public boolean save(final Fazione fazione) {
@@ -38,11 +40,11 @@ public class FazioneTable extends AbstractTable<Fazione>{
     }
 
     public boolean delete(final String NomeFazione) {
-        return deletePrivate(NomeFazione, " WHERE NomeFazione = ?");
+        return deletePrivate(NomeFazione, " WHERE " + key + " = ?");
     }
 
     public boolean update(final Fazione fazione) {
-        return updatePrivate(fazione, " SET NomeCapitano = ? WHERE NomeFazione = ?", st -> {
+        return updatePrivate(fazione, " SET " + capitano + " = ? WHERE " + key + " = ?", st -> {
             try {
                 st.setString(1, fazione.getNomeCapitano());
                 st.setString(2, fazione.getNomeFazione());
@@ -57,8 +59,8 @@ public class FazioneTable extends AbstractTable<Fazione>{
         try {
             while(resultSet.next()) {
                 result.add(new Fazione(
-                    resultSet.getString("NomeFazione"), 
-                    resultSet.getString("NomeCapitano")));
+                    resultSet.getString(key), 
+                    resultSet.getString(capitano)));
             }
         } catch (SQLException e) {
             return result;
