@@ -22,7 +22,10 @@ public interface View {
     }
 
     static void removeDeciderList(String value) {
-        deciderList.remove(value);
+        if (! "admin".equals(value)) {
+            deciderList.remove(value);
+        }
+        
     }
 
     void changeStatus(String value, ActionEvent event);

@@ -1,5 +1,7 @@
 package futureodissey.view.impl.javafx;
 
+import futureodissey.controller.api.Controller;
+import futureodissey.controller.impl.ControllerImpl;
 import futureodissey.view.api.View;
 import javafx.scene.Scene;
 import java.io.IOException;
@@ -20,9 +22,14 @@ public class ViewImpl implements View {
     private MainViewController mainViewController;
     private AdminViewController adminViewController;
 
+    private final String username = "root";
+    private final String password = "Emanuele2002!";
+    private final String dbName = "futureodissey";
+
     private static final Logger LOGGER = Logger.getLogger("ViewControllerLog");
     private static final double SETTINGS_MIN_HEIGHT = 430;
     private static final double SETTINGS_MIN_WIDTH = 600;
+    private Controller controller;
 
     public void start(final Stage stage) {
         this.stage = stage;
@@ -31,7 +38,7 @@ public class ViewImpl implements View {
         try {
             root = loader.load();
             mainViewController = loader.getController();
-            //controller = new BasicGameEngine(this);
+            controller = new ControllerImpl(username, password, dbName, this);
             //controller.setViewResources();
             mainViewController.setViewController(this);
             final Scene mainViewScene = new Scene(root);
