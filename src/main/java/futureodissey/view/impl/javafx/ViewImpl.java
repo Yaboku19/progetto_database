@@ -25,16 +25,12 @@ public class ViewImpl implements View {
     public void start(final Stage stage) {
         this.stage = stage;
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("layout/main.fxml"));
-        System.out.println(ClassLoader.getSystemResource("layout/main.fxml"));
         try {
-            System.out.println("000000000");
             root = loader.load();
-            System.out.println("111111111111");
             mainViewController = loader.getController();
-            System.out.println("waaaa");
             //controller = new BasicGameEngine(this);
             //controller.setViewResources();
-            mainViewController.setViewController(this);
+            // mainViewController.setViewController(this);
             final Scene mainViewScene = new Scene(root);
             stage.setTitle("Tank-Battle");
             stage.setScene(mainViewScene);
