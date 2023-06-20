@@ -1,13 +1,18 @@
 package futureodissey.view.impl.javafx;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import futureodissey.view.api.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ChoiceBox;
 
 public class MainViewController {
+
+    private View controller;
 
     @FXML
     private ResourceBundle resources;
@@ -16,39 +21,24 @@ public class MainViewController {
     private URL location;
 
     @FXML
-    private VBox buttonBox;
+    private ChoiceBox<String> deciderBox;
 
-    @FXML
-    private Button playButton;
-
-    @FXML
-    private Button settingButton;
-
-    @FXML
-    private Button tutorialButton;
-
-    @FXML
-    void play(ActionEvent event) {
-
-    }
-
-    @FXML
-    void settings(ActionEvent event) {
-
-    }
-
-    @FXML
-    void tutorial(ActionEvent event) {
-
-    }
+    private final List<String> deciderList = new ArrayList<>();
 
     @FXML
     void initialize() {
-        assert buttonBox != null : "fx:id=\"buttonBox\" was not injected: check your FXML file 'main.fxml'.";
-        assert playButton != null : "fx:id=\"playButton\" was not injected: check your FXML file 'main.fxml'.";
-        assert settingButton != null : "fx:id=\"settingButton\" was not injected: check your FXML file 'main.fxml'.";
-        assert tutorialButton != null : "fx:id=\"tutorialButton\" was not injected: check your FXML file 'main.fxml'.";
+        assert deciderBox != null : "fx:id=\"deciderBox\" was not injected: check your FXML file 'main.fxml'.";
+        deciderBox.getItems().addAll(View.getDeciderList());
+        deciderBox.setOnAction(this::getchoice);
 
+    }
+
+    public void getchoice(ActionEvent event) {
+        controller.changeStatus(deciderBox.getValue(), event);
+    }
+
+    public void setViewController(View controller) {
+        this.controller = controller;
     }
 
 }

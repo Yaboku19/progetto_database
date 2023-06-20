@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="futureodissey.view.impl.javafx.AdminViewController">
+   <children>
+      <ChoiceBox fx:id="deciderBox" layoutX="204.0" layoutY="14.0" prefHeight="46.0" prefWidth="163.0" />
+      <TextField fx:id="addText" layoutX="22.0" layoutY="148.0" />
+      <TextField fx:id="removeText" layoutX="22.0" layoutY="232.0" />
+      <Button fx:id="addButton" layoutX="234.0" layoutY="148.0" mnemonicParsing="false" onMousePressed="#addNation" text="CONFERMA" />
+      <Button fx:id="removeButton" layoutX="234.0" layoutY="232.0" mnemonicParsing="false" onMousePressed="#removeNation" text="CONFERMA" />
+      <Label layoutX="21.0" layoutY="117.0" text="Aggiungi" />
+      <Label layoutX="21.0" layoutY="200.0" text="Togli" />
+   </children>
+</AnchorPane>
