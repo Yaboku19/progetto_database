@@ -11,14 +11,15 @@ import futureodissey.db.api.Table;
 import futureodissey.model.impl.rowtype.Lavoratore;
 
 public class LavoratoreTable extends AbstractTable<Lavoratore> implements Table<Lavoratore, Integer>{
-    private final String key = "CodicePersona";
-    private final String fazione = "NomeFazione";
-    private final String insediamento = "NomeInsediamento";
+    private final String key = "codicePersona";
+    private final String fazione = "nomeFazione";
+    private final String insediamento = "nomeInsediamento";
 
     public LavoratoreTable(Connection connection) {
         super("lavoratore", connection);
     }
 
+    @Override
     public boolean createTable() {
         return createTablePrivate("CREATE TABLE " + tableName + " (" +
             key + " INT NOT NULL PRIMARY KEY," +
@@ -27,6 +28,7 @@ public class LavoratoreTable extends AbstractTable<Lavoratore> implements Table<
             ")");
     }
 
+    @Override
     public Optional<Lavoratore> findByPrimaryKey(final Integer codicePersona) {
         return findByPrimaryKeyPrivate(" WHERE " + key + " = ?", st -> {
             try {
@@ -37,6 +39,7 @@ public class LavoratoreTable extends AbstractTable<Lavoratore> implements Table<
         });
     }
 
+    @Override
     public boolean save(final Lavoratore lavoratore) {
         return savePrivate(lavoratore, " VALUES(?, ?, ?)", st -> {
             try {
@@ -49,6 +52,7 @@ public class LavoratoreTable extends AbstractTable<Lavoratore> implements Table<
         });
     }
 
+    @Override
     public boolean delete(final Integer codicePersona) {
         return deletePrivate(" WHERE " + key + " = ?", st -> {
             try {
@@ -59,6 +63,7 @@ public class LavoratoreTable extends AbstractTable<Lavoratore> implements Table<
         });
     }
 
+    @Override
     public boolean update(final Lavoratore lavoratore) {
         return updatePrivate(lavoratore, " SET " + fazione + " = ?, " + insediamento + " = ? WHERE " + key + " = ?", st -> {
             try {

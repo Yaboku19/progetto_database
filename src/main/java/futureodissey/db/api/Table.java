@@ -48,17 +48,17 @@ public interface Table<V,K> {
     boolean save(final V value);
     
     /**
+     * Deletes from the underlying database the row with the given primary key
+     * @param primaryKey the primary key of the row to delete
+     * @return false if the row could not be deleted
+     */
+    boolean delete(final K primaryKey);
+
+    /**
      * Updates an object 
      * @param updatedValue the object to update
      * @return false if the object could not be updated (e.g. there is not already an
      *         object with the given primary key in the database)
      */
     boolean update(final V updatedValue);
-    
-    /**
-     * Deletes from the underlying database the row with the given primary key
-     * @param primaryKey the primary key of the row to delete
-     * @return false if the row could not be deleted
-     */
-    boolean delete(final K primaryKey);
 }

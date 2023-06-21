@@ -11,14 +11,15 @@ import futureodissey.db.api.Table;
 import futureodissey.model.impl.rowtype.Guerriero;
 
 public class GuerrieroTable extends AbstractTable<Guerriero> implements Table<Guerriero, Integer>{
-    private final String key = "CodicePersona";
-    private final String fazione = "NomeFazione";
-    private final String insediamento = "NomeInsediamento";
+    private final String key = "codicePersona";
+    private final String fazione = "nomeFazione";
+    private final String insediamento = "nomeInsediamento";
 
     public GuerrieroTable(Connection connection) {
         super("guerriero", connection);
     }
 
+    @Override
     public boolean createTable() {
         return createTablePrivate("CREATE TABLE " + tableName + " (" +
             key + " INT NOT NULL PRIMARY KEY," +
@@ -27,6 +28,7 @@ public class GuerrieroTable extends AbstractTable<Guerriero> implements Table<Gu
             ")");
     }
 
+    @Override
     public Optional<Guerriero> findByPrimaryKey(final Integer codicePersona) {
         return findByPrimaryKeyPrivate(" WHERE " + key + " = ?", st -> {
             try {
@@ -37,6 +39,7 @@ public class GuerrieroTable extends AbstractTable<Guerriero> implements Table<Gu
         });
     }
 
+    @Override
     public boolean save(final Guerriero guerriero) {
         return savePrivate(guerriero, " VALUES(?, ?, ?)", st -> {
             try {
@@ -49,6 +52,7 @@ public class GuerrieroTable extends AbstractTable<Guerriero> implements Table<Gu
         });
     }
 
+    @Override
     public boolean delete(final Integer codicePersona) {
         return deletePrivate(" WHERE " + key + " = ?", st -> {
             try {
@@ -59,6 +63,7 @@ public class GuerrieroTable extends AbstractTable<Guerriero> implements Table<Gu
         });
     }
 
+    @Override
     public boolean update(final Guerriero guerriero) {
         return updatePrivate(guerriero, " SET " + fazione + " = ?, " + insediamento + " = ? WHERE " + key + " = ?", st -> {
             try {
@@ -70,7 +75,8 @@ public class GuerrieroTable extends AbstractTable<Guerriero> implements Table<Gu
             }
         });
     }
-    
+
+    @Override
     protected List<Guerriero> readStudentsFromResultSet(final ResultSet resultSet) {
         List<Guerriero> result = new ArrayList<>();
         try {

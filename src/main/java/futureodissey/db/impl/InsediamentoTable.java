@@ -13,9 +13,9 @@ import futureodissey.model.impl.rowtype.Insediamento;
 import javafx.util.Pair;
 
 public class InsediamentoTable extends AbstractTable<Insediamento> implements Table<Insediamento, Pair<String, String>>{
-    private final String key1 = "NomeFazione";
-    private final String key2 = "NomeInsediamento";
-    private final String pianeta = "NomePianeta";
+    private final String key1 = "nomeFazione";
+    private final String key2 = "nomeInsediamento";
+    private final String pianeta = "nomePianeta";
 
     public InsediamentoTable(Connection connection) {
         super("insediamento", connection);

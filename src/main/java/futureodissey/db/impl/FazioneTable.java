@@ -12,12 +12,13 @@ import futureodissey.model.impl.rowtype.Fazione;
 
 public class FazioneTable extends AbstractTable<Fazione> implements Table<Fazione, String>{
     private final String key = "nomeFazione";
-    private final String capitano = "NomeCapitano";
+    private final String capitano = "nomeCapitano";
 
     public FazioneTable(Connection connection) {
         super("fazione", connection);
     }
 
+    @Override
     public boolean createTable() {
         return createTablePrivate("CREATE TABLE " + tableName + " (" +
             key + " char(40) NOT NULL PRIMARY KEY," +
@@ -25,16 +26,18 @@ public class FazioneTable extends AbstractTable<Fazione> implements Table<Fazion
             ")");
     }
 
-    public Optional<Fazione> findByPrimaryKey(final String name) {
+    @Override
+    public Optional<Fazione> findByPrimaryKey(final String nomeFazione) {
         return findByPrimaryKeyPrivate(" WHERE " + key + " = ?", st -> {
             try {
-                st.setString(1, name);
+                st.setString(1, nomeFazione);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         });
     }
 
+    @Override
     public boolean save(final Fazione fazione) {
         return savePrivate(fazione, " VALUES(?, ?)", st -> {
             try {
@@ -46,16 +49,18 @@ public class FazioneTable extends AbstractTable<Fazione> implements Table<Fazion
         });
     }
 
-    public boolean delete(final String NomeFazione) {
+    @Override
+    public boolean delete(final String nomeFazione) {
         return deletePrivate(" WHERE " + key + " = ?", st -> {
             try {
-                st.setString(1, NomeFazione);
+                st.setString(1, nomeFazione);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         });
     }
 
+    @Override
     public boolean update(final Fazione fazione) {
         return updatePrivate(fazione, " SET " + capitano + " = ? WHERE " + key + " = ?", st -> {
             try {
@@ -67,6 +72,7 @@ public class FazioneTable extends AbstractTable<Fazione> implements Table<Fazion
         });
     }
     
+    @Override
     protected List<Fazione> readStudentsFromResultSet(final ResultSet resultSet) {
         List<Fazione> result = new ArrayList<>();
         try {
