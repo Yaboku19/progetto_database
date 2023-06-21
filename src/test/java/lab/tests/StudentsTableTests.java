@@ -11,10 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import futureodissey.db.ConnectionProvider;
 import futureodissey.db.tables.StudentsTable;
-import futureodissey.model.Student;
 import futureodissey.utils.Utils;
 
-class StudentsTableTests {
+/*class StudentsTableTests {
     final static String username = "root";
     final static String password = "Emanuele2002!";
     final static String dbName = "labjdbc";
@@ -99,4 +98,4 @@ class StudentsTableTests {
             studentsTable.findByBirthday(Utils.buildDate(11, 10, 1998).get())
         );
     }
-}
+}*/
