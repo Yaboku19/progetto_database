@@ -9,7 +9,7 @@ public class Risorsa {
         this.nomeRisorsa = nomeRisorsa;
     }
 
-     public String getNomeRisorsa() {
+    public String getNomeRisorsa() {
         return this.nomeRisorsa;
     }
 

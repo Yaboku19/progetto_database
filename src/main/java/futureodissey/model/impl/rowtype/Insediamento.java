@@ -28,8 +28,8 @@ public class Insediamento {
     @Override
     public String toString() {
         return new StringBuilder()
-            .append("(").append(nomeFazione).append(") ")
-            .append(nomeInsediamento).append(" - ").append(nomePianeta).toString();
+            .append("(").append(nomeFazione).append(", ").append(nomeInsediamento).append(") ")
+            .append(nomePianeta).toString();
     }
 
     @Override
