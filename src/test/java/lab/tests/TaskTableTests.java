@@ -10,40 +10,40 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import futureodissey.db.ConnectionProvider;
-import futureodissey.db.tables.StudentsTable;
-import futureodissey.utils.Utils;
+import futureodissey.db.impl.TaskTable;
+import futureodissey.model.impl.rowtype.Task;
 
-/*class StudentsTableTests {
+class TaskTableTests {
     final static String username = "root";
     final static String password = "Emanuele2002!";
-    final static String dbName = "labjdbc";
+    final static String dbName = "futureodissey";
     
     final static ConnectionProvider connectionProvider = new ConnectionProvider(username, password, dbName);
-    final static StudentsTable studentsTable = new StudentsTable(connectionProvider.getMySQLConnection());
+    final static TaskTable taskTable = new TaskTable(connectionProvider.getMySQLConnection());
 
-    final Student student1 = new Student(1, "Giacomo", "Cavalieri", Utils.buildDate(11, 10, 1998));
-    final Student student2 = new Student(2, "Tommaso", "Cavalieri");
+    final Task task1 = new Task("bla", 3, 2, Optional.ofNullable("acca"));
+    final Task task2 = new Task("cia", 4, 5);
 
     @BeforeEach
     void setUp() throws Exception {
-        studentsTable.dropTable();
-        studentsTable.createTable();
+        taskTable.dropTable();
+        taskTable.createTable();
     }
 
     @AfterEach
     void tearDown() throws Exception {
-        studentsTable.dropTable();
+        taskTable.dropTable();
     }
 
     @Test
     void creationAndDropTest() {
-        assertTrue(studentsTable.dropTable());
-        assertFalse(studentsTable.dropTable());
-        assertTrue(studentsTable.createTable());
-        assertFalse(studentsTable.createTable());
+        assertTrue(taskTable.dropTable());
+        assertFalse(taskTable.dropTable());
+        assertTrue(taskTable.createTable());
+        assertFalse(taskTable.createTable());
     }
     
-    @Test
+    /*@Test
     void saveTest() {
         assertTrue(studentsTable.save(student1));
         assertFalse(studentsTable.save(student1));
@@ -97,5 +97,5 @@ import futureodissey.utils.Utils;
             List.of(student1, student3),
             studentsTable.findByBirthday(Utils.buildDate(11, 10, 1998).get())
         );
-    }
-}*/
+    }*/
+}

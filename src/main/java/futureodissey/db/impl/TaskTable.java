@@ -17,7 +17,7 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
     private final String taskType = "codiceTaskType";
     private final String insediamento = "nomeInsediamento";
 
-    public TaskTable(String name, Connection connection) {
+    public TaskTable(Connection connection) {
         super("task", connection);
     }
 
