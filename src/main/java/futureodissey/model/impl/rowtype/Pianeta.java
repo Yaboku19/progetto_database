@@ -7,8 +7,8 @@ public class Pianeta {
     private final String nomeRisorsa;
 
     public Pianeta(final String nomePianeta, final String nomeRisorsa) {
-        this.nomePianeta = nomePianeta;
-        this.nomeRisorsa = nomeRisorsa;
+        this.nomePianeta = Objects.requireNonNull(nomePianeta);
+        this.nomeRisorsa = Objects.requireNonNull(nomeRisorsa);
     }
 
     public String getNomePianeta() {

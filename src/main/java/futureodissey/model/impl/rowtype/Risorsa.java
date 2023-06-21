@@ -6,7 +6,7 @@ public class Risorsa {
     private final String nomeRisorsa;
 
     public Risorsa(final String nomeRisorsa) {
-        this.nomeRisorsa = nomeRisorsa;
+        this.nomeRisorsa = Objects.requireNonNull(nomeRisorsa);
     }
 
     public String getNomeRisorsa() {

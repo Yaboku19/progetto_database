@@ -8,9 +8,9 @@ public class Richiesta {
     private final int quantita;
 
     public Richiesta(final String nomeRisorsa, final int codiceTaskType, final int quantita) {
-        this.nomeRisorsa = nomeRisorsa;
-        this.codiceTaskType = codiceTaskType;
-        this.quantita = quantita;
+        this.nomeRisorsa = Objects.requireNonNull(nomeRisorsa);
+        this.codiceTaskType = Objects.requireNonNull(codiceTaskType);
+        this.quantita = Objects.requireNonNull(quantita);
     }
 
     public String getNomeRisorsa() {
