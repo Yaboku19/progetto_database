@@ -97,5 +97,10 @@ public class TaskTypeTable extends AbstractTable<TaskType> implements Table<Task
         }
         return result;
     }
+
+    @Override
+    public TaskType getRowSample() {
+        return new TaskType(0, "sample", 0, 0);
+    }
     
 }

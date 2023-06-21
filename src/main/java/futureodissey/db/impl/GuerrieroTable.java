@@ -91,4 +91,9 @@ public class GuerrieroTable extends AbstractTable<Guerriero> implements Table<Gu
         }
         return result;
     }
+
+    @Override
+    public Guerriero getRowSample() {
+        return new Guerriero(0, "sample");
+    }
 }

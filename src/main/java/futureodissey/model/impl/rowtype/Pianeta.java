@@ -2,7 +2,9 @@ package futureodissey.model.impl.rowtype;
 
 import java.util.Objects;
 
-public class Pianeta {
+import futureodissey.model.api.rowtype.RowType;
+
+public class Pianeta implements RowType {
     private final String nomePianeta;
     private final String nomeRisorsa;
 
@@ -36,5 +38,10 @@ public class Pianeta {
     @Override
     public int hashCode() {
         return Objects.hash(nomePianeta, nomeRisorsa);
+    }
+
+    @Override
+    public boolean isSameClass(Object object) {
+        return object instanceof Pianeta;
     }
 }

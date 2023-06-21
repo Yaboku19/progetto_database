@@ -95,5 +95,10 @@ public class RichestaTable extends AbstractTable<Richiesta> implements Table<Ric
         }
         return result;
     }
+
+    @Override
+    public Richiesta getRowSample() {
+        return new Richiesta("sample", 0, 0);
+    }
     
 }

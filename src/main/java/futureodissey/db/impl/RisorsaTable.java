@@ -74,5 +74,10 @@ public class RisorsaTable extends AbstractTable<Risorsa> implements Table<Risors
         }
         return result;
     }
+
+    @Override
+    public Risorsa getRowSample() {
+        return new Risorsa("sample");
+    }
     
 }

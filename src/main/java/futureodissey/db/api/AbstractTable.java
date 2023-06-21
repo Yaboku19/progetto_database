@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public abstract class AbstractTable<T> {
+import futureodissey.model.api.rowtype.RowType;
+
+public abstract class AbstractTable<T extends RowType> {
     protected final String tableName;
     protected final Connection connection;
 

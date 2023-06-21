@@ -95,5 +95,10 @@ public class DisponibilitaTable extends AbstractTable<Disponibilita> implements 
         }
         return result;
     }
+
+    @Override
+    public Disponibilita getRowSample() {
+        return new Disponibilita("sample", "sample", 0);
+    }
     
 }

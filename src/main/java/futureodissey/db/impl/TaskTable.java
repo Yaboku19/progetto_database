@@ -101,5 +101,10 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
         }
         return result;
     }
+
+    @Override
+    public Task getRowSample() {
+        return new Task("sample", 0, 0);
+    }
     
 }

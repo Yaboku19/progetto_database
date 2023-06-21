@@ -86,4 +86,9 @@ public class FazioneTable extends AbstractTable<Fazione> implements Table<Fazion
         }
         return result;
     }
+
+    @Override
+    public Fazione getRowSample() {
+        return new Fazione("sample", "sample");
+    }
 }

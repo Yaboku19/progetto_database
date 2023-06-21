@@ -91,4 +91,9 @@ public class LavoratoreTable extends AbstractTable<Lavoratore> implements Table<
         }
         return result;
     }
+
+    @Override
+    public Lavoratore getRowSample() {
+        return new Lavoratore(0, "sample", "sample");
+    }
 }

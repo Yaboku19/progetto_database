@@ -86,5 +86,10 @@ public class PianetaTable extends AbstractTable<Pianeta> implements Table<Pianet
         }
         return result;
     }
+
+    @Override
+    public Pianeta getRowSample() {
+        return new Pianeta("sample", "sample");
+    }
     
 }

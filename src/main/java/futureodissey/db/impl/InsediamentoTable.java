@@ -96,5 +96,10 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
         }
         return result;
     }
+
+    @Override
+    public Insediamento getRowSample() {
+        return new Insediamento("sample", "sample", "sample");
+    }
     
 }

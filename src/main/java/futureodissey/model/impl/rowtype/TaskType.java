@@ -1,8 +1,9 @@
 package futureodissey.model.impl.rowtype;
 
 import java.util.Objects;
+import futureodissey.model.api.rowtype.RowType;
 
-public class TaskType {
+public class TaskType implements RowType {
     private final int codiceTaskType;
     private final String descrizione;
     private final int numPersone;
@@ -52,5 +53,10 @@ public class TaskType {
     @Override
     public int hashCode() {
         return Objects.hash(codiceTaskType, descrizione, numPersone, tempo);
+    }
+
+    @Override
+    public boolean isSameClass(Object object) {
+        return object instanceof TaskType;
     }
 }

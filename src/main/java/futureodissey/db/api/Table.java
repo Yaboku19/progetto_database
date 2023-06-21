@@ -3,13 +3,15 @@ package futureodissey.db.api;
 import java.util.List;
 import java.util.Optional;
 
+import futureodissey.model.api.rowtype.RowType;
+
 /**
  * Represents a database table, with rows represented by objects of type V
  * and primary key of type K.
  * @param <V> the type of the objects saved in the table
  * @param <K> the type of the primary key of the table
  */
-public interface Table<V,K> {
+public interface Table<V extends RowType,K> {
     /**
      * @return the name of the table
      */
@@ -61,4 +63,6 @@ public interface Table<V,K> {
      *         object with the given primary key in the database)
      */
     boolean update(final V updatedValue);
+
+    V getRowSample();
 }

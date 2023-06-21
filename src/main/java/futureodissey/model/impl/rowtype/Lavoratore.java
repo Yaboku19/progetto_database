@@ -2,7 +2,9 @@ package futureodissey.model.impl.rowtype;
 
 import java.util.Objects;
 
-public class Lavoratore {
+import futureodissey.model.api.rowtype.RowType;
+
+public class Lavoratore implements RowType{
     private final int codicePersona;
     private final String nomeFazione;
     private final String nomeInsediamento;
@@ -43,5 +45,10 @@ public class Lavoratore {
     @Override
     public int hashCode() {
         return Objects.hash(codicePersona, nomeFazione, nomeInsediamento);
+    }
+
+    @Override
+    public boolean isSameClass(Object object) {
+        return object instanceof Lavoratore;
     }
 }
