@@ -56,7 +56,7 @@ public class LavoratoreTable extends AbstractTable<Lavoratore> implements Table<
     public boolean delete(final Integer codicePersona) {
         return deletePrivate(" WHERE " + key + " = ?", st -> {
             try {
-                st.setInt(0, codicePersona);
+                st.setInt(1, codicePersona);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
