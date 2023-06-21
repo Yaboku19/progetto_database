@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import futureodissey.db.api.AbstractTable;
-import futureodissey.model.impl.Fazione;
+import futureodissey.model.impl.rowtype.Fazione;
 
 public class FazioneTable extends AbstractTable<Fazione>{
     private final String key = "nomeFazione";

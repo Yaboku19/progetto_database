@@ -1,4 +1,4 @@
-package futureodissey.model.impl;
+package futureodissey.model.impl.rowtype;
 
 import java.util.Objects;
 

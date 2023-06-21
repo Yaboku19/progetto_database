@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import futureodissey.db.api.AbstractTable;
-import futureodissey.model.impl.Guerriero;
+import futureodissey.model.impl.rowtype.Guerriero;
 
 public class GuerrieroTable extends AbstractTable<Guerriero>{
     private final String key = "CodicePersona";
