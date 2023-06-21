@@ -1,21 +1,16 @@
 package futureodissey.model.impl.rowtype;
 
 import java.util.Objects;
-import java.util.Optional;
 
-public class Guerriero {
+public class Lavoratore {
     private final int codicePersona;
     private final String nomeFazione;
-    private final Optional<String> nomeInsediamento;
+    private final String nomeInsediamento;
     
-    public Guerriero(final int codicePersona, final String nomeFazione, final Optional<String> nomeInsediamento) {
+    public Lavoratore(final int codicePersona, final String nomeFazione, final String nomeInsediamento) {
         this.codicePersona = Objects.requireNonNull(codicePersona);
         this.nomeFazione = Objects.requireNonNull(nomeFazione);
         this.nomeInsediamento = Objects.requireNonNull(nomeInsediamento);
-    }
-
-    public Guerriero(final int codicePersona, final String nomeFazione) {
-        this(codicePersona, nomeFazione, Optional.empty());
     }
     
     public String getNomeFazione() {
@@ -26,7 +21,7 @@ public class Guerriero {
         return this.codicePersona;
     }
 
-    public Optional<String> getNomeInsediamento() {
+    public String getNomeInsediamento() {
         return nomeInsediamento;
     }
     
@@ -39,10 +34,10 @@ public class Guerriero {
 
     @Override
     public boolean equals(final Object other) {
-        return (other instanceof Guerriero)
-            && ((Guerriero) other).getCodicePersona() == this.getCodicePersona()
-            && ((Guerriero) other).getNomeFazione().equals(this.getNomeFazione())
-            && ((Guerriero) other).getNomeInsediamento().equals(this.getNomeInsediamento());
+        return (other instanceof Lavoratore)
+            && ((Lavoratore) other).getCodicePersona() == this.getCodicePersona()
+            && ((Lavoratore) other).getNomeFazione().equals(this.getNomeFazione())
+            && ((Lavoratore) other).getNomeInsediamento().equals(this.getNomeInsediamento());
     }
 
     @Override
