@@ -40,15 +40,10 @@ public abstract class AbstractTable<T> {
         }
     }
 
-    protected Optional<T> findByPrimaryKeyPrivate(final Object key, final String finalQuery) {
+    protected Optional<T> findByPrimaryKeyPrivate(final String finalQuery, final Consumer<PreparedStatement> consumer) {
         final String query = "SELECT * FROM " + tableName + finalQuery;
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            if (key instanceof String) {
-                statement.setString(1, (String) key);
-            } else if (key instanceof Integer) {
-                statement.setInt(1, (Integer) key);
-            }
-            
+            consumer.accept(statement);
             final ResultSet result = statement.executeQuery();
             return readStudentsFromResultSet(result).stream().findFirst();
         } catch(SQLException e) {

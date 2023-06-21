@@ -25,7 +25,13 @@ public class FazioneTable extends AbstractTable<Fazione>{
     }
 
     public Optional<Fazione> findByPrimaryKey(final String name) {
-        return findByPrimaryKeyPrivate(name, " WHERE " + key + " = ?");
+        return findByPrimaryKeyPrivate(" WHERE " + key + " = ?", st -> {
+            try {
+                st.setString(1, name);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public boolean save(final Fazione fazione) {

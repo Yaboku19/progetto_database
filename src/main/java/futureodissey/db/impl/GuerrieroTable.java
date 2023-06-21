@@ -27,7 +27,13 @@ public class GuerrieroTable extends AbstractTable<Guerriero>{
     }
 
     public Optional<Guerriero> findByPrimaryKey(final int codicePersona) {
-        return findByPrimaryKeyPrivate(codicePersona, " WHERE " + key + " = ?");
+        return findByPrimaryKeyPrivate(" WHERE " + key + " = ?", st -> {
+            try {
+                st.setInt(1, codicePersona);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public boolean save(final Guerriero guerriero) {
