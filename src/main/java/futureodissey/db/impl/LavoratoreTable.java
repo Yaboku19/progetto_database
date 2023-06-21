@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import futureodissey.db.api.AbstractTable;
+import futureodissey.db.api.Table;
 import futureodissey.model.impl.rowtype.Lavoratore;
 
-public class LavoratoreTable extends AbstractTable<Lavoratore> {
+public class LavoratoreTable extends AbstractTable<Lavoratore> implements Table<Lavoratore, Integer>{
     private final String key = "CodicePersona";
     private final String fazione = "NomeFazione";
     private final String insediamento = "NomeInsediamento";
@@ -26,7 +27,7 @@ public class LavoratoreTable extends AbstractTable<Lavoratore> {
             ")");
     }
 
-    public Optional<Lavoratore> findByPrimaryKey(final int codicePersona) {
+    public Optional<Lavoratore> findByPrimaryKey(final Integer codicePersona) {
         return findByPrimaryKeyPrivate(" WHERE " + key + " = ?", st -> {
             try {
                 st.setInt(1, codicePersona);
@@ -48,8 +49,14 @@ public class LavoratoreTable extends AbstractTable<Lavoratore> {
         });
     }
 
-    public boolean delete(final int codicePersona) {
-        return deletePrivate(codicePersona, " WHERE " + key + " = ?");
+    public boolean delete(final Integer codicePersona) {
+        return deletePrivate(" WHERE " + key + " = ?", st -> {
+            try {
+                st.setInt(0, codicePersona);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public boolean update(final Lavoratore lavoratore) {

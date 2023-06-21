@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import futureodissey.db.api.AbstractTable;
+import futureodissey.db.api.Table;
 import futureodissey.model.impl.rowtype.Fazione;
 
-public class FazioneTable extends AbstractTable<Fazione>{
+public class FazioneTable extends AbstractTable<Fazione> implements Table<Fazione, String>{
     private final String key = "nomeFazione";
     private final String capitano = "NomeCapitano";
 
@@ -46,7 +47,13 @@ public class FazioneTable extends AbstractTable<Fazione>{
     }
 
     public boolean delete(final String NomeFazione) {
-        return deletePrivate(NomeFazione, " WHERE " + key + " = ?");
+        return deletePrivate(" WHERE " + key + " = ?", st -> {
+            try {
+                st.setString(1, NomeFazione);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public boolean update(final Fazione fazione) {

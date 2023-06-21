@@ -71,15 +71,11 @@ public abstract class AbstractTable<T> {
         }
     }
 
-    protected boolean deletePrivate(final Object key, final String finalQuery) {
+    protected boolean deletePrivate(final String finalQuery, final Consumer<PreparedStatement> consumer) {
         final String query = 
             "DELETE FROM " + tableName + finalQuery;
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            if (key instanceof String) {
-                statement.setString(1, (String) key);
-            } else if (key instanceof Integer) {
-                statement.setInt(1, (Integer) key);
-            }
+            consumer.accept(statement);
             return statement.executeUpdate() > 0 ? true : false;
         } catch (final SQLException e) {
             return false;
