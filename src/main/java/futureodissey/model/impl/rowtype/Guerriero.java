@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import futureodissey.model.api.rowtype.RowType;
 
-public class Guerriero implements RowType{
+public class Guerriero implements RowType<Integer>{
     private final int codicePersona;
     private final String nomeFazione;
     private final Optional<String> nomeInsediamento;
@@ -55,5 +55,10 @@ public class Guerriero implements RowType{
     @Override
     public boolean isSameClass(Object object) {
         return object instanceof Guerriero;
+    }
+
+    @Override
+    public Integer getKey() {
+        return codicePersona;
     }
 }

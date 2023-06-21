@@ -3,6 +3,7 @@ package futureodissey.controller.impl;
 import futureodissey.controller.api.Controller;
 import futureodissey.model.api.Model;
 import futureodissey.model.impl.ModelImpl;
+import futureodissey.model.impl.rowtype.Fazione;
 import futureodissey.view.api.View;
 
 public class ControllerImpl implements Controller {
@@ -16,5 +17,16 @@ public class ControllerImpl implements Controller {
         this.view = view;
         model = new ModelImpl(username, password, dbName);
     }
+
+    @Override
+    public void fazione(String nomeFazione, String NomeCapitano, boolean isAdd) {
+        if (isAdd) {
+            model.addElement(new Fazione(nomeFazione, NomeCapitano));
+        } else {
+            model.removeElement(new Fazione(nomeFazione, NomeCapitano));
+        }
+    }
+
+    
     
 }

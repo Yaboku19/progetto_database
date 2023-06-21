@@ -6,15 +6,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="futureodissey.view.impl.javafx.AdminViewController">
    <children>
       <ChoiceBox fx:id="deciderBox" layoutX="204.0" layoutY="14.0" prefHeight="46.0" prefWidth="163.0" />
-      <TextField fx:id="addText" layoutX="22.0" layoutY="148.0" />
-      <TextField fx:id="removeText" layoutX="22.0" layoutY="232.0" />
-      <Button fx:id="addButton" layoutX="234.0" layoutY="148.0" mnemonicParsing="false" onMousePressed="#addNation" text="CONFERMA" />
-      <Button fx:id="removeButton" layoutX="234.0" layoutY="232.0" mnemonicParsing="false" onMousePressed="#removeNation" text="CONFERMA" />
-      <Label layoutX="21.0" layoutY="117.0" text="Aggiungi" />
-      <Label layoutX="21.0" layoutY="200.0" text="Togli" />
+      <TextField fx:id="addText" layoutX="19.0" layoutY="96.0" />
+      <TextField fx:id="removeText" layoutX="19.0" layoutY="166.0" />
+      <Button fx:id="addButton" layoutX="378.0" layoutY="96.0" mnemonicParsing="false" onMousePressed="#addNation" text="CONFERMA" />
+      <Button fx:id="removeButton" layoutX="378.0" layoutY="166.0" mnemonicParsing="false" onMousePressed="#removeNation" text="CONFERMA" />
+      <Label layoutX="20.0" layoutY="60.0" text="Aggiungi" />
+      <Label layoutX="19.0" layoutY="130.0" text="Togli" />
+      <TextField fx:id="addCaptanText" layoutX="204.0" layoutY="96.0" />
+      <Label layoutX="20.0" layoutY="78.0" text="NomeFazione" />
+      <Label layoutX="204.0" layoutY="78.0" text="NomeCapitano" />
+      <Label layoutX="20.0" layoutY="148.0" text="NomeFazione" />
    </children>
 </AnchorPane>

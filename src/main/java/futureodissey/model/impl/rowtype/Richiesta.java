@@ -3,8 +3,9 @@ package futureodissey.model.impl.rowtype;
 import java.util.Objects;
 
 import futureodissey.model.api.rowtype.RowType;
+import javafx.util.Pair;
 
-public class Richiesta implements RowType {
+public class Richiesta implements RowType<Pair<String, Integer>> {
     private final String nomeRisorsa;
     private final int codiceTaskType;
     private final int quantita;
@@ -50,5 +51,10 @@ public class Richiesta implements RowType {
     @Override
     public boolean isSameClass(Object object) {
         return object instanceof Richiesta;
+    }
+
+    @Override
+    public Pair<String, Integer> getKey() {
+        return new Pair<>(nomeRisorsa, codiceTaskType);
     }
 }

@@ -3,6 +3,7 @@ package futureodissey.model.impl;
 import java.util.HashSet;
 import java.util.Set;
 
+import futureodissey.common.TypeEnum;
 import futureodissey.db.ConnectionProvider;
 import futureodissey.db.api.Table;
 import futureodissey.db.impl.DisponibilitaTable;
@@ -17,6 +18,7 @@ import futureodissey.db.impl.TaskTable;
 import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;
+import futureodissey.model.impl.rowtype.Disponibilita;
 
 public class ModelImpl implements Model{
     private final ConnectionProvider connectionProvider;
@@ -38,18 +40,29 @@ public class ModelImpl implements Model{
         tableList.add(new RisorsaTable(connectionProvider.getMySQLConnection()));
         tableList.add(new TaskTable(connectionProvider.getMySQLConnection()));
         tableList.add(new TaskTypeTable(connectionProvider.getMySQLConnection()));
-        for (final var table : tableList) {
-            table.dropTable();
-            table.createTable();
-        }
+        tableList.stream().forEach(t -> {
+            t.dropTable();
+            t.createTable();
+        });
     }
 
     @Override
-    public <T> void addElement(RowType row) {
-        for (final var table : tableList) {
-            if (table.getRowSample().isSameClass(row)) {
-                table.save(row);
+    public void addElement(RowType row) {
+        tableList.stream().forEach(t -> {
+            if (t.getRowSample().isSameClass(row)) {
+                t.save(row);
             }
-        }
+        });
     }
+
+    @Override
+    public void removeElement(RowType row) {
+        tableList.stream().forEach(t -> {
+            if (t.getRowSample().isSameClass(row)) {
+                t.delete(row.getKey());
+            }
+        });
+    }
+
+    
 }

@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
@@ -17,6 +18,9 @@ public class AdminViewController {
 
     @FXML
     private ResourceBundle resources;
+
+    @FXML
+    private TextArea fazioneList;
 
     @FXML
     private URL location;
@@ -31,6 +35,9 @@ public class AdminViewController {
     private ChoiceBox<String> deciderBox;
 
     @FXML
+    private TextField addCaptanText;
+
+    @FXML
     private Button removeButton;
 
     @FXML
@@ -39,8 +46,10 @@ public class AdminViewController {
     @FXML
     void initialize() {
         assert addButton != null : "fx:id=\"addButton\" was not injected: check your FXML file 'admin.fxml'.";
+        assert addCaptanText != null : "fx:id=\"addCaptanText\" was not injected: check your FXML file 'admin.fxml'.";
         assert addText != null : "fx:id=\"addText\" was not injected: check your FXML file 'admin.fxml'.";
         assert deciderBox != null : "fx:id=\"deciderBox\" was not injected: check your FXML file 'admin.fxml'.";
+        assert fazioneList != null : "fx:id=\"fazioneList\" was not injected: check your FXML file 'admin.fxml'.";
         assert removeButton != null : "fx:id=\"removeButton\" was not injected: check your FXML file 'admin.fxml'.";
         assert removeText != null : "fx:id=\"removeText\" was not injected: check your FXML file 'admin.fxml'.";
 
@@ -58,20 +67,24 @@ public class AdminViewController {
 
     @FXML
     void addNation(MouseEvent event) {
-        final String text = addText.getText();
+        final String nation = addText.getText();
+        final String captan = addText.getText();
         addText.clear();
+        addCaptanText.clear();
         deciderBox.getItems().removeAll(View.getDeciderList());
-        View.addDeciderList(text);
+        View.addDeciderList(nation);
         deciderBox.getItems().addAll(View.getDeciderList());
+        controller.fazione(nation, captan, true);
     }
 
     @FXML
     void removeNation(MouseEvent event) {
-        final String text = removeText.getText();
+        final String nation = removeText.getText();
         removeText.clear();
         deciderBox.getItems().removeAll(View.getDeciderList());
-        View.removeDeciderList(text);
+        View.removeDeciderList(nation);
         deciderBox.getItems().addAll(View.getDeciderList());
+        controller.fazione(nation, "", false);
     }
 
 }

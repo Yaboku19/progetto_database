@@ -3,7 +3,7 @@ package futureodissey.model.impl.rowtype;
 import java.util.Objects;
 import futureodissey.model.api.rowtype.RowType;
 
-public class TaskType implements RowType {
+public class TaskType implements RowType<Integer> {
     private final int codiceTaskType;
     private final String descrizione;
     private final int numPersone;
@@ -58,5 +58,10 @@ public class TaskType implements RowType {
     @Override
     public boolean isSameClass(Object object) {
         return object instanceof TaskType;
+    }
+
+    @Override
+    public Integer getKey() {
+        return this.codiceTaskType;
     }
 }

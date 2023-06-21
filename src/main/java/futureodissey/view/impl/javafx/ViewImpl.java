@@ -5,12 +5,15 @@ import futureodissey.controller.impl.ControllerImpl;
 import futureodissey.view.api.View;
 import javafx.scene.Scene;
 import java.io.IOException;
+import java.util.List;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 /**
  * Represents the {@link View} controller.
@@ -97,5 +100,15 @@ public class ViewImpl implements View {
             throw new AssertionError("Unexpected type: " + converter);
         }
         return (Stage) converter;
+    }
+
+    public void fazione(final String nomeNazione, final String nomeCapitano, final boolean isAdd) {
+        controller.fazione(nomeNazione, nomeCapitano, isAdd);
+    }
+
+    @Override
+    public List<Pair<String, String>> getAllFazioni() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAllFazioni'");
     }
 }

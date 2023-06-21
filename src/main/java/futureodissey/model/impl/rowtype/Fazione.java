@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import futureodissey.model.api.rowtype.RowType;
 
-public class Fazione implements RowType{
+public class Fazione implements RowType<String>{
     private final String nomeFazione;
     private final String nomeCapitano;
     
@@ -43,5 +43,10 @@ public class Fazione implements RowType{
     @Override
     public boolean isSameClass(Object object) {
         return object instanceof Fazione;
+    }
+
+    @Override
+    public String getKey() {
+        return this.nomeFazione;
     }
 }

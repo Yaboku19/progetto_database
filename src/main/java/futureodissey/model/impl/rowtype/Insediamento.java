@@ -3,8 +3,9 @@ package futureodissey.model.impl.rowtype;
 import java.util.Objects;
 
 import futureodissey.model.api.rowtype.RowType;
+import javafx.util.Pair;
 
-public class Insediamento implements RowType {
+public class Insediamento implements RowType<Pair<String, String>> {
     private final String nomeFazione;
     private final String nomeInsediamento;
     private final String nomePianeta;
@@ -50,5 +51,10 @@ public class Insediamento implements RowType {
     @Override
     public boolean isSameClass(Object object) {
         return object instanceof Insediamento;
+    }
+
+    @Override
+    public Pair<String, String> getKey() {
+        return new Pair<>(nomeFazione, nomeInsediamento);
     }
 }

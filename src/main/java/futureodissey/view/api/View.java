@@ -5,6 +5,7 @@ import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public interface View {
     static final List<String> deciderList = new ArrayList<>();
@@ -29,4 +30,8 @@ public interface View {
     }
 
     void changeStatus(String value, ActionEvent event);
+
+    void fazione(String nomeFazione, String NomeCapitano, boolean isAdd);
+
+    List<Pair<String, String>> getAllFazioni();
 }
