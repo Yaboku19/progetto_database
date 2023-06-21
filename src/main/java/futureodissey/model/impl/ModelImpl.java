@@ -1,9 +1,9 @@
 package futureodissey.model.impl;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-
-import futureodissey.common.TypeEnum;
 import futureodissey.db.ConnectionProvider;
 import futureodissey.db.api.Table;
 import futureodissey.db.impl.DisponibilitaTable;
@@ -18,7 +18,6 @@ import futureodissey.db.impl.TaskTable;
 import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;
-import futureodissey.model.impl.rowtype.Disponibilita;
 
 public class ModelImpl implements Model{
     private final ConnectionProvider connectionProvider;
@@ -64,5 +63,15 @@ public class ModelImpl implements Model{
         });
     }
 
+    @Override
+    public List<RowType> getAllElement(Class<? extends Table> tableClass) {
+        List<RowType> toReturn = new ArrayList<>();
+        tableList.stream().forEach(t -> {
+            if(tableClass.equals(t.getClass())) {
+                toReturn.addAll(t.findAll());
+            }
+        });
+        return toReturn == null ? new ArrayList<>() : toReturn;
+    }
     
 }

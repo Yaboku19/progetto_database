@@ -108,7 +108,6 @@ public class ViewImpl implements View {
 
     @Override
     public List<Pair<String, String>> getAllFazioni() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllFazioni'");
+        return controller.getAllFazioni();
     }
 }

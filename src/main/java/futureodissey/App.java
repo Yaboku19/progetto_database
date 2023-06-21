@@ -1,12 +1,6 @@
 package futureodissey;
 
 import futureodissey.db.ConnectionProvider;
-import futureodissey.db.impl.FazioneTable;
-import futureodissey.db.impl.InsediamentoTable;
-import futureodissey.db.impl.TaskTable;
-import futureodissey.model.impl.ModelImpl;
-import futureodissey.model.impl.rowtype.Fazione;
-import futureodissey.model.impl.rowtype.Insediamento;
 
 public class App {
     private static ConnectionProvider connectionProvider;

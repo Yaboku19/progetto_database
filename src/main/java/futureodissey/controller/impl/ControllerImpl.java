@@ -1,10 +1,14 @@
 package futureodissey.controller.impl;
 
+import java.util.List;
+
 import futureodissey.controller.api.Controller;
+import futureodissey.db.impl.FazioneTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.impl.ModelImpl;
 import futureodissey.model.impl.rowtype.Fazione;
 import futureodissey.view.api.View;
+import javafx.util.Pair;
 
 public class ControllerImpl implements Controller {
     private final View view;
@@ -25,6 +29,15 @@ public class ControllerImpl implements Controller {
         } else {
             model.removeElement(new Fazione(nomeFazione, NomeCapitano));
         }
+    }
+
+    @Override
+    public List<Pair<String, String>> getAllFazioni() {
+        return model.getAllElement(FazioneTable.class)
+            .stream()
+            .map(v -> (Fazione)v)
+            .map(v -> new Pair<>(v.getNomeFazione(), v.getNomeCapitano()))
+            .toList();
     }
 
     

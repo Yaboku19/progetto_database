@@ -52,9 +52,15 @@ public class AdminViewController {
         assert fazioneList != null : "fx:id=\"fazioneList\" was not injected: check your FXML file 'admin.fxml'.";
         assert removeButton != null : "fx:id=\"removeButton\" was not injected: check your FXML file 'admin.fxml'.";
         assert removeText != null : "fx:id=\"removeText\" was not injected: check your FXML file 'admin.fxml'.";
-
         deciderBox.getItems().addAll(View.getDeciderList());
         deciderBox.setOnAction(this::getchoice);
+    }
+
+    private void setTextArea() {
+        fazioneList.setText("");
+        controller.getAllFazioni().forEach(l -> {
+            fazioneList.appendText("Fazione: " + l.getKey() + " Capitano: " + l.getValue() + "\n");
+        });
     }
 
     public void getchoice(ActionEvent event) {
@@ -63,18 +69,20 @@ public class AdminViewController {
 
     public void setViewController(View controller) {
         this.controller = controller;
+        setTextArea();
     }
 
     @FXML
     void addNation(MouseEvent event) {
         final String nation = addText.getText();
-        final String captan = addText.getText();
+        final String captan = addCaptanText.getText();
         addText.clear();
         addCaptanText.clear();
         deciderBox.getItems().removeAll(View.getDeciderList());
         View.addDeciderList(nation);
         deciderBox.getItems().addAll(View.getDeciderList());
         controller.fazione(nation, captan, true);
+        setTextArea();
     }
 
     @FXML
@@ -85,6 +93,7 @@ public class AdminViewController {
         View.removeDeciderList(nation);
         deciderBox.getItems().addAll(View.getDeciderList());
         controller.fazione(nation, "", false);
+        setTextArea();
     }
 
 }
