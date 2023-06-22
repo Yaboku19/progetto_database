@@ -12,7 +12,7 @@ import futureodissey.db.impl.GuerrieroTable;
 import futureodissey.db.impl.InsediamentoTable;
 import futureodissey.db.impl.LavoratoreTable;
 import futureodissey.db.impl.PianetaTable;
-import futureodissey.db.impl.RichestaTable;
+import futureodissey.db.impl.RichiestaTable;
 import futureodissey.db.impl.RisorsaTable;
 import futureodissey.db.impl.TaskTable;
 import futureodissey.db.impl.TaskTypeTable;
@@ -36,7 +36,7 @@ public class ModelImpl implements Model{
         tableList.add(new InsediamentoTable(connectionProvider.getMySQLConnection()));
         tableList.add(new LavoratoreTable(connectionProvider.getMySQLConnection()));
         tableList.add(new PianetaTable(connectionProvider.getMySQLConnection()));
-        tableList.add(new RichestaTable(connectionProvider.getMySQLConnection()));
+        tableList.add(new RichiestaTable(connectionProvider.getMySQLConnection()));
         tableList.add(new RisorsaTable(connectionProvider.getMySQLConnection()));
         tableList.add(new TaskTable(connectionProvider.getMySQLConnection()));
         tableList.add(new TaskTypeTable(connectionProvider.getMySQLConnection()));

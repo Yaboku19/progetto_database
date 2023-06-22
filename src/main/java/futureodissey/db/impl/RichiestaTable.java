@@ -11,12 +11,12 @@ import futureodissey.db.api.Table;
 import futureodissey.model.impl.rowtype.Richiesta;
 import javafx.util.Pair;
 
-public class RichestaTable extends AbstractTable<Richiesta> implements Table<Richiesta, Pair<String, Integer>> {
+public class RichiestaTable extends AbstractTable<Richiesta> implements Table<Richiesta, Pair<String, Integer>> {
     private final String key1 = "nomeRisorsa";
     private final String key2 = "codiceTaskType";
     private final String quantita = "quantita";
 
-    public RichestaTable(Connection connection) {
+    public RichiestaTable(Connection connection) {
         super("richiesta", connection);
     }
 
