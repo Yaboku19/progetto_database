@@ -7,15 +7,17 @@ import javax.xml.bind.Unmarshaller;
 
 import futureodissey.controller.api.Controller;
 import futureodissey.db.impl.FazioneTable;
-import futureodissey.db.impl.RichiestaTable;
 import futureodissey.db.impl.RisorsaTable;
-import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
+import futureodissey.model.api.rowtype.RowType;
 import futureodissey.model.impl.ModelImpl;
+import futureodissey.model.impl.dataXml.PianetaList;
 import futureodissey.model.impl.dataXml.RichiestaList;
 import futureodissey.model.impl.dataXml.RisorsaList;
 import futureodissey.model.impl.dataXml.TaskTypeList;
+import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
+import futureodissey.model.impl.rowtype.Pianeta;
 import futureodissey.model.impl.rowtype.Richiesta;
 import futureodissey.model.impl.rowtype.Risorsa;
 import futureodissey.model.impl.rowtype.TaskType;
@@ -36,9 +38,6 @@ public class ControllerImpl implements Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(model.getAllElement(RisorsaTable.class).size());
-        System.out.println(model.getAllElement(TaskTypeTable.class).size());
-        System.out.println(model.getAllElement(RichiestaTable.class).size());
     }
 
     private void initialize() throws Exception{
@@ -62,14 +61,28 @@ public class ControllerImpl implements Controller {
         for (var value : richiestaList.getRichiesta()) {
             model.addElement(new Richiesta(value.getRisorsa(), value.getCodice(), value.getQuantita()));
         }
+
+        final JAXBContext jaxbContext3 = JAXBContext.newInstance(PianetaList.class);
+        final Unmarshaller unmarshaller3 = jaxbContext3.createUnmarshaller();
+        final var pianetaList = (PianetaList) unmarshaller3.unmarshal(ClassLoader.getSystemResource("xml/pianeta.xml"));
+        for (var value : pianetaList.getPianeta()) {
+            model.addElement(new Pianeta(value.getName(), value.getRisorsa()));
+        }
     }
 
     @Override
     public void fazione(String nomeFazione, String NomeCapitano, boolean isAdd) {
-        if (isAdd) {
-            model.addElement(new Fazione(nomeFazione, NomeCapitano));
+        addRemove(new Fazione(nomeFazione, NomeCapitano), isAdd);
+        for (var value : model.getAllElement(RisorsaTable.class)) {
+            addRemove(new Disponibilita((String) value.getKey(), nomeFazione, 0), isAdd);
+        }
+    }
+
+    private <T extends RowType<? extends Object>> void addRemove(T value, boolean isAdd) {
+        if(isAdd) {
+            model.addElement(value);
         } else {
-            model.removeElement(new Fazione(nomeFazione, NomeCapitano));
+            model.removeElement(value);
         }
     }
 
@@ -80,7 +93,4 @@ public class ControllerImpl implements Controller {
             .map(l -> (Fazione)l)
             .toList();
     }
-
-    
-    
 }

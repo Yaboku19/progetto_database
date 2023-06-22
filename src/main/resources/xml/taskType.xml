@@ -38,7 +38,7 @@
     </taskType>
     <taskType>
         <codice>6</codice>
-        <descrizione>raccogliere risorse</descrizione>
+        <descrizione>raccogliere risorse per ogni lavoratore nell'insediamneto</descrizione>
         <numPersone>0</numPersone>
         <tempo>3</tempo>
     </taskType>
