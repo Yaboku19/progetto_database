@@ -52,7 +52,7 @@ public class ControllerImpl implements Controller {
         final Unmarshaller unmarshaller1 = jaxbContext1.createUnmarshaller();
         final var taskTypeList = (TaskTypeList) unmarshaller1.unmarshal(ClassLoader.getSystemResource("xml/taskType.xml"));
         for (var value : taskTypeList.getTaskType()) {
-            model.addElement(new TaskType(value.getCodice(), value.getDescrizione(), value.getNumPersone(), value.getTempo()));
+            model.addElement(new TaskType(value.getCodice(), value.getDescrizione(), value.getNumPersone()));
         }
 
         final JAXBContext jaxbContext2 = JAXBContext.newInstance(RichiestaList.class);
@@ -74,7 +74,7 @@ public class ControllerImpl implements Controller {
     public void fazione(String nomeFazione, String NomeCapitano, boolean isAdd) {
         addRemove(new Fazione(nomeFazione, NomeCapitano), isAdd);
         for (var value : model.getAllElement(RisorsaTable.class)) {
-            addRemove(new Disponibilita((String) value.getKey(), nomeFazione, 0), isAdd);
+            addRemove(new Disponibilita((String) value.getKey(), nomeFazione, 30), isAdd);
         }
     }
 

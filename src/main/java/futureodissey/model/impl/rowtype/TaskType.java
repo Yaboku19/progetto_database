@@ -7,13 +7,11 @@ public class TaskType implements RowType<Integer> {
     private final int codiceTaskType;
     private final String descrizione;
     private final int numPersone;
-    private final int tempo;
 
-    public TaskType(final int codiceTaskType, final String descrizione, final int numPersone, final int tempo) {
+    public TaskType(final int codiceTaskType, final String descrizione, final int numPersone) {
         this.codiceTaskType = codiceTaskType;
         this.descrizione = descrizione;
         this.numPersone = numPersone;
-        this.tempo = tempo;
     }
 
     public int getCodiceTaskType() {
@@ -28,17 +26,12 @@ public class TaskType implements RowType<Integer> {
         return this.numPersone;
     }
 
-    public int getTempo() {
-        return this.tempo;
-    }
-
     @Override
     public String toString() {
         return new StringBuilder()
             .append("(").append(codiceTaskType).append(") ")
             .append(descrizione).append(" - ")
-            .append(numPersone).append(" - ")
-            .append(tempo).toString();
+            .append(numPersone).append(" - ").toString();
     }
 
     @Override
@@ -46,13 +39,12 @@ public class TaskType implements RowType<Integer> {
         return (other instanceof TaskType)
             && ((TaskType) other).getCodiceTaskType() == this.getCodiceTaskType()
             && ((TaskType) other).getDescrizione().equals(this.getDescrizione())
-            && ((TaskType) other).getNumPersone() == this.getNumPersone()
-            && ((TaskType) other).getTempo() == this.getTempo();
+            && ((TaskType) other).getNumPersone() == this.getNumPersone();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codiceTaskType, descrizione, numPersone, tempo);
+        return Objects.hash(codiceTaskType, descrizione, numPersone);
     }
 
     @Override

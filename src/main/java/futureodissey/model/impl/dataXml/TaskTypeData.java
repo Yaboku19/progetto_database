@@ -14,8 +14,6 @@ public class TaskTypeData {
     private String descrizione;
     @XmlElement
     private int numPersone;
-    @XmlElement
-    private int tempo;
 
     public int getCodice() {
         return codice;
@@ -27,9 +25,5 @@ public class TaskTypeData {
 
     public int getNumPersone() {
         return numPersone;
-    }
-
-    public int getTempo() {
-        return tempo;
     }
 }

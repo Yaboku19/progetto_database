@@ -43,12 +43,11 @@ public class TaskTypeTable extends AbstractTable<TaskType> implements Table<Task
 
     @Override
     public boolean save(TaskType taskType) {
-        return savePrivate(taskType, " VALUES(?, ?, ?, ?)", st -> {
+        return savePrivate(taskType, " VALUES(?, ?, ?)", st -> {
             try {
                 st.setInt(1, taskType.getCodiceTaskType());
                 st.setString(2, taskType.getDescrizione());
                 st.setInt(3, taskType.getNumPersone());
-                st.setInt(4, taskType.getTempo());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -69,12 +68,11 @@ public class TaskTypeTable extends AbstractTable<TaskType> implements Table<Task
     @Override
     public boolean update(TaskType taskType) {
         return updatePrivate(
-            taskType, " SET " + descrizione + " = ?, " + numPersone + " = ?, " + tempo +" = ? WHERE " + key + " = ?", st -> {
+            taskType, " SET " + descrizione + " = ?, " + numPersone + " = ? WHERE " + key + " = ?", st -> {
             try {
                 st.setString(1, taskType.getDescrizione());
                 st.setInt(2, taskType.getNumPersone());
-                st.setInt(3, taskType.getTempo());
-                st.setInt(4, taskType.getCodiceTaskType());
+                st.setInt(3, taskType.getCodiceTaskType());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -89,8 +87,7 @@ public class TaskTypeTable extends AbstractTable<TaskType> implements Table<Task
                 result.add(new TaskType(
                     resultSet.getInt(key), 
                     resultSet.getString(descrizione),
-                    resultSet.getInt(numPersone),
-                    resultSet.getInt(tempo)));
+                    resultSet.getInt(numPersone)));
             }
         } catch (SQLException e) {
             return result;
@@ -100,7 +97,7 @@ public class TaskTypeTable extends AbstractTable<TaskType> implements Table<Task
 
     @Override
     public TaskType getRowSample() {
-        return new TaskType(0, "sample", 0, 0);
+        return new TaskType(0, "sample", 0);
     }
     
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="futureodissey.view.impl.javafx.AdminViewController">
+   <children>
+      <ChoiceBox fx:id="deciderBox" layoutX="214.0" layoutY="19.0" prefHeight="46.0" prefWidth="163.0" />
+      <Label fx:id="nomeFazioneText" layoutX="14.0" layoutY="16.0" text="Label" />
+      <Label fx:id="NomeCapitanoText" layoutX="14.0" layoutY="34.0" text="Label" />
+      <Label layoutX="14.0" layoutY="79.0" text="Crea Lavoratori" />
+      <ChoiceBox fx:id="creaLavoratoriDecider" layoutX="122.0" layoutY="74.0" prefHeight="26.0" prefWidth="122.0" />
+      <TextField fx:id="creaLavoratoriText" layoutX="255.0" layoutY="74.0" prefHeight="26.0" prefWidth="50.0" />
+      <Button fx:id="creaLavoratoriBtn" layoutX="461.0" layoutY="75.0" mnemonicParsing="false" onMousePressed="#creaLavoratori" text="Conferma" />
+      <Label layoutX="14.0" layoutY="109.0" text="Crea Guerrieri" />
+      <ChoiceBox fx:id="creaGuerrieriDecider" layoutX="122.0" layoutY="104.0" prefHeight="26.0" prefWidth="122.0" />
+      <TextField fx:id="creaGuerrieriText" layoutX="255.0" layoutY="104.0" prefHeight="26.0" prefWidth="50.0" />
+      <Button fx:id="creaGuerrieriBtn" layoutX="461.0" layoutY="105.0" mnemonicParsing="false" onMousePressed="#creaGuerrieri" text="Conferma" />
+      <Label layoutX="14.0" layoutY="139.0" text="Crea Insediamento" />
+      <ChoiceBox fx:id="creaInsediamentoDecider" layoutX="122.0" layoutY="135.0" prefHeight="26.0" prefWidth="122.0" />
+      <Button fx:id="creaInsediamentoBtn" layoutX="461.0" layoutY="135.0" mnemonicParsing="false" onMousePressed="#creaInsediamento" text="Conferma" />
+      <Label layoutX="14.0" layoutY="169.0" text="Trasferire uomini" />
+      <ChoiceBox fx:id="transferUominiADecider" layoutX="332.0" layoutY="165.0" prefHeight="26.0" prefWidth="122.0" />
+      <ChoiceBox fx:id="transferUominiDaDecider" layoutX="203.0" layoutY="165.0" prefHeight="26.0" prefWidth="122.0" />
+      <ChoiceBox fx:id="transferUominiTipoDecider" layoutX="122.0" layoutY="165.0" prefHeight="26.0" prefWidth="74.0" />
+      <Button fx:id="transferUominiBtn" layoutX="461.0" layoutY="165.0" mnemonicParsing="false" onMousePressed="#transferireUomini" text="Conferma" />
+      <Button fx:id="creaLavoratoriInfo" layoutX="534.0" layoutY="75.0" mnemonicParsing="false" onMousePressed="#infoCreaLavoratori" text="Info" />
+      <Button fx:id="creaGuerrieriInfo" layoutX="534.0" layoutY="105.0" mnemonicParsing="false" onMousePressed="#infoCreaGuerrieri" text="Info" />
+      <Button fx:id="creaInsediamentoInfo" layoutX="534.0" layoutY="135.0" mnemonicParsing="false" onMousePressed="#infoCreaInsediamento" text="Info" />
+      <Button fx:id="transferUominiInfo" layoutX="534.0" layoutY="165.0" mnemonicParsing="false" onMousePressed="#infoTransferireUomini" text="Info" />
+      <Label layoutX="14.0" layoutY="200.0" text="Raccogliere risorse" />
+      <ChoiceBox fx:id="raccogliereRisorseDecider" layoutX="122.0" layoutY="195.0" prefHeight="26.0" prefWidth="122.0" />
+      <Button fx:id="raccogliereRisorseBtn" layoutX="461.0" layoutY="196.0" mnemonicParsing="false" onMousePressed="#raccogliereRisorse" text="Conferma" />
+      <Button fx:id="raccogliereRisorseInfo" layoutX="534.0" layoutY="196.0" mnemonicParsing="false" onMousePressed="#infoRaccogliereRisorse" text="Info" />
+      <TextArea layoutX="13.0" layoutY="256.0" prefHeight="136.0" prefWidth="558.0" />
+      <Button fx:id="risorseSeeBtn" layoutX="438.0" layoutY="19.0" mnemonicParsing="false" onMousePressed="#getRisorse" prefHeight="46.0" prefWidth="130.0" text="Disponibilità Risorse" />
+      <Label layoutX="14.0" layoutY="230.0" text="Attaccare" />
+      <ChoiceBox fx:id="attaccareDecider" layoutX="121.0" layoutY="226.0" prefHeight="26.0" prefWidth="122.0" />
+      <Button fx:id="lavoratoriSeeBtn" layoutX="308.0" layoutY="75.0" mnemonicParsing="false" onMousePressed="#getLavoratori" text="Lavoratori x insediamenti" />
+      <Button fx:id="guerrieriSeeBtn" layoutX="310.0" layoutY="105.0" mnemonicParsing="false" onMousePressed="#getGuerrieri" text="Guerrieri x insediamenti" />
+      <Button fx:id="insediamentiSeeBtn" layoutX="332.0" layoutY="135.0" mnemonicParsing="false" onMousePressed="#getFreeInsediamenti" text="Insediamenti liberi" />
+      <Button fx:id="guerrieriAltruiSeeBtn" layoutX="264.0" layoutY="226.0" mnemonicParsing="false" onMousePressed="#getGuerrieriAltrui" text="guerrrieri x insediamenti nemici" />
+      <Button fx:id="attaccareBtn" layoutX="461.0" layoutY="226.0" mnemonicParsing="false" onMousePressed="#attaccare" text="Conferma" />
+      <Button fx:id="attaccareInfo" layoutX="534.0" layoutY="226.0" mnemonicParsing="false" onMousePressed="#infoAttaccare" text="Info" />
+      <Button fx:id="taskSeeBtn" layoutX="324.0" layoutY="196.0" mnemonicParsing="false" onMousePressed="#getTask" text="TaskLista" />
+   </children>
+</AnchorPane>
