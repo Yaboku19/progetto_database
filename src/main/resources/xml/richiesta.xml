@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RichiestaList>
+    <richiesta>
+        <codice>0</codice>
+        <risorsa>carne</risorsa>
+        <quantita>3</quantita>
+    </richiesta>
+    <richiesta>
+        <codice>1</codice>
+        <risorsa>ferro</risorsa>
+        <quantita>3</quantita>
+    </richiesta>
+    <richiesta>
+        <codice>2</codice>
+        <risorsa>ferro</risorsa>
+        <quantita>10</quantita>
+    </richiesta>
+    <richiesta>
+        <codice>2</codice>
+        <risorsa>carbone</risorsa>
+        <quantita>10</quantita>
+    </richiesta>
+    <richiesta>
+        <codice>2</codice>
+        <risorsa>legno</risorsa>
+        <quantita>10</quantita>
+    </richiesta>
+    <richiesta>
+        <codice>4</codice>
+        <risorsa>carbone</risorsa>
+        <quantita>2</quantita>
+    </richiesta>
+    <richiesta>
+        <codice>5</codice>
+        <risorsa>carbone</risorsa>
+        <quantita>2</quantita>
+    </richiesta>
+</RichiestaList>

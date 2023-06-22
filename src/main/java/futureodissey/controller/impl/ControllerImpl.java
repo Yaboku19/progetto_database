@@ -8,11 +8,15 @@ import javax.xml.bind.Unmarshaller;
 import futureodissey.controller.api.Controller;
 import futureodissey.db.impl.FazioneTable;
 import futureodissey.db.impl.RisorsaTable;
+import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.impl.ModelImpl;
 import futureodissey.model.impl.dataXml.RisorsaList;
+import futureodissey.model.impl.dataXml.TaskTypeList;
 import futureodissey.model.impl.rowtype.Fazione;
+import futureodissey.model.impl.rowtype.Richiesta;
 import futureodissey.model.impl.rowtype.Risorsa;
+import futureodissey.model.impl.rowtype.TaskType;
 import futureodissey.view.api.View;
 
 public class ControllerImpl implements Controller {
@@ -31,6 +35,7 @@ public class ControllerImpl implements Controller {
             e.printStackTrace();
         }
         System.out.println(model.getAllElement(RisorsaTable.class));
+        System.out.println(model.getAllElement(TaskTypeTable.class));
     }
 
     private void initialize() throws Exception{
@@ -39,6 +44,13 @@ public class ControllerImpl implements Controller {
         final var risorseList = (RisorsaList) unmarshaller.unmarshal(ClassLoader.getSystemResource("xml/risorsa.xml"));
         for (var value : risorseList.getRisorse()) {
             model.addElement(new Risorsa(value.getName()));
+        }
+
+        final JAXBContext jaxbContext1 = JAXBContext.newInstance(TaskTypeList.class);
+        final Unmarshaller unmarshaller1 = jaxbContext1.createUnmarshaller();
+        final var taskTypeList = (TaskTypeList) unmarshaller1.unmarshal(ClassLoader.getSystemResource("xml/taskType.xml"));
+        for (var value : taskTypeList.getTaskType()) {
+            model.addElement(new TaskType(value.getCodice(), value.getDescrizione(), value.getNumPersone(), value.getTempo()));
         }
     }
 

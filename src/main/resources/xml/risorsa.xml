@@ -9,4 +9,7 @@
     <risorsa>
         <name>carbone</name>
     </risorsa>
+    <risorsa>
+        <name>carne</name>
+    </risorsa>
 </RisorseList>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TaskTypeList>
+    <taskType>
+        <codice>0</codice>
+        <descrizione>crea 1 lavoratore</descrizione>
+        <numPersone>0</numPersone>
+        <tempo>1</tempo>
+    </taskType>
+    <taskType>
+        <codice>1</codice>
+        <descrizione>crea 1 guerriero</descrizione>
+        <numPersone>1</numPersone>
+        <tempo>2</tempo>
+    </taskType>
+    <taskType>
+        <codice>2</codice>
+        <descrizione>creare un nuovo insediamento</descrizione>
+        <numPersone>0</numPersone>
+        <tempo>4</tempo>
+    </taskType>
+    <taskType>
+        <codice>3</codice>
+        <descrizione>attaca un insediamento</descrizione>
+        <numPersone>0</numPersone>
+        <tempo>3</tempo>
+    </taskType>
+    <taskType>
+        <codice>4</codice>
+        <descrizione>trasferire 1 guerriero</descrizione>
+        <numPersone>1</numPersone>
+        <tempo>1</tempo>
+    </taskType>
+    <taskType>
+        <codice>5</codice>
+        <descrizione>trasferire 1 lavoratore</descrizione>
+        <numPersone>1</numPersone>
+        <tempo>1</tempo>
+    </taskType>
+    <taskType>
+        <codice>6</codice>
+        <descrizione>raccogliere risorse</descrizione>
+        <numPersone>0</numPersone>
+        <tempo>3</tempo>
+    </taskType>
+</TaskTypeList>
