@@ -42,4 +42,6 @@ public interface View {
     List<Disponibilita> getAllRisorseDisponibili();
 
     List<String> getAllNomeInsediamento(String nomeFazione);
+
+    List<String> getNomePianetaNomeRisorseFree();
 }

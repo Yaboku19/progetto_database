@@ -109,6 +109,7 @@ public class ViewImpl implements View {
                                                     .map(f -> f.getNomeCapitano())
                                                     .findFirst()
                                                     .get());
+            fazioneViewController.setPianetaFree();
             stage.setScene(fazione);
             stage.sizeToScene();
         } catch (IOException e) {
@@ -148,5 +149,10 @@ public class ViewImpl implements View {
     @Override
     public List<String> getAllNomeInsediamento(String nomeFazione) {
         return controller.getAllInsediamenti(nomeFazione);
+    }
+
+    @Override
+    public List<String> getNomePianetaNomeRisorseFree() {
+        return controller.getNomePianetaNomeRisorsaFree();
     }
 }

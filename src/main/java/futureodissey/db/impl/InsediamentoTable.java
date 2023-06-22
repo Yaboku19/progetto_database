@@ -118,5 +118,9 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
             return new ArrayList<>();
         }
     }
+
+    public String GetPianeta() {
+        return pianeta;
+    }
     
 }

@@ -1,6 +1,7 @@
 package futureodissey.db.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -90,6 +91,17 @@ public class PianetaTable extends AbstractTable<Pianeta> implements Table<Pianet
     @Override
     public Pianeta getRowSample() {
         return new Pianeta("sample", "sample");
+    }
+
+    public List<Pianeta> getFreePianeta(final InsediamentoTable table) {
+        final String query = "SELECT * FROM " + tableName + " WHERE " + key + " NOT IN ( SELECT " +
+            table.GetPianeta() + " FROM " + table.getTableName() + ")";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {  
+            final ResultSet result = statement.executeQuery();
+            return readStudentsFromResultSet(result);
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
     }
     
 }

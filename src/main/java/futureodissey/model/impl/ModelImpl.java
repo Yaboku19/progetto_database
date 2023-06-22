@@ -18,6 +18,7 @@ import futureodissey.db.impl.TaskTable;
 import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;
+import futureodissey.model.impl.rowtype.Pianeta;
 
 @SuppressWarnings("unchecked")
 public class ModelImpl implements Model{
@@ -96,5 +97,22 @@ public class ModelImpl implements Model{
             .map(t -> t.getNomeInsediamentoFromNomeFazione(nomeFazione))
             .findFirst()
             .get();
+    }
+
+    @Override
+    public List<Pianeta> getFreePianeta() {
+        var toreturn = tableList
+            .stream()
+            .filter(t -> t.getClass().equals(PianetaTable.class))
+            .map(t -> (PianetaTable) t)
+            .map(t -> t.getFreePianeta(tableList
+                .stream()
+                .filter(q -> q.getClass().equals(InsediamentoTable.class))
+                .map(q -> (InsediamentoTable) q)
+                .findFirst()
+                .get()))
+            .findFirst()
+            .get();
+        return toreturn;
     }
 }

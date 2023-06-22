@@ -57,6 +57,9 @@ public class FazioneViewController {
     private Button creaInsediamentoInfo;
 
     @FXML
+    private TextField creaInsediamentoText;
+
+    @FXML
     private Button creaLavoratoriBtn;
 
     @FXML
@@ -79,9 +82,6 @@ public class FazioneViewController {
 
     @FXML
     private Button guerrieriSeeBtn;
-
-    @FXML
-    private Button insediamentiSeeBtn;
 
     @FXML
     private Button lavoratoriSeeBtn;
@@ -136,11 +136,6 @@ public class FazioneViewController {
 
     @FXML
     void creaLavoratori(MouseEvent event) {
-
-    }
-
-    @FXML
-    void getFreeInsediamenti(MouseEvent event) {
 
     }
 
@@ -234,6 +229,7 @@ public class FazioneViewController {
         assert creaInsediamentoBtn != null : "fx:id=\"creaInsediamentoBtn\" was not injected: check your FXML file 'fazione.fxml'.";
         assert creaInsediamentoDecider != null : "fx:id=\"creaInsediamentoDecider\" was not injected: check your FXML file 'fazione.fxml'.";
         assert creaInsediamentoInfo != null : "fx:id=\"creaInsediamentoInfo\" was not injected: check your FXML file 'fazione.fxml'.";
+        assert creaInsediamentoText != null : "fx:id=\"creaInsediamentoText\" was not injected: check your FXML file 'fazione.fxml'.";
         assert creaLavoratoriBtn != null : "fx:id=\"creaLavoratoriBtn\" was not injected: check your FXML file 'fazione.fxml'.";
         assert creaLavoratoriDecider != null : "fx:id=\"creaLavoratoriDecider\" was not injected: check your FXML file 'fazione.fxml'.";
         assert creaLavoratoriInfo != null : "fx:id=\"creaLavoratoriInfo\" was not injected: check your FXML file 'fazione.fxml'.";
@@ -241,7 +237,6 @@ public class FazioneViewController {
         assert deciderBox != null : "fx:id=\"deciderBox\" was not injected: check your FXML file 'fazione.fxml'.";
         assert guerrieriAltruiSeeBtn != null : "fx:id=\"guerrieriAltruiSeeBtn\" was not injected: check your FXML file 'fazione.fxml'.";
         assert guerrieriSeeBtn != null : "fx:id=\"guerrieriSeeBtn\" was not injected: check your FXML file 'fazione.fxml'.";
-        assert insediamentiSeeBtn != null : "fx:id=\"insediamentiSeeBtn\" was not injected: check your FXML file 'fazione.fxml'.";
         assert lavoratoriSeeBtn != null : "fx:id=\"lavoratoriSeeBtn\" was not injected: check your FXML file 'fazione.fxml'.";
         assert nomeFazioneText != null : "fx:id=\"nomeFazioneText\" was not injected: check your FXML file 'fazione.fxml'.";
         assert raccogliereRisorseBtn != null : "fx:id=\"raccogliereRisorseBtn\" was not injected: check your FXML file 'fazione.fxml'.";
@@ -281,6 +276,11 @@ public class FazioneViewController {
         creaGuerrieriDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
         raccogliereRisorseDecider.getItems().clear();
         raccogliereRisorseDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
+    }
+
+    void setPianetaFree() {
+        creaInsediamentoDecider.getItems().clear();
+        creaInsediamentoDecider.getItems().addAll(controller.getNomePianetaNomeRisorseFree());
     }
 
 }

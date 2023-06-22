@@ -116,4 +116,9 @@ public class ControllerImpl implements Controller {
     public List<String> getAllInsediamenti(String nomeFazione) {
         return model.getNomeInsediamentoFromNomeFazione(nomeFazione);
     }
+
+    @Override
+    public List<String> getNomePianetaNomeRisorsaFree() {
+        return model.getFreePianeta().stream().map(p -> p.getNomePianeta() + ": " + p.getNomeRisorsa()).toList();
+    }
 }

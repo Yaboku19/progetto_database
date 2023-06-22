@@ -4,6 +4,7 @@ import java.util.List;
 
 import futureodissey.db.api.Table;
 import futureodissey.model.api.rowtype.RowType;
+import futureodissey.model.impl.rowtype.Pianeta;
 
 public interface Model {
     void addElement(RowType<? extends Object> row);
@@ -15,4 +16,6 @@ public interface Model {
     RowType<? extends Object> getByPrimaryKey(Object key, Class<? extends Table> tableClass);
 
     List<String> getNomeInsediamentoFromNomeFazione (String nomeFazione);
+
+    List<Pianeta> getFreePianeta();
 }

@@ -15,4 +15,6 @@ public interface Controller {
     List<Disponibilita> getAllRisorseDisponibili();
 
     List<String> getAllInsediamenti(String nomeFazione);
+
+    List<String> getNomePianetaNomeRisorsaFree();
 }
