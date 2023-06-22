@@ -58,9 +58,16 @@ public class AdminViewController {
 
     private void setTextArea() {
         fazioneList.setText("");
-        controller.getAllFazioni().forEach(l -> {
-            fazioneList.appendText("Fazione: " + l.getNomeFazione() + " Capitano: " + l.getNomeCapitano() + "\n");
-        });
+        int counter = 0;
+        for (var value : controller.getAllFazioni()) {
+            counter ++;
+            fazioneList.appendText("Fazione: " + value.getNomeFazione() + "\t Capitano: " + value.getNomeCapitano());
+            if (counter % 2 == 0) {
+                fazioneList.appendText("\n");
+            } else {
+                fazioneList.appendText("\t\t");
+            }
+        }
     }
 
     public void getchoice(ActionEvent event) {

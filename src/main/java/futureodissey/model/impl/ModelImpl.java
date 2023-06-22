@@ -19,6 +19,7 @@ import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;
 
+@SuppressWarnings("unchecked")
 public class ModelImpl implements Model{
     private final ConnectionProvider connectionProvider;
     private final Set<Table> tableList = new HashSet<>();
@@ -46,7 +47,7 @@ public class ModelImpl implements Model{
     }
 
     @Override
-    public void addElement(RowType row) {
+    public void addElement(RowType<? extends Object> row) {
         tableList.stream().forEach(t -> {
             if (t.getRowSample().isSameClass(row)) {
                 t.save(row);
@@ -55,7 +56,7 @@ public class ModelImpl implements Model{
     }
 
     @Override
-    public void removeElement(RowType row) {
+    public void removeElement(RowType<? extends Object> row) {
         tableList.stream().forEach(t -> {
             if (t.getRowSample().isSameClass(row)) {
                 t.delete(row.getKey());
