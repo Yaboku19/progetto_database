@@ -14,7 +14,6 @@ public class TaskTypeTable extends AbstractTable<TaskType> implements Table<Task
     private final String key = "codiceTaskType";
     private final String descrizione = "descrizione";
     private final String numPersone = "numPersone";
-    private final String tempo = "tempo";
 
     public TaskTypeTable(Connection connection) {
         super("taskType", connection);
@@ -24,9 +23,8 @@ public class TaskTypeTable extends AbstractTable<TaskType> implements Table<Task
     public boolean createTable() {
         return createTablePrivate("CREATE TABLE " + tableName + " (" +
             key + " INT NOT NULL PRIMARY KEY," +
-            descrizione + " CHAR(100) NOT NULL," +
-            numPersone + " INT NOT NULL," +
-            tempo + " INT NOT NULL" +
+            descrizione + " CHAR(150) NOT NULL," +
+            numPersone + " INT NOT NULL" +
             ")");
     }
 

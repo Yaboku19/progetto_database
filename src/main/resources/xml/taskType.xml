@@ -2,32 +2,32 @@
 <TaskTypeList>
     <taskType>
         <codice>0</codice>
-        <descrizione>crea 1 lavoratore</descrizione>
+        <descrizione>selezionare l'insediamento e il numero di lavoratori, creerà n lavoratori</descrizione>
         <numPersone>0</numPersone>
     </taskType>
     <taskType>
         <codice>1</codice>
-        <descrizione>crea 1 guerriero</descrizione>
+        <descrizione>selezionare l'insediamento e il numero di guerrieri, convertirà n lavoratori in n guerrieri in quel insediamento</descrizione>
         <numPersone>1</numPersone>
     </taskType>
     <taskType>
         <codice>2</codice>
-        <descrizione>creare un nuovo insediamento</descrizione>
+        <descrizione>selezionare un pianeta libero crerà un insediamento lì</descrizione>
         <numPersone>0</numPersone>
     </taskType>
     <taskType>
         <codice>3</codice>
-        <descrizione>attaca un insediamento</descrizione>
+        <descrizione>selezionare un pianeta occupato dal nemico e si cerca di conquistarlo</descrizione>
         <numPersone>0</numPersone>
     </taskType>
     <taskType>
         <codice>4</codice>
-        <descrizione>trasferire 1 guerriero</descrizione>
+        <descrizione>selezionare guerriero, un insadiamento da dove e un insediamento a sposterà quel numero di guerrieri</descrizione>
         <numPersone>1</numPersone>
     </taskType>
     <taskType>
         <codice>5</codice>
-        <descrizione>trasferire 1 lavoratore</descrizione>
+        <descrizione>selezionare lavoratore, un insadiamento da dove e un insediamento a sposterà quel numero di lavoratori</descrizione>
         <numPersone>1</numPersone>
     </taskType>
     <taskType>

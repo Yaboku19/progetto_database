@@ -11,7 +11,7 @@ import futureodissey.model.api.rowtype.RowType;
  * @param <V> the type of the objects saved in the table
  * @param <K> the type of the primary key of the table
  */
-public interface Table<V extends RowType,K> {
+public interface Table<V extends RowType<? extends Object>,K> {
     /**
      * @return the name of the table
      */

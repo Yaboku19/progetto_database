@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement (name = "risorsa")
+@XmlRootElement (name = "taskType")
 @XmlAccessorType (XmlAccessType.FIELD)
 public class TaskTypeData {
     @XmlElement

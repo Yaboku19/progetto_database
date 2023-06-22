@@ -37,7 +37,7 @@
       <ChoiceBox fx:id="raccogliereRisorseDecider" layoutX="122.0" layoutY="195.0" prefHeight="26.0" prefWidth="122.0" />
       <Button fx:id="raccogliereRisorseBtn" layoutX="461.0" layoutY="196.0" mnemonicParsing="false" onMousePressed="#raccogliereRisorse" text="Conferma" />
       <Button fx:id="raccogliereRisorseInfo" layoutX="534.0" layoutY="196.0" mnemonicParsing="false" onMousePressed="#infoRaccogliereRisorse" text="Info" />
-      <TextArea editable="false" layoutX="13.0" layoutY="256.0" prefHeight="136.0" prefWidth="558.0" />
+      <TextArea fx:id="infoFiled" editable="false" layoutX="13.0" layoutY="256.0" prefHeight="136.0" prefWidth="558.0" />
       <Button fx:id="risorseSeeBtn" layoutX="438.0" layoutY="19.0" mnemonicParsing="false" onMousePressed="#getRisorse" prefHeight="46.0" prefWidth="130.0" text="Disponibilità Risorse" />
       <Label layoutX="14.0" layoutY="230.0" text="Attaccare" />
       <ChoiceBox fx:id="attaccareDecider" layoutX="121.0" layoutY="226.0" prefHeight="26.0" prefWidth="122.0" />

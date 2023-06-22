@@ -35,4 +35,6 @@ public interface View {
     void fazione(String nomeFazione, String NomeCapitano, boolean isAdd);
 
     List<Fazione> getAllFazioni();
+
+    String info(int code);
 }

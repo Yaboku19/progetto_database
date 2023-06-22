@@ -3,6 +3,7 @@ package futureodissey.model.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import futureodissey.db.ConnectionProvider;
 import futureodissey.db.api.Table;
@@ -74,5 +75,16 @@ public class ModelImpl implements Model{
         });
         return toReturn == null ? new ArrayList<>() : toReturn;
     }
-    
+
+    @Override
+    public RowType<? extends Object> getByPrimaryKey(Object key, Class<? extends Table> tableClass) {
+        for (var value : tableList) {
+            if (tableClass.equals(value.getClass())) {
+                return value.findByPrimaryKey(key).isPresent() ? 
+                    (RowType<? extends Object>) value.findByPrimaryKey(key).get() 
+                    : null;
+            }
+        }
+        return null;
+    }
 }

@@ -8,6 +8,7 @@ import javax.xml.bind.Unmarshaller;
 import futureodissey.controller.api.Controller;
 import futureodissey.db.impl.FazioneTable;
 import futureodissey.db.impl.RisorsaTable;
+import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;
 import futureodissey.model.impl.ModelImpl;
@@ -52,6 +53,7 @@ public class ControllerImpl implements Controller {
         final Unmarshaller unmarshaller1 = jaxbContext1.createUnmarshaller();
         final var taskTypeList = (TaskTypeList) unmarshaller1.unmarshal(ClassLoader.getSystemResource("xml/taskType.xml"));
         for (var value : taskTypeList.getTaskType()) {
+            System.out.println("qui");
             model.addElement(new TaskType(value.getCodice(), value.getDescrizione(), value.getNumPersone()));
         }
 
@@ -92,5 +94,11 @@ public class ControllerImpl implements Controller {
             .stream()
             .map(l -> (Fazione)l)
             .toList();
+    }
+
+    @Override
+    public String getInfo(int code) {
+        TaskType taskType = (TaskType) model.getByPrimaryKey(code, TaskTypeTable.class);
+        return taskType.getDescrizione();
     }
 }

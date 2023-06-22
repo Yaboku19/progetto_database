@@ -133,4 +133,9 @@ public class ViewImpl implements View {
     public List<Fazione> getAllFazioni() {
         return controller.getAllFazioni();
     }
+
+    @Override
+    public String info(int code) {
+        return controller.getInfo(code);
+    }
 }

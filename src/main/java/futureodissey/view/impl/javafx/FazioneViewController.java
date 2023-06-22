@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
@@ -28,7 +29,7 @@ public class FazioneViewController {
     private Button attaccareBtn;
 
     @FXML
-    private ChoiceBox<?> attaccareDecider;
+    private ChoiceBox<String> attaccareDecider;
 
     @FXML
     private Button attaccareInfo;
@@ -37,7 +38,7 @@ public class FazioneViewController {
     private Button creaGuerrieriBtn;
 
     @FXML
-    private ChoiceBox<?> creaGuerrieriDecider;
+    private ChoiceBox<String> creaGuerrieriDecider;
 
     @FXML
     private Button creaGuerrieriInfo;
@@ -49,7 +50,7 @@ public class FazioneViewController {
     private Button creaInsediamentoBtn;
 
     @FXML
-    private ChoiceBox<?> creaInsediamentoDecider;
+    private ChoiceBox<String> creaInsediamentoDecider;
 
     @FXML
     private Button creaInsediamentoInfo;
@@ -58,7 +59,7 @@ public class FazioneViewController {
     private Button creaLavoratoriBtn;
 
     @FXML
-    private ChoiceBox<?> creaLavoratoriDecider;
+    private ChoiceBox<String> creaLavoratoriDecider;
 
     @FXML
     private Button creaLavoratoriInfo;
@@ -71,6 +72,9 @@ public class FazioneViewController {
 
     @FXML
     private Button guerrieriAltruiSeeBtn;
+
+    @FXML
+    private TextArea infoFiled;
 
     @FXML
     private Button guerrieriSeeBtn;
@@ -88,7 +92,7 @@ public class FazioneViewController {
     private Button raccogliereRisorseBtn;
 
     @FXML
-    private ChoiceBox<?> raccogliereRisorseDecider;
+    private ChoiceBox<String> raccogliereRisorseDecider;
 
     @FXML
     private Button raccogliereRisorseInfo;
@@ -100,19 +104,19 @@ public class FazioneViewController {
     private Button taskSeeBtn;
 
     @FXML
-    private ChoiceBox<?> transferUominiADecider;
+    private ChoiceBox<String> transferUominiADecider;
 
     @FXML
     private Button transferUominiBtn;
 
     @FXML
-    private ChoiceBox<?> transferUominiDaDecider;
+    private ChoiceBox<String> transferUominiDaDecider;
 
     @FXML
     private Button transferUominiInfo;
 
     @FXML
-    private ChoiceBox<?> transferUominiTipoDecider;
+    private ChoiceBox<String> transferUominiTipoDecider;
 
     @FXML
     void attaccare(MouseEvent event) {
@@ -166,32 +170,33 @@ public class FazioneViewController {
 
     @FXML
     void infoAttaccare(MouseEvent event) {
-
+        infoFiled.setText(controller.info(3));
     }
 
     @FXML
     void infoCreaGuerrieri(MouseEvent event) {
-
+        infoFiled.setText(controller.info(1));
     }
 
     @FXML
     void infoCreaInsediamento(MouseEvent event) {
-
+        infoFiled.setText(controller.info(2));
     }
 
     @FXML
     void infoCreaLavoratori(MouseEvent event) {
-
+        infoFiled.setText(controller.info(0));
     }
 
     @FXML
     void infoRaccogliereRisorse(MouseEvent event) {
-
+        infoFiled.setText(controller.info(6));
     }
 
     @FXML
     void infoTransferireUomini(MouseEvent event) {
-
+        infoFiled.setText(controller.info(4) + "\n");
+        infoFiled.appendText(controller.info(4));
     }
 
     @FXML
