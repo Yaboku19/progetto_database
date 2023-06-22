@@ -8,7 +8,6 @@ import futureodissey.model.api.Model;
 import futureodissey.model.impl.ModelImpl;
 import futureodissey.model.impl.rowtype.Fazione;
 import futureodissey.view.api.View;
-import javafx.util.Pair;
 
 public class ControllerImpl implements Controller {
     private final View view;
@@ -32,11 +31,10 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public List<Pair<String, String>> getAllFazioni() {
+    public List<Fazione> getAllFazioni() {
         return model.getAllElement(FazioneTable.class)
             .stream()
-            .map(v -> (Fazione)v)
-            .map(v -> new Pair<>(v.getNomeFazione(), v.getNomeCapitano()))
+            .map(l -> (Fazione)l)
             .toList();
     }
 

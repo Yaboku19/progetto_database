@@ -2,6 +2,7 @@ package futureodissey.view.impl.javafx;
 
 import futureodissey.controller.api.Controller;
 import futureodissey.controller.impl.ControllerImpl;
+import futureodissey.model.impl.rowtype.Fazione;
 import futureodissey.view.api.View;
 import javafx.scene.Scene;
 import java.io.IOException;
@@ -13,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 /**
  * Represents the {@link View} controller.
@@ -107,7 +107,7 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public List<Pair<String, String>> getAllFazioni() {
+    public List<Fazione> getAllFazioni() {
         return controller.getAllFazioni();
     }
 }

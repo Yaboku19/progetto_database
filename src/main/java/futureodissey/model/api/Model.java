@@ -10,5 +10,5 @@ public interface Model {
 
     public void removeElement(RowType row);
 
-    public List<RowType> getAllElement(Class<? extends Table> tableClass);
+    public List<RowType<? extends Object>> getAllElement(Class<? extends Table> tableClass);
 }

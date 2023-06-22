@@ -64,8 +64,8 @@ public class ModelImpl implements Model{
     }
 
     @Override
-    public List<RowType> getAllElement(Class<? extends Table> tableClass) {
-        List<RowType> toReturn = new ArrayList<>();
+    public List<RowType<? extends Object>> getAllElement(Class<? extends Table> tableClass) {
+        List<RowType<? extends Object>> toReturn = new ArrayList<>();
         tableList.stream().forEach(t -> {
             if(tableClass.equals(t.getClass())) {
                 toReturn.addAll(t.findAll());

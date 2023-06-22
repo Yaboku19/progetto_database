@@ -3,9 +3,10 @@ package futureodissey.view.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import futureodissey.model.api.rowtype.RowType;
+import futureodissey.model.impl.rowtype.Fazione;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 public interface View {
     static final List<String> deciderList = new ArrayList<>();
@@ -33,5 +34,5 @@ public interface View {
 
     void fazione(String nomeFazione, String NomeCapitano, boolean isAdd);
 
-    List<Pair<String, String>> getAllFazioni();
+    List<Fazione> getAllFazioni();
 }

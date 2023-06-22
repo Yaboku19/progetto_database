@@ -59,7 +59,7 @@ public class AdminViewController {
     private void setTextArea() {
         fazioneList.setText("");
         controller.getAllFazioni().forEach(l -> {
-            fazioneList.appendText("Fazione: " + l.getKey() + " Capitano: " + l.getValue() + "\n");
+            fazioneList.appendText("Fazione: " + l.getNomeFazione() + " Capitano: " + l.getNomeCapitano() + "\n");
         });
     }
 
