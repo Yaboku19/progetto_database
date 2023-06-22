@@ -70,7 +70,7 @@ public class AdminViewController {
         }
     }
 
-    public void getchoice(ActionEvent event) {
+    private void getchoice(ActionEvent event) {
         controller.changeStatus(deciderBox.getValue(), event);
     }
 

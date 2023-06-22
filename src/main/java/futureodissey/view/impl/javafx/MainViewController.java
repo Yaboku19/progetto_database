@@ -29,7 +29,7 @@ public class MainViewController {
 
     }
 
-    public void getchoice(ActionEvent event) {
+    private void getchoice(ActionEvent event) {
         controller.changeStatus(deciderBox.getValue(), event);
     }
 

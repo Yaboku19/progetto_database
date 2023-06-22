@@ -23,6 +23,7 @@ public class ViewImpl implements View {
     private Parent root;
     private MainViewController mainViewController;
     private AdminViewController adminViewController;
+    private FazioneViewController fazioneViewController;
     private static final double SETTINGS_MIN_HEIGHT = 430;
     private static final double SETTINGS_MIN_WIDTH = 600;
     private Controller controller;
@@ -35,7 +36,6 @@ public class ViewImpl implements View {
             root = loader.load();
             mainViewController = loader.getController();
             controller = new ControllerImpl(this);
-            //controller.setViewResources();
             mainViewController.setViewController(this);
             final Scene mainViewScene = new Scene(root);
             stage.setTitle("Future-Odissey");
@@ -62,6 +62,8 @@ public class ViewImpl implements View {
     public void changeStatus(String value, ActionEvent event) {
         if (value == "admin") {
             setAdminController(converterFromEvent(event));
+        } else if (controller.getAllFazioni().stream().map(f -> f.getNomeFazione()).toList().contains(value)){
+            setFazioneController(converterFromEvent(event), value);
         } else {
             setMainController(converterFromEvent(event));
         }
@@ -89,6 +91,27 @@ public class ViewImpl implements View {
             stage.setScene(admin);
             stage.sizeToScene();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setFazioneController(Stage stage, String value) {
+        try {
+            final FXMLLoader fxmlLoader = new FXMLLoader(ClassLoader.getSystemResource("layout/fazione.fxml"));
+            final Scene fazione = new Scene(fxmlLoader.load());
+            fazioneViewController = (FazioneViewController) fxmlLoader.getController();
+            fazioneViewController.setViewController(this);
+            fazioneViewController.setLabel(value, controller
+                                                    .getAllFazioni()
+                                                    .stream()
+                                                    .filter(f -> f.getNomeFazione().equals(value))
+                                                    .map(f -> f.getNomeCapitano())
+                                                    .findFirst()
+                                                    .get());
+            stage.setScene(fazione);
+            stage.sizeToScene();
+        } catch (IOException e) {
+            System.out.println("bro");
             e.printStackTrace();
         }
     }

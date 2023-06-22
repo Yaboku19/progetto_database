@@ -20,7 +20,7 @@
       <Label layoutX="20.0" layoutY="78.0" text="NomeFazione" />
       <Label layoutX="204.0" layoutY="78.0" text="NomeCapitano" />
       <Label layoutX="20.0" layoutY="148.0" text="NomeFazione" />
-      <TextArea fx:id="fazioneList" layoutX="59.0" layoutY="200.0" prefHeight="168.0" prefWidth="440.0" />
+      <TextArea fx:id="fazioneList" editable="false" layoutX="59.0" layoutY="200.0" prefHeight="168.0" prefWidth="440.0" />
       <Label layoutX="18.0" layoutY="14.0" text="Admin" />
    </children>
 </AnchorPane>

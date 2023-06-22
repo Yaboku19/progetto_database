@@ -2,6 +2,9 @@ package futureodissey.view.impl.javafx;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import futureodissey.view.api.View;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -10,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 public class FazioneViewController {
+    private View controller;
 
     @FXML
     private ResourceBundle resources;
@@ -63,7 +67,7 @@ public class FazioneViewController {
     private TextField creaLavoratoriText;
 
     @FXML
-    private ChoiceBox<?> deciderBox;
+    private ChoiceBox<String> deciderBox;
 
     @FXML
     private Button guerrieriAltruiSeeBtn;
@@ -234,6 +238,21 @@ public class FazioneViewController {
         assert transferUominiInfo != null : "fx:id=\"transferUominiInfo\" was not injected: check your FXML file 'fazione.fxml'.";
         assert transferUominiTipoDecider != null : "fx:id=\"transferUominiTipoDecider\" was not injected: check your FXML file 'fazione.fxml'.";
 
+        deciderBox.getItems().addAll(View.getDeciderList());
+        deciderBox.setOnAction(this::getchoice);
+    }
+
+    public void setViewController(View controller) {
+        this.controller = controller;
+    }
+
+    private void getchoice(ActionEvent event) {
+        controller.changeStatus(deciderBox.getValue(), event);
+    }
+
+    void setLabel(String nomeFazione, String nomeCapitano) {
+        this.nomeFazioneText.setText(nomeFazione);
+        this.NomeCapitanoText.setText(nomeCapitano);
     }
 
 }
