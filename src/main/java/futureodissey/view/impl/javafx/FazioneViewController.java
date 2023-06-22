@@ -1,6 +1,7 @@
 package futureodissey.view.impl.javafx;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import futureodissey.view.api.View;
@@ -160,7 +161,18 @@ public class FazioneViewController {
 
     @FXML
     void getRisorse(MouseEvent event) {
-
+        infoFiled.setText("");
+        int counter = 0;
+        for(var value : controller.getAllRisorseDisponibili()) {
+            counter++;
+            infoFiled.appendText("NomeFazione: " + value.getNomeFazione() + 
+                "Risorsa: " + value.getNomeRisorsa() + "Quantita': " + value.getQuantita());
+            if (counter % 2 == 0) {
+                infoFiled.appendText("\n");
+            } else {
+                infoFiled.appendText("\t");
+            }
+        }
     }
 
     @FXML
@@ -245,6 +257,7 @@ public class FazioneViewController {
 
         deciderBox.getItems().addAll(View.getDeciderList());
         deciderBox.setOnAction(this::getchoice);
+        transferUominiTipoDecider.getItems().addAll(List.of("Lavoratore", "Guerriero"));
     }
 
     public void setViewController(View controller) {
@@ -258,6 +271,16 @@ public class FazioneViewController {
     void setLabel(String nomeFazione, String nomeCapitano) {
         this.nomeFazioneText.setText(nomeFazione);
         this.NomeCapitanoText.setText(nomeCapitano);
+        setInsediamentoDecider();
+    }
+
+    private void setInsediamentoDecider() {
+        creaLavoratoriDecider.getItems().clear();
+        creaLavoratoriDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
+        creaGuerrieriDecider.getItems().clear();
+        creaGuerrieriDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
+        raccogliereRisorseDecider.getItems().clear();
+        raccogliereRisorseDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
     }
 
 }

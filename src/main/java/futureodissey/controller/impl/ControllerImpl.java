@@ -6,7 +6,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
 import futureodissey.controller.api.Controller;
+import futureodissey.db.impl.DisponibilitaTable;
 import futureodissey.db.impl.FazioneTable;
+import futureodissey.db.impl.InsediamentoTable;
 import futureodissey.db.impl.RisorsaTable;
 import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
@@ -18,6 +20,7 @@ import futureodissey.model.impl.dataXml.RisorsaList;
 import futureodissey.model.impl.dataXml.TaskTypeList;
 import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
+import futureodissey.model.impl.rowtype.Insediamento;
 import futureodissey.model.impl.rowtype.Pianeta;
 import futureodissey.model.impl.rowtype.Richiesta;
 import futureodissey.model.impl.rowtype.Risorsa;
@@ -53,7 +56,6 @@ public class ControllerImpl implements Controller {
         final Unmarshaller unmarshaller1 = jaxbContext1.createUnmarshaller();
         final var taskTypeList = (TaskTypeList) unmarshaller1.unmarshal(ClassLoader.getSystemResource("xml/taskType.xml"));
         for (var value : taskTypeList.getTaskType()) {
-            System.out.println("qui");
             model.addElement(new TaskType(value.getCodice(), value.getDescrizione(), value.getNumPersone()));
         }
 
@@ -100,5 +102,18 @@ public class ControllerImpl implements Controller {
     public String getInfo(int code) {
         TaskType taskType = (TaskType) model.getByPrimaryKey(code, TaskTypeTable.class);
         return taskType.getDescrizione();
+    }
+
+    @Override
+    public List<Disponibilita> getAllRisorseDisponibili() {
+        return model.getAllElement(DisponibilitaTable.class)
+            .stream()
+            .map(l -> (Disponibilita)l)
+            .toList();
+    }
+
+    @Override
+    public List<String> getAllInsediamenti(String nomeFazione) {
+        return model.getNomeInsediamentoFromNomeFazione(nomeFazione);
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import futureodissey.model.api.rowtype.RowType;
+import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
@@ -37,4 +38,8 @@ public interface View {
     List<Fazione> getAllFazioni();
 
     String info(int code);
+
+    List<Disponibilita> getAllRisorseDisponibili();
+
+    List<String> getAllNomeInsediamento(String nomeFazione);
 }

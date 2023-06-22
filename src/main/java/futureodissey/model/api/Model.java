@@ -13,4 +13,6 @@ public interface Model {
     List<RowType<? extends Object>> getAllElement(Class<? extends Table> tableClass);
 
     RowType<? extends Object> getByPrimaryKey(Object key, Class<? extends Table> tableClass);
+
+    List<String> getNomeInsediamentoFromNomeFazione (String nomeFazione);
 }

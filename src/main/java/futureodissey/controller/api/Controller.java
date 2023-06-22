@@ -1,6 +1,8 @@
 package futureodissey.controller.api;
 
 import java.util.List;
+
+import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
 
 public interface Controller {
@@ -9,4 +11,8 @@ public interface Controller {
     List<Fazione> getAllFazioni();
 
     String getInfo(int code);
+
+    List<Disponibilita> getAllRisorseDisponibili();
+
+    List<String> getAllInsediamenti(String nomeFazione);
 }

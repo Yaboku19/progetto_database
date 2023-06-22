@@ -3,7 +3,6 @@ package futureodissey.model.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import futureodissey.db.ConnectionProvider;
 import futureodissey.db.api.Table;
@@ -86,5 +85,16 @@ public class ModelImpl implements Model{
             }
         }
         return null;
+    }
+
+    @Override
+    public List<String> getNomeInsediamentoFromNomeFazione(String nomeFazione) {
+        return tableList
+            .stream()
+            .filter(t -> t.getClass().equals(InsediamentoTable.class))
+            .map(t -> (InsediamentoTable) t)
+            .map(t -> t.getNomeInsediamentoFromNomeFazione(nomeFazione))
+            .findFirst()
+            .get();
     }
 }

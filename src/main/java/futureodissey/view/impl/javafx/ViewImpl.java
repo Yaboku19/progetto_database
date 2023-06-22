@@ -2,6 +2,7 @@ package futureodissey.view.impl.javafx;
 
 import futureodissey.controller.api.Controller;
 import futureodissey.controller.impl.ControllerImpl;
+import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
 import futureodissey.view.api.View;
 import javafx.scene.Scene;
@@ -137,5 +138,15 @@ public class ViewImpl implements View {
     @Override
     public String info(int code) {
         return controller.getInfo(code);
+    }
+
+    @Override
+    public List<Disponibilita> getAllRisorseDisponibili() {
+        return controller.getAllRisorseDisponibili();
+    }
+
+    @Override
+    public List<String> getAllNomeInsediamento(String nomeFazione) {
+        return controller.getAllInsediamenti(nomeFazione);
     }
 }

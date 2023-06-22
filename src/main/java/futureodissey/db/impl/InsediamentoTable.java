@@ -1,6 +1,7 @@
 package futureodissey.db.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -100,6 +101,22 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
     @Override
     public Insediamento getRowSample() {
         return new Insediamento("sample", "sample", "sample");
+    }
+
+    public List<String> getNomeInsediamentoFromNomeFazione(final String nomeFazione) {
+        final String query = "SELECT "+ key2 +" FROM " + tableName + " WHERE " + key1 + " = ?"; 
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            statement.setString(1, nomeFazione);  
+            final ResultSet result = statement.executeQuery();
+            List<String> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(result.getString(key2));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            System.out.println("bro");
+            return new ArrayList<>();
+        }
     }
     
 }
