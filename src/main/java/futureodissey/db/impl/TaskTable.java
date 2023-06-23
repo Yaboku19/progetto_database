@@ -15,7 +15,8 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
     private final String key1 = "nomeFazione";
     private final String key2 = "codiceTask";
     private final String taskType = "codiceTaskType";
-    private final String insediamento = "nomeInsediamento";
+    private final String insediamento1 = "nomeInsediamento1";
+    private final String insediamento2 = "nomeInsediamento2";
     private final String pianeta = "nomePianeta";
 
     public TaskTable(Connection connection) {
@@ -28,7 +29,8 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
             key1 + " CHAR(40) NOT NULL," +
             key2 + " INT NOT NULL," +
             taskType + " INT NOT NULL," +
-            insediamento + " char(40)," +
+            insediamento1 + " char(40)," +
+            insediamento2 + " char(40)," +
             pianeta + " char(40)," +
             "PRIMARY KEY (" + key1 + ", " + key2 +
             "))");
@@ -48,13 +50,14 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
 
     @Override
     public boolean save(Task task) {
-        return savePrivate(task, " VALUES(?, ?, ?, ?, ?)", st -> {
+        return savePrivate(task, " VALUES(?, ?, ?, ?, ?, ?)", st -> {
             try {
                 st.setString(1, task.getNomeFazione());
                 st.setInt(2, task.getCodiceTask());
                 st.setInt(3, task.getCodiceTaskType());
-                st.setString(4, task.getNomeInsediamento().isEmpty() ? null : task.getNomeInsediamento().get());
-                st.setString(5, task.getNomePianeta().isEmpty() ? null : task.getNomePianeta().get());
+                st.setString(4, task.getNomeInsediamento1().isEmpty() ? null : task.getNomeInsediamento1().get());
+                st.setString(5, task.getNomeInsediamento2().isEmpty() ? null : task.getNomeInsediamento2().get());
+                st.setString(6, task.getNomePianeta().isEmpty() ? null : task.getNomePianeta().get());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -76,12 +79,12 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
     @Override
     public boolean update(Task task) {
         return updatePrivate(
-            task, 
-        " SET " + taskType + " = ?, " + insediamento + " = ?, " + pianeta + " = ? WHERE " + key1 + " = ? AND " + key2 + " = ?",
+            task, " SET " + taskType + " = ?, " + insediamento1 + " = ?, " + insediamento2 + " = ?, " +
+            pianeta + " = ? WHERE " + key1 + " = ? AND " + key2 + " = ?",
             st -> {
             try {
                 st.setInt(1, task.getCodiceTaskType());
-                st.setString(2, task.getNomeInsediamento().isEmpty() ? null : task.getNomeInsediamento().get());
+                st.setString(2, task.getNomeInsediamento1().isEmpty() ? null : task.getNomeInsediamento1().get());
                 st.setString(3, task.getNomePianeta().isEmpty() ? null : task.getNomePianeta().get());
                 st.setString(4, task.getNomeFazione());
                 st.setInt(5, task.getCodiceTask());
@@ -100,7 +103,8 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
                     resultSet.getString(key1), 
                     resultSet.getInt(key2),
                     resultSet.getInt(taskType),
-                    Optional.ofNullable(resultSet.getString(insediamento)),
+                    Optional.ofNullable(resultSet.getString(insediamento1)),
+                    Optional.ofNullable(resultSet.getString(insediamento2)),
                     Optional.ofNullable(resultSet.getString(pianeta))));
             }
         } catch (SQLException e) {
