@@ -20,7 +20,6 @@ import javafx.stage.Stage;
  * Represents the {@link View} controller.
  */
 public class ViewImpl implements View {
-    private Stage stage;
     private Parent root;
     private MainViewController mainViewController;
     private AdminViewController adminViewController;
@@ -30,7 +29,6 @@ public class ViewImpl implements View {
     private Controller controller;
 
     public void start(final Stage stage) {
-        this.stage = stage;
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource("layout/main.fxml"));
         View.addDeciderList("admin");
         try {
