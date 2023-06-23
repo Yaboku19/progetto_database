@@ -172,7 +172,10 @@ public class FazioneViewController {
 
     @FXML
     void getLavoratori(MouseEvent event) {
-
+        infoFiled.setText("");
+        for(var value : controller.getLavoratoriInsediamentoFromNomeFazione(nomeFazioneText.getText())) {
+            infoFiled.appendText(" Insediamento: " + value + "\n");
+        }
     }
 
     @FXML

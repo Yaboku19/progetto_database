@@ -142,4 +142,9 @@ public class ControllerImpl implements Controller {
     public void executeTask() {
         model.executeTask();
     }
+
+    @Override
+    public List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione) {
+        return model.getLavoratoriInsediamentoFromNomeFazione(nomeFazione);
+    }
 }

@@ -28,4 +28,6 @@ public interface Controller {
         Optional<String> nomeInsediamento2, Optional<String> nomePianeta, final int num);
     
     void executeTask();
+
+    List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione);
 }

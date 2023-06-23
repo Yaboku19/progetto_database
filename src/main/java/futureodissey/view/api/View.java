@@ -70,4 +70,6 @@ public interface View {
         Optional<String> nomeInsediamento2, Optional<String> nomePianeta,  int num);
     
     void executeTask();
+
+    List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione);
 }

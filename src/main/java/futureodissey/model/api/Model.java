@@ -29,4 +29,6 @@ public interface Model {
     List<Task> getTaskFromNomeFazione(final String nomeFazione);
 
     void executeTask();
+
+    List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione);
 }

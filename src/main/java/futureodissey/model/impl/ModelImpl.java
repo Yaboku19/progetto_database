@@ -203,6 +203,7 @@ public class ModelImpl implements Model{
                 if (task.getNomeInsediamento1().isEmpty()) {
                     return true;
                 }
+                System.out.println(task);
                 break;
             case 1:
                 if (task.getNomeInsediamento1().isEmpty()) {
@@ -225,7 +226,6 @@ public class ModelImpl implements Model{
                 } else if (notEnoughGuerrieri(task)){
                     return true;
                 }
-                System.out.println(task);
                 break;
             case 5:
                 if (task.getNomeInsediamento1().isEmpty() || task.getNomeInsediamento2().isEmpty()) {
@@ -448,7 +448,6 @@ public class ModelImpl implements Model{
             }
             return toReturn;
         } catch (final SQLException e) {
-            System.out.println("errore numGuerriero");
             return -1;
         }
     }
@@ -509,8 +508,25 @@ public class ModelImpl implements Model{
             }
             return toReturn;
         } catch (final SQLException e) {
-            System.out.println("errore getAGuerriero");
             return null;
+        }
+    }
+
+    @Override
+    public List<String> getLavoratoriInsediamentoFromNomeFazione(final String nomeFazione) {
+        final String query = "SELECT I.nomeInsediamento, count(*) AS numLavoratori " +
+                "FROM lavoratore L, insediamento I " +
+                "WHERE L.nomeInsediamento = I.nomeInsediamento AND I.nomeFazione = \"" + nomeFazione + "\" " +
+                "group by I.nomeInsediamento;";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<String> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(result.getString("nomeInsediamento") + " " + result.getString("numLavoratori"));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
         }
     }
 }
