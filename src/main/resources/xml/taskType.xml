@@ -7,7 +7,7 @@
     </taskType>
     <taskType>
         <codice>1</codice>
-        <descrizione>selezionare l'insediamento e il numero di guerrieri, convertirà n lavoratori in n guerrieri in quel insediamento</descrizione>
+        <descrizione>selezionare l'insediamento e il numero di guerrieri, crerà n lavoratori</descrizione>
         <numPersone>1</numPersone>
     </taskType>
     <taskType>

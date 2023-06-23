@@ -239,7 +239,6 @@ public class ModelImpl implements Model{
     }
 
     private void executeATask(final Task task) {
-        System.out.println(task);
         switch(task.getCodiceTaskType()) {
             case 0:
                 createLavoratore(task);
@@ -253,8 +252,10 @@ public class ModelImpl implements Model{
             case 3:
                 break;
             case 4:
+                transferGuerrieri(task);
                 break;
             case 5:
+                transferLavoratori(task);
                 break;
             case 6:
                 getRisorse(task);
@@ -263,15 +264,23 @@ public class ModelImpl implements Model{
         setRisorse(task);
     }
 
+    private void transferGuerrieri(final Task task) {
+
+    }
+
+    private void transferLavoratori(final Task task) {
+        
+    }
+
     private void getRisorse(final Task task) {
         final int num = getNumLavoratoriFromInsediamento(task.getNomeInsediamento1().get());
-        final String nomeRisorsa = "";
+        final Disponibilita disponibilita = getDisponibilitaFromNomeInsediamento(task.getNomeInsediamento1().get());
         tableList.stream()
             .filter(t -> t.getClass().equals(DisponibilitaTable.class))
             .map(t -> (DisponibilitaTable) t)
             .findFirst()
             .get()
-            .update(new Disponibilita(nomeRisorsa, task.getNomeFazione(), num));
+            .update(new Disponibilita(disponibilita.getNomeRisorsa(), task.getNomeFazione(), disponibilita.getQuantita() + num));
     }
 
     private void setRisorse(final Task task) {
@@ -384,11 +393,29 @@ public class ModelImpl implements Model{
             final ResultSet result = statement.executeQuery();
             int toReturn = 0;
             while(result.next()) {
-                toReturn = result.getString("numero") == null ? 0 : result.getInt("codicePersona");
+                toReturn = result.getString("numero") == null ? 0 : result.getInt("numero");
             }
             return toReturn;
         } catch (final SQLException e) {
             return -1;
+        }
+    }
+
+    private Disponibilita getDisponibilitaFromNomeInsediamento(final String nomeInsediamento) {
+        final String query = "SELECT D.* FROM disponibilita D, pianeta P, insediamento I " +
+            " WHERE D.nomeRisorsa = P.nomeRisorsa AND P.nomePianeta = I.nomePianeta " +
+            "AND I.nomeInsediamento = \""+ nomeInsediamento + "\" AND I.nomeFazione = D.nomeFazione";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            Disponibilita toReturn = null;
+            while(result.next()) {
+                toReturn = new Disponibilita(result.getString("nomeRisorsa"),
+                                            result.getString("nomeFazione"),
+                                            result.getInt("quantita"));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return null;
         }
     }
 }
