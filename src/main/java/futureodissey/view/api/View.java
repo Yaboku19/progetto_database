@@ -60,4 +60,6 @@ public interface View {
     List<String> getAllNomeInsediamento(String nomeFazione);
 
     List<String> getNomePianetaNomeRisorseFree();
+
+    List<String> getNomeInsediamentoRisorsaAltruiFromFazione(String nomeFazione);
 }

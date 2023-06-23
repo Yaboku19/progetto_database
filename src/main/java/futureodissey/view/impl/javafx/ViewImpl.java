@@ -111,6 +111,7 @@ public class ViewImpl implements View {
                                                     .get());
             fazioneViewController.setPianetaFree();
             fazioneViewController.setInsediamentoDecider();
+            fazioneViewController.setAttaccareDecider();
             stage.setScene(fazione);
             stage.sizeToScene();
         } catch (IOException e) {
@@ -138,7 +139,7 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public String info(int code) {
+    public String info(final int code) {
         return controller.getInfo(code);
     }
 
@@ -148,12 +149,17 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public List<String> getAllNomeInsediamento(String nomeFazione) {
+    public List<String> getAllNomeInsediamento(final String nomeFazione) {
         return controller.getAllInsediamenti(nomeFazione);
     }
 
     @Override
     public List<String> getNomePianetaNomeRisorseFree() {
         return controller.getNomePianetaNomeRisorsaFree();
+    }
+
+    @Override
+    public List<String> getNomeInsediamentoRisorsaAltruiFromFazione(final String nomeFazione) {
+        return controller.getInsediamentoRisorsaAltruiFromFazione(nomeFazione);
     }
 }

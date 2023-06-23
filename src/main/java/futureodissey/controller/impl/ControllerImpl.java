@@ -20,7 +20,6 @@ import futureodissey.model.impl.dataXml.RisorsaList;
 import futureodissey.model.impl.dataXml.TaskTypeList;
 import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
-import futureodissey.model.impl.rowtype.Insediamento;
 import futureodissey.model.impl.rowtype.Pianeta;
 import futureodissey.model.impl.rowtype.Richiesta;
 import futureodissey.model.impl.rowtype.Risorsa;
@@ -120,5 +119,10 @@ public class ControllerImpl implements Controller {
     @Override
     public List<String> getNomePianetaNomeRisorsaFree() {
         return model.getFreePianeta().stream().map(p -> p.getNomePianeta() + ": " + p.getNomeRisorsa()).toList();
+    }
+
+    @Override
+    public List<String> getInsediamentoRisorsaAltruiFromFazione(String nomeFazione) {
+        return model.getInsediamentoRisorsaAltruiFromNomeFazione(nomeFazione);
     }
 }

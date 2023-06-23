@@ -104,9 +104,8 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
     }
 
     public List<String> getNomeInsediamentoFromNomeFazione(final String nomeFazione) {
-        final String query = "SELECT "+ key2 +" FROM " + tableName + " WHERE " + key1 + " = ?"; 
+        final String query = "SELECT " + key2 + " FROM " + tableName + " WHERE " + key1 + " = \"" + nomeFazione + "\"";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
-            statement.setString(1, nomeFazione);  
             final ResultSet result = statement.executeQuery();
             List<String> toReturn = new ArrayList<>();
             while(result.next()) {
@@ -119,8 +118,22 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
         }
     }
 
-    public List<String> getNomeFazioneAltruiFromNomeFAzione(final String NomeFazione) {
-        return null;
+    public List<String> getNomeFazioneAltruiFromNomeFAzione(final String NomeFazione, final PianetaTable pianeta) {
+        final String query = "SELECT I."+ key2 + ", P." + pianeta.getRisorsa() + " FROM " + tableName + 
+            " I, " + pianeta.getTableName() + " P WHERE " + key1 + " != \"" + NomeFazione + "\" and I." + 
+            this.pianeta + " = P." + pianeta.getKey();
+        System.out.println(query);
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<String> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(result.getString(key2) + " " +
+                    result.getString(pianeta.getRisorsa()));
+            }
+            return toReturn;
+        }catch (final SQLException e) {
+            return new ArrayList<>();
+        }
     }
 
     public String GetPianeta() {

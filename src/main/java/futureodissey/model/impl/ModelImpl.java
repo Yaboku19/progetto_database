@@ -28,6 +28,16 @@ public class ModelImpl implements Model{
     public ModelImpl(final String username, final String password, final String dbName) {
         connectionProvider = new ConnectionProvider(username, password, dbName);
         inizialize();
+        tableList
+            .stream()
+            .filter(t -> t.getClass().equals(InsediamentoTable.class))
+            .map(t -> (InsediamentoTable) t)
+            .forEach(t -> t.getNomeFazioneAltruiFromNomeFAzione("aa", tableList
+                .stream()
+                .filter(q -> q.getClass().equals(PianetaTable.class))
+                .map(q -> (PianetaTable) q)
+                .findFirst()
+                .get()));
     }
 
     private void inizialize() {
@@ -109,6 +119,22 @@ public class ModelImpl implements Model{
                 .stream()
                 .filter(q -> q.getClass().equals(InsediamentoTable.class))
                 .map(q -> (InsediamentoTable) q)
+                .findFirst()
+                .get()))
+            .findFirst()
+            .get();
+    }
+
+    @Override
+    public List<String> getInsediamentoRisorsaAltruiFromNomeFazione(String nomeFazione) {
+        return tableList
+            .stream()
+            .filter(t -> t.getClass().equals(InsediamentoTable.class))
+            .map(t -> (InsediamentoTable) t)
+            .map(t -> t.getNomeFazioneAltruiFromNomeFAzione(nomeFazione, tableList
+                .stream()
+                .filter(q -> q.getClass().equals(PianetaTable.class))
+                .map(q -> (PianetaTable) q)
                 .findFirst()
                 .get()))
             .findFirst()

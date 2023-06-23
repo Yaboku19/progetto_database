@@ -17,4 +17,6 @@ public interface Controller {
     List<String> getAllInsediamenti(String nomeFazione);
 
     List<String> getNomePianetaNomeRisorsaFree();
+
+    List<String> getInsediamentoRisorsaAltruiFromFazione(String nomeFazione);
 }

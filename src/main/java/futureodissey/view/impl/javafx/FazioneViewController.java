@@ -305,4 +305,10 @@ public class FazioneViewController {
         creaInsediamentoDecider.getItems().addAll(controller.getNomePianetaNomeRisorseFree());
     }
 
+    void setAttaccareDecider() {
+        attaccareDecider.getItems().clear();
+        attaccareDecider.getItems().addAll(
+            controller.getNomeInsediamentoRisorsaAltruiFromFazione(nomeFazioneText.getText()));
+    }
+
 }

@@ -103,5 +103,13 @@ public class PianetaTable extends AbstractTable<Pianeta> implements Table<Pianet
             return new ArrayList<>();
         }
     }
+
+    public String getRisorsa() {
+        return this.risorsa;
+    }
+
+    public String getKey() {
+        return this.key;
+    }
     
 }

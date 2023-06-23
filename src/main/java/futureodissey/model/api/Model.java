@@ -18,4 +18,6 @@ public interface Model {
     List<String> getNomeInsediamentoFromNomeFazione (String nomeFazione);
 
     List<Pianeta> getFreePianeta();
+
+    List<String> getInsediamentoRisorsaAltruiFromNomeFazione (String nomeFazione);
 }
