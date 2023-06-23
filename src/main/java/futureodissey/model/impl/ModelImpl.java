@@ -1,5 +1,6 @@
 package futureodissey.model.impl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,16 +23,22 @@ import futureodissey.db.impl.TaskTable;
 import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;
+import futureodissey.model.impl.rowtype.Disponibilita;
+import futureodissey.model.impl.rowtype.Guerriero;
+import futureodissey.model.impl.rowtype.Insediamento;
+import futureodissey.model.impl.rowtype.Lavoratore;
 import futureodissey.model.impl.rowtype.Pianeta;
 import futureodissey.model.impl.rowtype.Task;
 
 @SuppressWarnings("unchecked")
 public class ModelImpl implements Model{
     private final ConnectionProvider connectionProvider;
+    private final Connection connection;
     private final Set<Table> tableList = new HashSet<>();
 
     public ModelImpl(final String username, final String password, final String dbName) {
         connectionProvider = new ConnectionProvider(username, password, dbName);
+        connection = connectionProvider.getMySQLConnection();
         inizialize();
         tableList
             .stream()
@@ -228,7 +235,7 @@ public class ModelImpl implements Model{
                 }
                 break;
         }
-        return isNotEnogh(task.getCodiceTask());
+        return isNotEnogh(task.getCodiceTask(), task.getNomeFazione());
     }
 
     private void executeATask(final Task task) {
@@ -238,8 +245,10 @@ public class ModelImpl implements Model{
                 createLavoratore(task);
                 break;
             case 1:
+                createGuerriero(task);
                 break;
             case 2:
+                createInsediamento(task);
                 break;
             case 3:
                 break;
@@ -248,16 +257,66 @@ public class ModelImpl implements Model{
             case 5:
                 break;
             case 6:
+                getRisorse(task);
                 break;
         }
+        setRisorse(task);
+    }
+
+    private void getRisorse(final Task task) {
+        final int num = getNumLavoratoriFromInsediamento(task.getNomeInsediamento1().get());
+        final String nomeRisorsa = "";
+        tableList.stream()
+            .filter(t -> t.getClass().equals(DisponibilitaTable.class))
+            .map(t -> (DisponibilitaTable) t)
+            .findFirst()
+            .get()
+            .update(new Disponibilita(nomeRisorsa, task.getNomeFazione(), num));
+    }
+
+    private void setRisorse(final Task task) {
+        getRichiestaDisponibilita(task.getCodiceTask(), task.getNomeFazione()).forEach(r -> {
+            int num = r.getDisponibilita() - r.getRichiesta();
+            tableList.stream()
+            .filter(t -> t.getClass().equals(DisponibilitaTable.class))
+            .map(t -> (DisponibilitaTable) t)
+            .findFirst()
+            .get()
+            .update(new Disponibilita(r.getNomeRisorsa(), task.getNomeFazione(), num));
+        });
     }
 
     private void createLavoratore(final Task task) {
-
+        final int codice = getNextCodiceLavoratore();
+        tableList.stream()
+            .filter(t -> t.getClass().equals(LavoratoreTable.class))
+            .map(t -> (LavoratoreTable) t)
+            .findFirst()
+            .get()
+            .save(new Lavoratore(codice, task.getNomeFazione(), task.getNomeInsediamento1().get()));
     }
 
-    private boolean isNotEnogh(final int codiceTask) {
-        final var list = getRichiestaDisponibilita(codiceTask);
+    private void createGuerriero(final Task task) {
+        final int codice = getNextCodiceGuerriero();
+        tableList.stream()
+            .filter(t -> t.getClass().equals(GuerrieroTable.class))
+            .map(t -> (GuerrieroTable) t)
+            .findFirst()
+            .get()
+            .save(new Guerriero(codice, task.getNomeFazione(), Optional.empty()));
+    }
+
+    private void createInsediamento(final Task task) {
+        tableList.stream()
+            .filter(t -> t.getClass().equals(InsediamentoTable.class))
+            .map(t -> (InsediamentoTable) t)
+            .findFirst()
+            .get()
+            .save(new Insediamento(task.getNomeFazione(), task.getNomeInsediamento1().get(), task.getNomePianeta().get()));
+    }
+
+    private boolean isNotEnogh(final int codiceTask, final String nomeFazione) {
+        final var list = getRichiestaDisponibilita(codiceTask, nomeFazione);
         for (var value : list) {
             if (value.getDisponibilita() < value.getRichiesta()) {
                 return true;
@@ -266,13 +325,14 @@ public class ModelImpl implements Model{
         return false;
     }
 
-    private List<TaskTransform> getRichiestaDisponibilita(final int codiceTask) {
+    private List<TaskTransform> getRichiestaDisponibilita(final int codiceTask, final String nomeFazione) {
         String query = "SELECT D.nomeRisorsa, D.quantita as disponibile , R.quantita as richiesta " + 
                 "FROM disponibilita D, fazione F, task T, tasktype Ts, richiesta R " +
                 "WHERE D.nomeFazione = F.nomeFazione AND F.nomeFazione = T.nomeFazione " +
                 "AND T.codiceTaskType = Ts.codiceTaskType AND Ts.codiceTaskType = R.codiceTaskType " +
-                "AND R.nomeRisorsa = D.nomeRisorsa AND T.codiceTask = " + codiceTask;
-        try (final PreparedStatement statement = this.connectionProvider.getMySQLConnection().prepareStatement(query)) {  
+                "AND R.nomeRisorsa = D.nomeRisorsa AND T.codiceTask = " + codiceTask +
+                " AND F.nomeFazione = \"" + nomeFazione + "\"";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {  
             final ResultSet result = statement.executeQuery();
             List<TaskTransform> toReturn = new ArrayList<>();
             while(result.next()) {
@@ -282,7 +342,53 @@ public class ModelImpl implements Model{
             }
             return toReturn;
         } catch (final SQLException e) {
+            System.out.println("errore");
             return new ArrayList<>();
+        }
+    }
+
+    private int getNextCodiceLavoratore() {
+        final String query = "SELECT MAX(codicePersona) AS codicePersona FROM lavoratore";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            int toReturn = -1;
+            while(result.next()) {
+                toReturn = result.getString("codicePersona") == null ? -1 : result.getInt("codicePersona");
+            }
+            return toReturn + 1;
+        } catch (final SQLException e) {
+            return -5;
+        }
+    }
+
+    private int getNextCodiceGuerriero() {
+        final String query = "SELECT MAX(codicePersona) AS codicePersona FROM guerriero";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            int toReturn = -1;
+            while(result.next()) {
+                toReturn = result.getString("codicePersona") == null ? -1 : result.getInt("codicePersona");
+            }
+            return toReturn + 1;
+        } catch (final SQLException e) {
+            return -5;
+        }
+    }
+
+    private int getNumLavoratoriFromInsediamento(final String nomeInsediamento) {
+        final String query = 
+            "SELECT count(*) as numero FROM insediamento I, lavoratore L WHERE" + 
+            " I.nomeInsediamento = L.nomeInsediamento AND I.nomeInsediamento = \"" +
+            nomeInsediamento + "\"";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            int toReturn = 0;
+            while(result.next()) {
+                toReturn = result.getString("numero") == null ? 0 : result.getInt("codicePersona");
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return -1;
         }
     }
 }
