@@ -27,6 +27,9 @@ public class FazioneViewController {
     private Label NomeCapitanoText;
 
     @FXML
+    private TextField TransferUominiText;
+
+    @FXML
     private Button attaccareBtn;
 
     @FXML
@@ -161,7 +164,7 @@ public class FazioneViewController {
         for(var value : controller.getAllRisorseDisponibili()) {
             counter++;
             infoFiled.appendText("NomeFazione: " + value.getNomeFazione() + 
-                "Risorsa: " + value.getNomeRisorsa() + "Quantita': " + value.getQuantita());
+                " Risorsa: " + value.getNomeRisorsa() + " Quantita': " + value.getQuantita());
             if (counter % 2 == 0) {
                 infoFiled.appendText("\n");
             } else {
@@ -219,6 +222,7 @@ public class FazioneViewController {
     @FXML
     void initialize() {
         assert NomeCapitanoText != null : "fx:id=\"NomeCapitanoText\" was not injected: check your FXML file 'fazione.fxml'.";
+        assert TransferUominiText != null : "fx:id=\"TransferUominiText\" was not injected: check your FXML file 'fazione.fxml'.";
         assert attaccareBtn != null : "fx:id=\"attaccareBtn\" was not injected: check your FXML file 'fazione.fxml'.";
         assert attaccareDecider != null : "fx:id=\"attaccareDecider\" was not injected: check your FXML file 'fazione.fxml'.";
         assert attaccareInfo != null : "fx:id=\"attaccareInfo\" was not injected: check your FXML file 'fazione.fxml'.";
@@ -253,29 +257,44 @@ public class FazioneViewController {
         deciderBox.getItems().addAll(View.getDeciderList());
         deciderBox.setOnAction(this::getchoice);
         transferUominiTipoDecider.getItems().addAll(List.of("Lavoratore", "Guerriero"));
+        transferUominiTipoDecider.setOnAction(this::setTransferDecider);
     }
 
-    public void setViewController(View controller) {
+    private void setTransferDecider(final ActionEvent event) {
+        if (transferUominiTipoDecider.getValue().equals("Lavoratore")) {
+            transferUominiDaDecider.getItems().remove("Esercito");
+            transferUominiADecider.getItems().remove("Esercito");
+        } else if (!transferUominiDaDecider.getItems().contains("Esercito") && 
+                    !transferUominiADecider.getItems().contains("Esercito")) {
+            transferUominiDaDecider.getItems().add("Esercito");
+            transferUominiADecider.getItems().add("Esercito");
+        }
+    }
+
+    public void setViewController(final View controller) {
         this.controller = controller;
     }
 
-    private void getchoice(ActionEvent event) {
+    private void getchoice(final ActionEvent event) {
         controller.changeStatus(deciderBox.getValue(), event);
     }
 
-    void setLabel(String nomeFazione, String nomeCapitano) {
-        this.nomeFazioneText.setText(nomeFazione);
-        this.NomeCapitanoText.setText(nomeCapitano);
-        setInsediamentoDecider();
+    void setLabel(final String nomeFazione, final String nomeCapitano) {
+        this.nomeFazioneText.setText("NomeFazione: " + nomeFazione);
+        this.NomeCapitanoText.setText("NomeCapitano: " + nomeCapitano);
     }
 
-    private void setInsediamentoDecider() {
+    void setInsediamentoDecider() {
         creaLavoratoriDecider.getItems().clear();
         creaLavoratoriDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
         creaGuerrieriDecider.getItems().clear();
         creaGuerrieriDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
         raccogliereRisorseDecider.getItems().clear();
         raccogliereRisorseDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
+        transferUominiDaDecider.getItems().removeAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
+        transferUominiDaDecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
+        transferUominiADecider.getItems().removeAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
+        transferUominiADecider.getItems().addAll(controller.getAllNomeInsediamento(nomeFazioneText.getText()));
     }
 
     void setPianetaFree() {
@@ -284,4 +303,3 @@ public class FazioneViewController {
     }
 
 }
-

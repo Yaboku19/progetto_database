@@ -24,8 +24,8 @@
       <ChoiceBox fx:id="creaInsediamentoDecider" layoutX="122.0" layoutY="135.0" prefHeight="26.0" prefWidth="122.0" />
       <Button fx:id="creaInsediamentoBtn" layoutX="461.0" layoutY="135.0" mnemonicParsing="false" onMousePressed="#creaInsediamento" text="Conferma" />
       <Label layoutX="14.0" layoutY="169.0" text="Trasferire uomini" />
-      <ChoiceBox fx:id="transferUominiADecider" layoutX="332.0" layoutY="165.0" prefHeight="26.0" prefWidth="122.0" />
-      <ChoiceBox fx:id="transferUominiDaDecider" layoutX="203.0" layoutY="165.0" prefHeight="26.0" prefWidth="122.0" />
+      <ChoiceBox fx:id="transferUominiADecider" layoutX="308.0" layoutY="165.0" prefHeight="26.0" prefWidth="99.0" />
+      <ChoiceBox fx:id="transferUominiDaDecider" layoutX="203.0" layoutY="165.0" prefHeight="26.0" prefWidth="99.0" />
       <ChoiceBox fx:id="transferUominiTipoDecider" layoutX="122.0" layoutY="165.0" prefHeight="26.0" prefWidth="74.0" />
       <Button fx:id="transferUominiBtn" layoutX="461.0" layoutY="165.0" mnemonicParsing="false" onMousePressed="#transferireUomini" text="Conferma" />
       <Button fx:id="creaLavoratoriInfo" layoutX="534.0" layoutY="75.0" mnemonicParsing="false" onMousePressed="#infoCreaLavoratori" text="Info" />
@@ -47,5 +47,6 @@
       <Button fx:id="attaccareInfo" layoutX="534.0" layoutY="226.0" mnemonicParsing="false" onMousePressed="#infoAttaccare" text="Info" />
       <Button fx:id="taskSeeBtn" layoutX="324.0" layoutY="196.0" mnemonicParsing="false" onMousePressed="#getTask" text="TaskLista" />
       <TextField fx:id="creaInsediamentoText" layoutX="257.0" layoutY="135.0" />
+      <TextField fx:id="TransferUominiText" layoutX="413.0" layoutY="165.0" prefHeight="26.0" prefWidth="44.0" />
    </children>
 </AnchorPane>

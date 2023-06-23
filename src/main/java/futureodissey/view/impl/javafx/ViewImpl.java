@@ -110,6 +110,7 @@ public class ViewImpl implements View {
                                                     .findFirst()
                                                     .get());
             fazioneViewController.setPianetaFree();
+            fazioneViewController.setInsediamentoDecider();
             stage.setScene(fazione);
             stage.sizeToScene();
         } catch (IOException e) {
