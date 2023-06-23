@@ -1,14 +1,11 @@
 package futureodissey.controller.impl;
 
 import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
-
 import futureodissey.controller.api.Controller;
 import futureodissey.db.impl.DisponibilitaTable;
 import futureodissey.db.impl.FazioneTable;
-import futureodissey.db.impl.InsediamentoTable;
 import futureodissey.db.impl.RisorsaTable;
 import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;

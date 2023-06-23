@@ -2,8 +2,6 @@ package futureodissey.view.api;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import futureodissey.model.api.rowtype.RowType;
 import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
 import javafx.beans.value.ChangeListener;

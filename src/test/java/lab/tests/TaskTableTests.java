@@ -1,14 +1,10 @@
 package lab.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import futureodissey.db.ConnectionProvider;
 import futureodissey.db.impl.TaskTable;
 import futureodissey.model.impl.rowtype.Task;
