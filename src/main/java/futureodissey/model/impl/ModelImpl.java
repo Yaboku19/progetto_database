@@ -101,7 +101,7 @@ public class ModelImpl implements Model{
 
     @Override
     public List<Pianeta> getFreePianeta() {
-        var toreturn = tableList
+        return tableList
             .stream()
             .filter(t -> t.getClass().equals(PianetaTable.class))
             .map(t -> (PianetaTable) t)
@@ -113,6 +113,5 @@ public class ModelImpl implements Model{
                 .get()))
             .findFirst()
             .get();
-        return toreturn;
     }
 }

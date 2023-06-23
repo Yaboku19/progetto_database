@@ -6,7 +6,10 @@ import java.util.List;
 import futureodissey.model.api.rowtype.RowType;
 import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public interface View {
@@ -29,6 +32,19 @@ public interface View {
             deciderList.remove(value);
         }
         
+    }
+
+    public static void addIntListener(TextField textField) {
+        textField.textProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+              String newValue) {
+                  if (!newValue.matches("\\d*")) {
+                        textField.setText(newValue.replaceAll("[^\\d]", ""));
+                    }
+            }
+        });
     }
 
     void changeStatus(String value, ActionEvent event);

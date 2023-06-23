@@ -258,6 +258,9 @@ public class FazioneViewController {
         deciderBox.setOnAction(this::getchoice);
         transferUominiTipoDecider.getItems().addAll(List.of("Lavoratore", "Guerriero"));
         transferUominiTipoDecider.setOnAction(this::setTransferDecider);
+        View.addIntListener(creaLavoratoriText);
+        View.addIntListener(creaGuerrieriText);
+        View.addIntListener(TransferUominiText);
     }
 
     private void setTransferDecider(final ActionEvent event) {
@@ -280,8 +283,8 @@ public class FazioneViewController {
     }
 
     void setLabel(final String nomeFazione, final String nomeCapitano) {
-        this.nomeFazioneText.setText("NomeFazione: " + nomeFazione);
-        this.NomeCapitanoText.setText("NomeCapitano: " + nomeCapitano);
+        this.nomeFazioneText.setText(nomeFazione);
+        this.NomeCapitanoText.setText(nomeCapitano);
     }
 
     void setInsediamentoDecider() {

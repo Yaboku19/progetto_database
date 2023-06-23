@@ -119,6 +119,10 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
         }
     }
 
+    public List<String> getNomeFazioneAltruiFromNomeFAzione(final String NomeFazione) {
+        return null;
+    }
+
     public String GetPianeta() {
         return pianeta;
     }
