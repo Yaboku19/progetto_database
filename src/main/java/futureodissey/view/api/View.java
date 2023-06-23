@@ -2,8 +2,11 @@ package futureodissey.view.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
+import futureodissey.model.impl.rowtype.Task;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -53,11 +56,16 @@ public interface View {
 
     String info(int code);
 
-    List<Disponibilita> getAllRisorseDisponibili();
+    List<Disponibilita> getAllRisorseDisponibiliFromNomeFazione(String nomeFazione);
 
     List<String> getAllNomeInsediamento(String nomeFazione);
 
     List<String> getNomePianetaNomeRisorseFree();
 
     List<String> getNomeInsediamentoRisorsaAltruiFromFazione(String nomeFazione);
+
+    List<Task> getTaskFromNomeFazione(String nomeFazione);
+
+    void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento,
+        Optional<String> nomePianeta,  int num);
 }

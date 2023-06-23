@@ -1,5 +1,6 @@
 package futureodissey.controller.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -7,6 +8,7 @@ import futureodissey.controller.api.Controller;
 import futureodissey.db.impl.DisponibilitaTable;
 import futureodissey.db.impl.FazioneTable;
 import futureodissey.db.impl.RisorsaTable;
+import futureodissey.db.impl.TaskTable;
 import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;
@@ -20,6 +22,7 @@ import futureodissey.model.impl.rowtype.Fazione;
 import futureodissey.model.impl.rowtype.Pianeta;
 import futureodissey.model.impl.rowtype.Richiesta;
 import futureodissey.model.impl.rowtype.Risorsa;
+import futureodissey.model.impl.rowtype.Task;
 import futureodissey.model.impl.rowtype.TaskType;
 import futureodissey.view.api.View;
 
@@ -97,14 +100,15 @@ public class ControllerImpl implements Controller {
     @Override
     public String getInfo(int code) {
         TaskType taskType = (TaskType) model.getByPrimaryKey(code, TaskTypeTable.class);
-        return taskType.getDescrizione();
+        return "tipo: " + taskType.getCodiceTaskType() + "\n" + taskType.getDescrizione();
     }
 
     @Override
-    public List<Disponibilita> getAllRisorseDisponibili() {
+    public List<Disponibilita> getAllRisorseDisponibiliFromNomeFazione(final String nomeFazione) {
         return model.getAllElement(DisponibilitaTable.class)
             .stream()
-            .map(l -> (Disponibilita)l)
+            .map(l -> (Disponibilita) l)
+            .filter(l -> l.getNomeFazione().equals(nomeFazione))
             .toList();
     }
 
@@ -121,5 +125,14 @@ public class ControllerImpl implements Controller {
     @Override
     public List<String> getInsediamentoRisorsaAltruiFromFazione(String nomeFazione) {
         return model.getInsediamentoRisorsaAltruiFromNomeFazione(nomeFazione);
+    }
+
+    @Override
+    public List<Task> getTaskFromNomeFazione(String nomeFazione) {
+        return model.getAllElement(TaskTable.class)
+            .stream()
+            .map(l -> (Task) l)
+            .filter(l -> l.getNomeFazione().equals(nomeFazione))
+            .toList();
     }
 }

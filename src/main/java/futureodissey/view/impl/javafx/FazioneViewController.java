@@ -2,6 +2,7 @@ package futureodissey.view.impl.javafx;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import futureodissey.view.api.View;
@@ -16,6 +17,13 @@ import javafx.scene.input.MouseEvent;
 
 public class FazioneViewController {
     private View controller;
+    private final int codiceAttacare = 3;
+    private final int codiceCreaGuerrieri = 1;
+    private final int codiceCreaLavoratori = 0;
+    private final int codiceCreaInsediamento = 2;
+    private final int codiceRaccogliereRisorse = 6;
+    private final int codiceTransferGuerrieri = 4;
+    private final int codiceTransferLavoratori = 5;
 
     @FXML
     private ResourceBundle resources;
@@ -124,22 +132,28 @@ public class FazioneViewController {
 
     @FXML
     void attaccare(MouseEvent event) {
-
+        controller.creaTask(codiceAttacare, nomeFazioneText.getText(),
+            Optional.ofNullable(attaccareDecider.getValue()), Optional.empty(), 1);
     }
 
     @FXML
     void creaGuerrieri(MouseEvent event) {
-
+        controller.creaTask(codiceCreaGuerrieri, nomeFazioneText.getText(),
+            Optional.ofNullable(creaGuerrieriDecider.getValue()),Optional.empty(),
+            "".equals(creaGuerrieriText.getText()) ? 1 : Integer.parseInt(creaGuerrieriText.getText()));
     }
 
     @FXML
     void creaInsediamento(MouseEvent event) {
-
+        controller.creaTask(codiceCreaInsediamento, nomeFazioneText.getText(),
+            Optional.empty(), Optional.ofNullable(creaInsediamentoDecider.getValue()), 1);
     }
 
     @FXML
     void creaLavoratori(MouseEvent event) {
-
+        controller.creaTask(codiceCreaLavoratori, nomeFazioneText.getText(),
+            Optional.ofNullable(creaLavoratoriDecider.getValue()),Optional.empty(),
+            "".equals(creaLavoratoriText.getText()) ? 1 : Integer.parseInt(creaLavoratoriText.getText()));
     }
 
     @FXML
@@ -160,63 +174,63 @@ public class FazioneViewController {
     @FXML
     void getRisorse(MouseEvent event) {
         infoFiled.setText("");
-        int counter = 0;
-        for(var value : controller.getAllRisorseDisponibili()) {
-            counter++;
-            infoFiled.appendText("NomeFazione: " + value.getNomeFazione() + 
-                " Risorsa: " + value.getNomeRisorsa() + " Quantita': " + value.getQuantita());
-            if (counter % 2 == 0) {
-                infoFiled.appendText("\n");
-            } else {
-                infoFiled.appendText("\t");
-            }
+        for(var value : controller.getAllRisorseDisponibiliFromNomeFazione(nomeFazioneText.getText())) {
+            infoFiled.appendText(" Risorsa: " + value.getNomeRisorsa() + " Quantita': " + value.getQuantita() + "\n");
         }
     }
 
     @FXML
     void getTask(MouseEvent event) {
-
+        infoFiled.setText("");
+        for(var value : controller.getTaskFromNomeFazione(nomeFazioneText.getText())) {
+            infoFiled.appendText(" codice: " + value.getCodiceTask() + " tipo: " + value.getCodiceTaskType() + "\n");
+        }
     }
 
     @FXML
     void infoAttaccare(MouseEvent event) {
-        infoFiled.setText(controller.info(3));
+        infoFiled.setText(controller.info(codiceAttacare));
     }
 
     @FXML
     void infoCreaGuerrieri(MouseEvent event) {
-        infoFiled.setText(controller.info(1));
+        infoFiled.setText(controller.info(codiceCreaGuerrieri));
     }
 
     @FXML
     void infoCreaInsediamento(MouseEvent event) {
-        infoFiled.setText(controller.info(2));
+        infoFiled.setText(controller.info(codiceCreaInsediamento));
     }
 
     @FXML
     void infoCreaLavoratori(MouseEvent event) {
-        infoFiled.setText(controller.info(0));
+        infoFiled.setText(controller.info(codiceCreaLavoratori));
     }
 
     @FXML
     void infoRaccogliereRisorse(MouseEvent event) {
-        infoFiled.setText(controller.info(6));
+        infoFiled.setText(controller.info(codiceRaccogliereRisorse));
     }
 
     @FXML
     void infoTransferireUomini(MouseEvent event) {
-        infoFiled.setText(controller.info(4) + "\n");
-        infoFiled.appendText(controller.info(4));
+        infoFiled.setText(controller.info(codiceTransferGuerrieri) + "\n");
+        infoFiled.appendText(controller.info(codiceTransferLavoratori));
     }
 
     @FXML
     void raccogliereRisorse(MouseEvent event) {
-
+        controller.creaTask(codiceRaccogliereRisorse, nomeFazioneText.getText(),
+            Optional.ofNullable(raccogliereRisorseDecider.getValue()), Optional.empty(), 1);
     }
 
     @FXML
     void transferireUomini(MouseEvent event) {
+        if (transferUominiTipoDecider.getValue().equals("Guerriero")) {
 
+        } else {
+
+        }
     }
 
     @FXML
@@ -310,5 +324,4 @@ public class FazioneViewController {
         attaccareDecider.getItems().addAll(
             controller.getNomeInsediamentoRisorsaAltruiFromFazione(nomeFazioneText.getText()));
     }
-
 }

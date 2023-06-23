@@ -4,10 +4,12 @@ import futureodissey.controller.api.Controller;
 import futureodissey.controller.impl.ControllerImpl;
 import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
+import futureodissey.model.impl.rowtype.Task;
 import futureodissey.view.api.View;
 import javafx.scene.Scene;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -142,8 +144,8 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public List<Disponibilita> getAllRisorseDisponibili() {
-        return controller.getAllRisorseDisponibili();
+    public List<Disponibilita> getAllRisorseDisponibiliFromNomeFazione(final String nomeFazione) {
+        return controller.getAllRisorseDisponibiliFromNomeFazione(nomeFazione);
     }
 
     @Override
@@ -159,5 +161,16 @@ public class ViewImpl implements View {
     @Override
     public List<String> getNomeInsediamentoRisorsaAltruiFromFazione(final String nomeFazione) {
         return controller.getInsediamentoRisorsaAltruiFromFazione(nomeFazione);
+    }
+
+    @Override
+    public List<Task> getTaskFromNomeFazione(final String nomeFazione) {
+        return controller.getTaskFromNomeFazione(nomeFazione);
+    }
+
+    @Override
+    public void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento,
+        Optional<String> nomePianeta, final int num) {
+        System.out.println("sei un figo");
     }
 }

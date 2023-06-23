@@ -113,7 +113,6 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
             }
             return toReturn;
         } catch (final SQLException e) {
-            System.out.println("bro");
             return new ArrayList<>();
         }
     }
@@ -122,7 +121,6 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
         final String query = "SELECT I."+ key2 + ", P." + pianeta.getRisorsa() + " FROM " + tableName + 
             " I, " + pianeta.getTableName() + " P WHERE " + key1 + " != \"" + NomeFazione + "\" and I." + 
             this.pianeta + " = P." + pianeta.getKey();
-        System.out.println(query);
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final ResultSet result = statement.executeQuery();
             List<String> toReturn = new ArrayList<>();
