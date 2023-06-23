@@ -1,5 +1,8 @@
 package futureodissey.model.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -167,5 +170,119 @@ public class ModelImpl implements Model{
             .map(t -> t.getTaskFromNomeFazione(nomeFazione))
             .findFirst()
             .get();
+    }
+
+    @Override
+    public void executeTask() {
+        TaskTable taskTable = tableList
+            .stream()
+            .filter(t -> t.getClass().equals(TaskTable.class))
+            .map(t -> ((TaskTable) t)).findFirst().get();
+        List<Task> taskList = taskTable.getTaskSorted();
+        List<Task> taskListCopy = new ArrayList<>(taskList);
+        for(final var task : taskListCopy) {
+            if (!isWrong(task)) {
+                executeATask(task);
+            }
+        }
+        taskTable.dropTable();
+        taskTable.createTable();
+
+    }
+
+    private boolean isWrong(final Task task) {
+        switch(task.getCodiceTaskType()) {
+            case 0:
+                if (task.getNomeInsediamento1().isEmpty()) {
+                    return true;
+                }
+                break;
+            case 1:
+                if (task.getNomeInsediamento1().isEmpty()) {
+                    return true;
+                }
+                break;
+            case 2:
+                if (task.getNomePianeta().isEmpty() || task.getNomeInsediamento1().isEmpty()) {
+                    return true;
+                }
+                break;
+            case 3:
+                if (task.getNomeInsediamento1().isEmpty()) {
+                    return true;
+                }
+                break;
+            case 4:
+                if (task.getNomeInsediamento1().isEmpty() || task.getNomeInsediamento2().isEmpty()) {
+                    return true;
+                }
+                break;
+            case 5:
+                if (task.getNomeInsediamento1().isEmpty() || task.getNomeInsediamento2().isEmpty()) {
+                    return true;
+                }
+                break;
+            case 6:
+                if (task.getNomeInsediamento1().isEmpty()) {
+                    return true;
+                }
+                break;
+        }
+        return isNotEnogh(task.getCodiceTask());
+    }
+
+    private void executeATask(final Task task) {
+        System.out.println(task);
+        switch(task.getCodiceTaskType()) {
+            case 0:
+                createLavoratore(task);
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+        }
+    }
+
+    private void createLavoratore(final Task task) {
+
+    }
+
+    private boolean isNotEnogh(final int codiceTask) {
+        final var list = getRichiestaDisponibilita(codiceTask);
+        for (var value : list) {
+            if (value.getDisponibilita() < value.getRichiesta()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<TaskTransform> getRichiestaDisponibilita(final int codiceTask) {
+        String query = "SELECT D.nomeRisorsa, D.quantita as disponibile , R.quantita as richiesta " + 
+                "FROM disponibilita D, fazione F, task T, tasktype Ts, richiesta R " +
+                "WHERE D.nomeFazione = F.nomeFazione AND F.nomeFazione = T.nomeFazione " +
+                "AND T.codiceTaskType = Ts.codiceTaskType AND Ts.codiceTaskType = R.codiceTaskType " +
+                "AND R.nomeRisorsa = D.nomeRisorsa AND T.codiceTask = " + codiceTask;
+        try (final PreparedStatement statement = this.connectionProvider.getMySQLConnection().prepareStatement(query)) {  
+            final ResultSet result = statement.executeQuery();
+            List<TaskTransform> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(new TaskTransform(result.getString("nomeRisorsa"),
+                    result.getInt("disponibile"),
+                    result.getInt("richiesta")));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
     }
 }

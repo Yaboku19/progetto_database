@@ -143,5 +143,15 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
             return new ArrayList<>();
         }
     }
+
+    public List<Task> getTaskSorted() {
+        final String query = "SELECT  * FROM "+ tableName + " ORDER BY 2";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            return readStudentsFromResultSet(result);
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
+    }
     
 }

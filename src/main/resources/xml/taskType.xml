@@ -2,7 +2,7 @@
 <TaskTypeList>
     <taskType>
         <codice>0</codice>
-        <descrizione>selezionare l'insediamento e il numero di lavoratori, creerà n lavoratori</descrizione>
+        <descrizione>selezionare l'insediamento e il numero di lavoratori, crerà n lavoratori</descrizione>
         <numPersone>0</numPersone>
     </taskType>
     <taskType>

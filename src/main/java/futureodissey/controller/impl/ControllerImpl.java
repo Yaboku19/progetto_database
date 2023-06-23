@@ -138,4 +138,9 @@ public class ControllerImpl implements Controller {
             Optional<String> nomeInsediamento2, Optional<String> nomePianeta, int num) {
         model.creaTask(codiceTask, nomeFazione, nomeInsediamento1, nomeInsediamento2, nomePianeta, num);
     }
+
+    @Override
+    public void executeTask() {
+        model.executeTask();
+    }
 }

@@ -26,4 +26,6 @@ public interface Controller {
 
     void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento1,
         Optional<String> nomeInsediamento2, Optional<String> nomePianeta, final int num);
+    
+    void executeTask();
 }

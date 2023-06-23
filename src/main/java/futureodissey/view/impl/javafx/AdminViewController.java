@@ -35,6 +35,9 @@ public class AdminViewController {
     private ChoiceBox<String> deciderBox;
 
     @FXML
+    private Button executeTaskBtn;
+
+    @FXML
     private TextField addCaptanText;
 
     @FXML
@@ -49,6 +52,7 @@ public class AdminViewController {
         assert addCaptanText != null : "fx:id=\"addCaptanText\" was not injected: check your FXML file 'admin.fxml'.";
         assert addText != null : "fx:id=\"addText\" was not injected: check your FXML file 'admin.fxml'.";
         assert deciderBox != null : "fx:id=\"deciderBox\" was not injected: check your FXML file 'admin.fxml'.";
+        assert executeTaskBtn != null : "fx:id=\"executeTaskBtn\" was not injected: check your FXML file 'admin.fxml'.";
         assert fazioneList != null : "fx:id=\"fazioneList\" was not injected: check your FXML file 'admin.fxml'.";
         assert removeButton != null : "fx:id=\"removeButton\" was not injected: check your FXML file 'admin.fxml'.";
         assert removeText != null : "fx:id=\"removeText\" was not injected: check your FXML file 'admin.fxml'.";
@@ -77,6 +81,11 @@ public class AdminViewController {
     public void setViewController(View controller) {
         this.controller = controller;
         setTextArea();
+    }
+
+    @FXML
+    void ExecuteTask(MouseEvent event) {
+        controller.executeTask();
     }
 
     @FXML

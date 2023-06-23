@@ -1,6 +1,7 @@
 package futureodissey.db.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -78,6 +79,5 @@ public class RisorsaTable extends AbstractTable<Risorsa> implements Table<Risors
     @Override
     public Risorsa getRowSample() {
         return new Risorsa("sample");
-    }
-    
+    }    
 }

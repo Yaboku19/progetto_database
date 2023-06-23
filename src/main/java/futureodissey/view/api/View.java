@@ -68,4 +68,6 @@ public interface View {
 
     void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento1,
         Optional<String> nomeInsediamento2, Optional<String> nomePianeta,  int num);
+    
+    void executeTask();
 }

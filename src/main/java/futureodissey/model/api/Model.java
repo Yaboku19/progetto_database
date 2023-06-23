@@ -27,4 +27,6 @@ public interface Model {
         Optional<String> nomeInsediamento2, Optional<String> nomePianeta, final int num);
     
     List<Task> getTaskFromNomeFazione(final String nomeFazione);
+
+    void executeTask();
 }

@@ -173,4 +173,9 @@ public class ViewImpl implements View {
         Optional<String> nomeInsediamento2, Optional<String> nomePianeta, final int num) {
         controller.creaTask(codiceTask, nomeFazione, nomeInsediamento1, nomeInsediamento2, nomePianeta, num);
     }
+
+    @Override
+    public void executeTask() {
+        controller.executeTask();
+    }
 }
