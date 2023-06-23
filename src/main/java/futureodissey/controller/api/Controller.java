@@ -1,6 +1,7 @@
 package futureodissey.controller.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import futureodissey.model.impl.rowtype.Disponibilita;
 import futureodissey.model.impl.rowtype.Fazione;
@@ -22,4 +23,7 @@ public interface Controller {
     List<String> getInsediamentoRisorsaAltruiFromFazione(String nomeFazione);
 
     List<Task> getTaskFromNomeFazione (String nomeFazione);
+
+    void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento1,
+        Optional<String> nomeInsediamento2, Optional<String> nomePianeta, final int num);
 }

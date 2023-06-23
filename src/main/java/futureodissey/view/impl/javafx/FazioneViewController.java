@@ -35,7 +35,7 @@ public class FazioneViewController {
     private Label NomeCapitanoText;
 
     @FXML
-    private TextField TransferUominiText;
+    private TextField transferUominiText;
 
     @FXML
     private Button attaccareBtn;
@@ -133,26 +133,30 @@ public class FazioneViewController {
     @FXML
     void attaccare(MouseEvent event) {
         controller.creaTask(codiceAttacare, nomeFazioneText.getText(),
-            Optional.ofNullable(attaccareDecider.getValue()), Optional.empty(), 1);
+            Optional.ofNullable(attaccareDecider.getValue()),Optional.empty(), Optional.empty(), 1);
     }
 
     @FXML
     void creaGuerrieri(MouseEvent event) {
         controller.creaTask(codiceCreaGuerrieri, nomeFazioneText.getText(),
-            Optional.ofNullable(creaGuerrieriDecider.getValue()),Optional.empty(),
+            Optional.ofNullable(creaGuerrieriDecider.getValue()), Optional.empty(), Optional.empty(),
             "".equals(creaGuerrieriText.getText()) ? 1 : Integer.parseInt(creaGuerrieriText.getText()));
     }
 
     @FXML
     void creaInsediamento(MouseEvent event) {
         controller.creaTask(codiceCreaInsediamento, nomeFazioneText.getText(),
-            Optional.empty(), Optional.ofNullable(creaInsediamentoDecider.getValue()), 1);
+            Optional.ofNullable(creaInsediamentoText.getText()), Optional.empty(),
+            Optional.ofNullable(creaInsediamentoDecider.getValue() == null 
+                ? creaInsediamentoDecider.getValue()
+                : creaInsediamentoDecider.getValue().replaceAll(":.*", "")),
+            1);
     }
 
     @FXML
     void creaLavoratori(MouseEvent event) {
         controller.creaTask(codiceCreaLavoratori, nomeFazioneText.getText(),
-            Optional.ofNullable(creaLavoratoriDecider.getValue()),Optional.empty(),
+            Optional.ofNullable(creaLavoratoriDecider.getValue()), Optional.empty(), Optional.empty(),
             "".equals(creaLavoratoriText.getText()) ? 1 : Integer.parseInt(creaLavoratoriText.getText()));
     }
 
@@ -183,7 +187,11 @@ public class FazioneViewController {
     void getTask(MouseEvent event) {
         infoFiled.setText("");
         for(var value : controller.getTaskFromNomeFazione(nomeFazioneText.getText())) {
-            infoFiled.appendText(" codice: " + value.getCodiceTask() + " tipo: " + value.getCodiceTaskType() + "\n");
+            String insediamento1 = value.getNomeInsediamento1().isPresent()?value.getNomeInsediamento1().get() : "null";
+            String insediamento2 = value.getNomeInsediamento2().isPresent()?value.getNomeInsediamento2().get() : "null";
+            String pianeta = value.getNomePianeta().isPresent()?value.getNomePianeta().get() : "null";
+            infoFiled.appendText("Tipo task: " + value.getCodiceTaskType() + " insediamento1: " + insediamento1 +
+            " insediamento2: " + insediamento2 + " pianeta: " + pianeta + "\n");
         }
     }
 
@@ -221,22 +229,28 @@ public class FazioneViewController {
     @FXML
     void raccogliereRisorse(MouseEvent event) {
         controller.creaTask(codiceRaccogliereRisorse, nomeFazioneText.getText(),
-            Optional.ofNullable(raccogliereRisorseDecider.getValue()), Optional.empty(), 1);
+            Optional.ofNullable(raccogliereRisorseDecider.getValue()), Optional.empty(), Optional.empty(), 1);
     }
 
     @FXML
     void transferireUomini(MouseEvent event) {
-        if (transferUominiTipoDecider.getValue().equals("Guerriero")) {
-
-        } else {
-
+        if(transferUominiTipoDecider.getValue() != null) {
+            if (transferUominiTipoDecider.getValue().equals("Guerriero")) {
+            controller.creaTask(codiceTransferGuerrieri, nomeFazioneText.getText(),
+                Optional.ofNullable(transferUominiDaDecider.getValue()), Optional.ofNullable(transferUominiADecider.getValue()),
+                Optional.empty(), "".equals(transferUominiText.getText()) ? 1 : Integer.parseInt(transferUominiText.getText()));
+            } else {
+            controller.creaTask(codiceTransferLavoratori, nomeFazioneText.getText(),
+                Optional.ofNullable(transferUominiDaDecider.getValue()), Optional.ofNullable(transferUominiADecider.getValue()),
+                Optional.empty(), "".equals(transferUominiText.getText()) ? 1 : Integer.parseInt(transferUominiText.getText()));
+            }
         }
     }
 
     @FXML
     void initialize() {
         assert NomeCapitanoText != null : "fx:id=\"NomeCapitanoText\" was not injected: check your FXML file 'fazione.fxml'.";
-        assert TransferUominiText != null : "fx:id=\"TransferUominiText\" was not injected: check your FXML file 'fazione.fxml'.";
+        assert transferUominiText != null : "fx:id=\"TransferUominiText\" was not injected: check your FXML file 'fazione.fxml'.";
         assert attaccareBtn != null : "fx:id=\"attaccareBtn\" was not injected: check your FXML file 'fazione.fxml'.";
         assert attaccareDecider != null : "fx:id=\"attaccareDecider\" was not injected: check your FXML file 'fazione.fxml'.";
         assert attaccareInfo != null : "fx:id=\"attaccareInfo\" was not injected: check your FXML file 'fazione.fxml'.";
@@ -274,7 +288,7 @@ public class FazioneViewController {
         transferUominiTipoDecider.setOnAction(this::setTransferDecider);
         View.addIntListener(creaLavoratoriText);
         View.addIntListener(creaGuerrieriText);
-        View.addIntListener(TransferUominiText);
+        View.addIntListener(transferUominiText);
     }
 
     private void setTransferDecider(final ActionEvent event) {

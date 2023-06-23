@@ -1,7 +1,8 @@
 package futureodissey.controller.impl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import futureodissey.controller.api.Controller;
@@ -129,10 +130,12 @@ public class ControllerImpl implements Controller {
 
     @Override
     public List<Task> getTaskFromNomeFazione(String nomeFazione) {
-        return model.getAllElement(TaskTable.class)
-            .stream()
-            .map(l -> (Task) l)
-            .filter(l -> l.getNomeFazione().equals(nomeFazione))
-            .toList();
+        return model.getTaskFromNomeFazione(nomeFazione);
+    }
+
+    @Override
+    public void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento1,
+            Optional<String> nomeInsediamento2, Optional<String> nomePianeta, int num) {
+        model.creaTask(codiceTask, nomeFazione, nomeInsediamento1, nomeInsediamento2, nomePianeta, num);
     }
 }

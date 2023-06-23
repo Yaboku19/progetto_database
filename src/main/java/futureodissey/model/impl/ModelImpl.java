@@ -3,6 +3,7 @@ package futureodissey.model.impl;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import futureodissey.db.ConnectionProvider;
 import futureodissey.db.api.Table;
@@ -19,6 +20,7 @@ import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;
 import futureodissey.model.impl.rowtype.Pianeta;
+import futureodissey.model.impl.rowtype.Task;
 
 @SuppressWarnings("unchecked")
 public class ModelImpl implements Model{
@@ -137,6 +139,32 @@ public class ModelImpl implements Model{
                 .map(q -> (PianetaTable) q)
                 .findFirst()
                 .get()))
+            .findFirst()
+            .get();
+    }
+
+    @Override
+    public void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento1,
+            Optional<String> nomeInsediamento2, Optional<String> nomePianeta, int num) {
+        for (int i = 0; i < num; i++) {
+            int codice = tableList
+                .stream()
+                .filter(t -> t.getClass().equals(TaskTable.class))
+                .map(t -> (TaskTable) t)
+                .map(t -> t.getNextCodice(nomeFazione))
+                .findFirst()
+                .get();
+            this.addElement(new Task(nomeFazione, codice, codiceTask, nomeInsediamento1, nomeInsediamento2, nomePianeta));
+        }
+    }
+
+    @Override
+    public List<Task> getTaskFromNomeFazione(final String nomeFazione) {
+         return tableList
+            .stream()
+            .filter(t -> t.getClass().equals(TaskTable.class))
+            .map(t -> (TaskTable) t)
+            .map(t -> t.getTaskFromNomeFazione(nomeFazione))
             .findFirst()
             .get();
     }

@@ -1,10 +1,12 @@
 package futureodissey.model.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import futureodissey.db.api.Table;
 import futureodissey.model.api.rowtype.RowType;
 import futureodissey.model.impl.rowtype.Pianeta;
+import futureodissey.model.impl.rowtype.Task;
 
 public interface Model {
     void addElement(RowType<? extends Object> row);
@@ -20,4 +22,9 @@ public interface Model {
     List<Pianeta> getFreePianeta();
 
     List<String> getInsediamentoRisorsaAltruiFromNomeFazione (String nomeFazione);
+
+    void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento1,
+        Optional<String> nomeInsediamento2, Optional<String> nomePianeta, final int num);
+    
+    List<Task> getTaskFromNomeFazione(final String nomeFazione);
 }

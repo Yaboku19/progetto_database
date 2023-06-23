@@ -169,8 +169,8 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento,
-        Optional<String> nomePianeta, final int num) {
-        System.out.println("sei un figo");
+    public void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento1,
+        Optional<String> nomeInsediamento2, Optional<String> nomePianeta, final int num) {
+        controller.creaTask(codiceTask, nomeFazione, nomeInsediamento1, nomeInsediamento2, nomePianeta, num);
     }
 }

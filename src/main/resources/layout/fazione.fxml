@@ -47,7 +47,7 @@
       <Button fx:id="attaccareInfo" layoutX="534.0" layoutY="226.0" mnemonicParsing="false" onMousePressed="#infoAttaccare" text="Info" />
       <Button fx:id="taskSeeBtn" layoutX="324.0" layoutY="196.0" mnemonicParsing="false" onMousePressed="#getTask" text="TaskLista" />
       <TextField fx:id="creaInsediamentoText" layoutX="257.0" layoutY="135.0" />
-      <TextField fx:id="TransferUominiText" layoutX="413.0" layoutY="165.0" prefHeight="26.0" prefWidth="44.0" />
+      <TextField fx:id="transferUominiText" layoutX="413.0" layoutY="165.0" prefHeight="26.0" prefWidth="44.0" />
       <Label layoutX="14.0" layoutY="16.0" text="NomeFazione: " />
       <Label layoutX="14.0" layoutY="33.0" text="Nome Capitano: " />
    </children>

@@ -1,6 +1,7 @@
 package futureodissey.db.impl;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -116,6 +117,31 @@ public class TaskTable extends AbstractTable<Task> implements Table<Task, Pair<S
     @Override
     public Task getRowSample() {
         return new Task("sample", 0, 0);
+    }
+
+    public int getNextCodice(final String nomeFazione) {
+        final String query = "SELECT MAX(" + key2 + ") as "+ key2 + " FROM " + tableName +
+            " WHERE " + this.key1 + " = \"" + nomeFazione + "\"";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            int toReturn = -1;
+            while(result.next()) {
+                toReturn = result.getString(key2) == null ? -1 : result.getInt(key2);
+            }
+            return toReturn + 1;
+        } catch (final SQLException e) {
+            return -5;
+        }
+    }
+
+    public List<Task> getTaskFromNomeFazione(final String nomeFazione) {
+        final String query = "SELECT  * FROM "+ tableName + " WHERE " + this.key1 + " = \"" + nomeFazione + "\"";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            return readStudentsFromResultSet(result);
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
     }
     
 }
