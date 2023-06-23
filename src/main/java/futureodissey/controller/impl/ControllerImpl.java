@@ -9,7 +9,6 @@ import futureodissey.controller.api.Controller;
 import futureodissey.db.impl.DisponibilitaTable;
 import futureodissey.db.impl.FazioneTable;
 import futureodissey.db.impl.RisorsaTable;
-import futureodissey.db.impl.TaskTable;
 import futureodissey.db.impl.TaskTypeTable;
 import futureodissey.model.api.Model;
 import futureodissey.model.api.rowtype.RowType;

@@ -222,10 +222,14 @@ public class ModelImpl implements Model{
             case 4:
                 if (task.getNomeInsediamento1().isEmpty() || task.getNomeInsediamento2().isEmpty()) {
                     return true;
+                } else if (notEnoughGuerrieri(task)){
+                    return true;
                 }
                 break;
             case 5:
                 if (task.getNomeInsediamento1().isEmpty() || task.getNomeInsediamento2().isEmpty()) {
+                    return true;
+                } else if (notEnoughLavoratori(task)){
                     return true;
                 }
                 break;
@@ -236,6 +240,14 @@ public class ModelImpl implements Model{
                 break;
         }
         return isNotEnogh(task.getCodiceTask(), task.getNomeFazione());
+    }
+
+    private boolean notEnoughLavoratori (final Task task) {
+        return getNumLavoratoriFromInsediamento(task.getNomeInsediamento1().get()) < 1;
+    }
+
+    private boolean notEnoughGuerrieri (final Task task) {
+        return getNumGuerrieriFromInsediamento(task.getNomeInsediamento1().get()) < 1;
     }
 
     private void executeATask(final Task task) {
@@ -269,7 +281,15 @@ public class ModelImpl implements Model{
     }
 
     private void transferLavoratori(final Task task) {
-        
+        final Lavoratore lavoratore = getALavoratoreFromNomeInsediamento(task.getNomeInsediamento1().get());
+        tableList
+            .stream()
+            .filter(t -> t.getClass().equals(LavoratoreTable.class))
+            .map(t -> (LavoratoreTable) t)
+            .findFirst()
+            .get()
+            .update(new Lavoratore(lavoratore.getCodicePersona(), lavoratore.getNomeFazione(),
+                task.getNomeInsediamento2().get()));
     }
 
     private void getRisorse(final Task task) {
@@ -401,6 +421,29 @@ public class ModelImpl implements Model{
         }
     }
 
+    private int getNumGuerrieriFromInsediamento(final String nomeInsediamento) {
+        String query;
+        if (nomeInsediamento == "Esercito") {
+            query = "SELECT count(*) as numero FROM guerriero WHERE" + 
+            " nomeInsediamento = null";
+        } else {
+            query = "SELECT count(*) as numero FROM insediamento I, guerriero G WHERE" + 
+            " I.nomeInsediamento = G.nomeInsediamento AND I.nomeInsediamento = \"" +
+            nomeInsediamento + "\"";
+        }
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            int toReturn = 0;
+            while(result.next()) {
+                toReturn = result.getString("numero") == null ? 0 : result.getInt("numero");
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            System.out.println("errore numGuerriero");
+            return -1;
+        }
+    }
+
     private Disponibilita getDisponibilitaFromNomeInsediamento(final String nomeInsediamento) {
         final String query = "SELECT D.* FROM disponibilita D, pianeta P, insediamento I " +
             " WHERE D.nomeRisorsa = P.nomeRisorsa AND P.nomePianeta = I.nomePianeta " +
@@ -412,6 +455,24 @@ public class ModelImpl implements Model{
                 toReturn = new Disponibilita(result.getString("nomeRisorsa"),
                                             result.getString("nomeFazione"),
                                             result.getInt("quantita"));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return null;
+        }
+    }
+
+    private Lavoratore getALavoratoreFromNomeInsediamento(final String nomeInsediamento) {
+        final String query = "SELECT L.* FROM lavoratore L, insediamento I " +
+            "WHERE L.nomeInsediamento = I.nomeInsediamento " + 
+            "AND I.nomeInsediamento = \""+ nomeInsediamento + "\" LIMIT 1";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            Lavoratore toReturn = null;
+            while(result.next()) {
+                toReturn = new Lavoratore(result.getInt("codicePersona"),
+                                        result.getString("nomeFazione"),
+                                        result.getString("nomeInsediamento"));
             }
             return toReturn;
         } catch (final SQLException e) {
