@@ -225,6 +225,7 @@ public class ModelImpl implements Model{
                 } else if (notEnoughGuerrieri(task)){
                     return true;
                 }
+                System.out.println(task);
                 break;
             case 5:
                 if (task.getNomeInsediamento1().isEmpty() || task.getNomeInsediamento2().isEmpty()) {
@@ -277,7 +278,15 @@ public class ModelImpl implements Model{
     }
 
     private void transferGuerrieri(final Task task) {
-
+        final Guerriero guerriero = getAGuerrieroFromNomeInsediamento(task.getNomeInsediamento1().get());
+        tableList
+            .stream()
+            .filter(t -> t.getClass().equals(GuerrieroTable.class))
+            .map(t -> (GuerrieroTable) t)
+            .findFirst()
+            .get()
+            .update(new Guerriero(guerriero.getCodicePersona(), guerriero.getNomeFazione(),
+                task.getNomeInsediamento2().get().equals("Esercito") ? Optional.empty() : task.getNomeInsediamento2()));
     }
 
     private void transferLavoratori(final Task task) {
@@ -332,7 +341,7 @@ public class ModelImpl implements Model{
             .map(t -> (GuerrieroTable) t)
             .findFirst()
             .get()
-            .save(new Guerriero(codice, task.getNomeFazione(), Optional.empty()));
+            .save(new Guerriero(codice, task.getNomeFazione(), task.getNomeInsediamento1()));
     }
 
     private void createInsediamento(final Task task) {
@@ -423,9 +432,9 @@ public class ModelImpl implements Model{
 
     private int getNumGuerrieriFromInsediamento(final String nomeInsediamento) {
         String query;
-        if (nomeInsediamento == "Esercito") {
+        if (nomeInsediamento.equals("Esercito")) {
             query = "SELECT count(*) as numero FROM guerriero WHERE" + 
-            " nomeInsediamento = null";
+            " nomeInsediamento is null";
         } else {
             query = "SELECT count(*) as numero FROM insediamento I, guerriero G WHERE" + 
             " I.nomeInsediamento = G.nomeInsediamento AND I.nomeInsediamento = \"" +
@@ -476,6 +485,31 @@ public class ModelImpl implements Model{
             }
             return toReturn;
         } catch (final SQLException e) {
+            return null;
+        }
+    }
+
+    private Guerriero getAGuerrieroFromNomeInsediamento(final String nomeInsediamento) {
+        String query;
+        if (nomeInsediamento.equals("Esercito")) {
+            query = "SELECT * FROM guerriero WHERE" + 
+            " nomeInsediamento is null LIMIT 1";
+        } else {
+            query = "SELECT G.* FROM guerriero G, insediamento I " +
+            "WHERE G.nomeInsediamento = I.nomeInsediamento " + 
+            "AND I.nomeInsediamento = \""+ nomeInsediamento + "\" LIMIT 1";;
+        }
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            Guerriero toReturn = null;
+            while(result.next()) {
+                toReturn = new Guerriero(result.getInt("codicePersona"),
+                                        result.getString("nomeFazione"),
+                                        Optional.ofNullable(result.getString("nomeInsediamento")));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            System.out.println("errore getAGuerriero");
             return null;
         }
     }
