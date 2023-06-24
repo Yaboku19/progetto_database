@@ -32,6 +32,9 @@ public class AdminViewController {
     private TextField addText;
 
     @FXML
+    private Button bigQueryButton;
+
+    @FXML
     private ChoiceBox<String> deciderBox;
 
     @FXML
@@ -56,6 +59,7 @@ public class AdminViewController {
         assert fazioneList != null : "fx:id=\"fazioneList\" was not injected: check your FXML file 'admin.fxml'.";
         assert removeButton != null : "fx:id=\"removeButton\" was not injected: check your FXML file 'admin.fxml'.";
         assert removeText != null : "fx:id=\"removeText\" was not injected: check your FXML file 'admin.fxml'.";
+        assert bigQueryButton != null : "fx:id=\"bigQueryButton\" was not injected: check your FXML file 'admin.fxml'.";
         deciderBox.getItems().addAll(View.getDeciderList());
         deciderBox.setOnAction(this::getchoice);
     }
@@ -110,6 +114,11 @@ public class AdminViewController {
         deciderBox.getItems().addAll(View.getDeciderList());
         controller.fazione(nation, "", false);
         setTextArea();
+    }
+
+    @FXML
+    void getMaxRisorsa(MouseEvent event) {
+        fazioneList.appendText("\n\n" + controller.getMaxRisorsa());
     }
 
 }
