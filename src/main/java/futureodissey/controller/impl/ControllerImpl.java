@@ -152,4 +152,9 @@ public class ControllerImpl implements Controller {
     public List<String> getGuerrieriInsediamentoFromNomeFazione(String nomeFazione) {
         return model.getGuerrieriInsediamentoFromNomeFazione(nomeFazione);
     }
+
+    @Override
+    public List<String> getGuerrieriAltruiInsediamentoFromNomeFazione(final String nomeFazione) {
+        return model.getGuerrieriAltruiInsediamentoFromNomeFazione(nomeFazione);
+    }
 }

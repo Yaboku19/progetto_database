@@ -29,6 +29,7 @@ import futureodissey.model.impl.rowtype.Insediamento;
 import futureodissey.model.impl.rowtype.Lavoratore;
 import futureodissey.model.impl.rowtype.Pianeta;
 import futureodissey.model.impl.rowtype.Task;
+import javafx.util.Pair;
 
 @SuppressWarnings("unchecked")
 public class ModelImpl implements Model{
@@ -203,7 +204,6 @@ public class ModelImpl implements Model{
                 if (task.getNomeInsediamento1().isEmpty()) {
                     return true;
                 }
-                System.out.println(task);
                 break;
             case 1:
                 if (task.getNomeInsediamento1().isEmpty()) {
@@ -218,7 +218,10 @@ public class ModelImpl implements Model{
             case 3:
                 if (task.getNomeInsediamento1().isEmpty()) {
                     return true;
+                } else if (notEnoughGuerrieriAttak(task)){
+                    return true;
                 }
+                System.out.println("è ora di attacare");
                 break;
             case 4:
                 if (task.getNomeInsediamento1().isEmpty() || task.getNomeInsediamento2().isEmpty()) {
@@ -243,12 +246,18 @@ public class ModelImpl implements Model{
         return isNotEnogh(task.getCodiceTask(), task.getNomeFazione());
     }
 
+    private boolean notEnoughGuerrieriAttak(final Task task) {
+        int a = getNumGuerrieriFromInsediamento("Esercito", task.getNomeFazione());
+        int b = getNumGuerrieriFromInsediamento(task.getNomeInsediamento1().get(), task.getNomeFazione());
+        return a < b;
+    }
+
     private boolean notEnoughLavoratori (final Task task) {
         return getNumLavoratoriFromInsediamento(task.getNomeInsediamento1().get()) < 1;
     }
 
     private boolean notEnoughGuerrieri (final Task task) {
-        return getNumGuerrieriFromInsediamento(task.getNomeInsediamento1().get()) < 1;
+        return getNumGuerrieriFromInsediamento(task.getNomeInsediamento1().get(), task.getNomeFazione()) < 1;
     }
 
     private void executeATask(final Task task) {
@@ -263,6 +272,7 @@ public class ModelImpl implements Model{
                 createInsediamento(task);
                 break;
             case 3:
+                attaccare(task);
                 break;
             case 4:
                 transferGuerrieri(task);
@@ -277,8 +287,49 @@ public class ModelImpl implements Model{
         setRisorse(task);
     }
 
+    private void attaccare(final Task task) {
+        final int counterGuerrieri = getNumGuerrieriFromInsediamento(task.getNomeInsediamento1().get(), task.getNomeFazione());
+        final int counterLavoratori = getNumLavoratoriFromInsediamento(task.getNomeInsediamento1().get());
+        final GuerrieroTable guerrieroTable = tableList
+            .stream()
+            .filter(t -> t.getClass().equals(GuerrieroTable.class))
+            .map(t -> (GuerrieroTable) t)
+            .findFirst()
+            .get();
+        final LavoratoreTable lavoratoreTable = tableList
+            .stream()
+            .filter(t -> t.getClass().equals(LavoratoreTable.class))
+            .map(t -> (LavoratoreTable) t)
+            .findFirst()
+            .get();
+        for (int i = 0; i < counterGuerrieri; i++) {
+            final Guerriero guerrieroInsediamento = getAGuerrieroFromNomeInsediamento(
+                                        task.getNomeInsediamento1().get(), task.getNomeFazione());
+            final Guerriero guerrieroEsecito = getAGuerrieroFromNomeInsediamento(
+                                        "Esercito", task.getNomeFazione());
+            guerrieroTable.delete(guerrieroInsediamento.getKey());
+            guerrieroTable.delete(guerrieroEsecito.getKey());
+        }
+
+        for (int i = 0; i < counterLavoratori; i++) {
+            final Lavoratore lavoratore = getALavoratoreFromNomeInsediamento(task.getNomeInsediamento1().get());
+            lavoratoreTable.delete(lavoratore.getKey());
+        }
+        final String pianeta = getNomePianetaFromNomeInsediamento(task.getNomeInsediamento1().get());
+        final String fazione = getNomeFazioneFromNomeInsediamento(task.getNomeInsediamento1().get());
+        final String insediamento = getNomeInsediamento(task.getNomeInsediamento1().get(), task.getNomeFazione());
+        tableList
+            .stream()
+            .filter(t -> t.getClass().equals(InsediamentoTable.class))
+            .map(t -> (InsediamentoTable) t)
+            .forEach(t -> {
+                t.delete(new Pair<>(fazione, task.getNomeInsediamento1().get()));
+                t.save(new Insediamento(task.getNomeFazione(), insediamento, pianeta));
+            });;
+    }
+
     private void transferGuerrieri(final Task task) {
-        final Guerriero guerriero = getAGuerrieroFromNomeInsediamento(task.getNomeInsediamento1().get());
+        final Guerriero guerriero = getAGuerrieroFromNomeInsediamento(task.getNomeInsediamento1().get(), task.getNomeFazione());
         tableList
             .stream()
             .filter(t -> t.getClass().equals(GuerrieroTable.class))
@@ -430,11 +481,11 @@ public class ModelImpl implements Model{
         }
     }
 
-    private int getNumGuerrieriFromInsediamento(final String nomeInsediamento) {
+    private int getNumGuerrieriFromInsediamento(final String nomeInsediamento, final String nomeFazione) {
         String query;
         if (nomeInsediamento.equals("Esercito")) {
             query = "SELECT count(*) as numero FROM guerriero WHERE" + 
-            " nomeInsediamento is null";
+            " nomeInsediamento is null AND nomeFazione = \"" + nomeFazione + "\"";
         } else {
             query = "SELECT count(*) as numero FROM insediamento I, guerriero G WHERE" + 
             " I.nomeInsediamento = G.nomeInsediamento AND I.nomeInsediamento = \"" +
@@ -488,11 +539,11 @@ public class ModelImpl implements Model{
         }
     }
 
-    private Guerriero getAGuerrieroFromNomeInsediamento(final String nomeInsediamento) {
+    private Guerriero getAGuerrieroFromNomeInsediamento(final String nomeInsediamento, final String nomeFazione) {
         String query;
         if (nomeInsediamento.equals("Esercito")) {
-            query = "SELECT * FROM guerriero WHERE" + 
-            " nomeInsediamento is null LIMIT 1";
+            query = "SELECT * FROM guerriero WHERE " + 
+            "nomeInsediamento is null AND nomeFazione = \"" + nomeFazione + "\" LIMIT 1";
         } else {
             query = "SELECT G.* FROM guerriero G, insediamento I " +
             "WHERE G.nomeInsediamento = I.nomeInsediamento " + 
@@ -532,9 +583,9 @@ public class ModelImpl implements Model{
 
     @Override
     public List<String> getGuerrieriInsediamentoFromNomeFazione(final String nomeFazione) {
-        final String query = "select nomeInsediamento, count(*) AS numGuerrieri " +
-	        "from guerriero where nomeFazione = \"" + nomeFazione + "\"" +
-            "group by nomeInsediamento";
+        final String query = "SELECT nomeInsediamento, count(*) AS numGuerrieri " +
+	        "FROM guerriero WHERE nomeFazione = \"" + nomeFazione + "\" " +
+            "GROUP BY nomeInsediamento";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final ResultSet result = statement.executeQuery();
             List<String> toReturn = new ArrayList<>();
@@ -545,6 +596,76 @@ public class ModelImpl implements Model{
             return toReturn;
         } catch (final SQLException e) {
             return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<String> getGuerrieriAltruiInsediamentoFromNomeFazione(final String nomeFazione) {
+        final String query = "SELECT nomeInsediamento, count(*) AS numGuerrieri " +
+            "FROM guerriero WHERE nomeFazione != \"" + nomeFazione + "\" AND nomeInsediamento IS NOT null " +
+            "GROUP BY nomeInsediamento";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<String> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(result.getString("nomeInsediamento") + " " + result.getString("numGuerrieri"));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private String getNomePianetaFromNomeInsediamento (final String nomeInsediamento) {
+        final String query = "SELECT nomePianeta " +
+	        "FROM Insediamento WHERE nomeInsediamento = \"" + nomeInsediamento + "\" ";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            String toReturn = "";
+            while(result.next()) {
+                toReturn = result.getString("nomePianeta");
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return "";
+        }
+    }
+
+    private String getNomeFazioneFromNomeInsediamento (final String nomeInsediamento) {
+        final String query = "SELECT nomeFazione " +
+	        "FROM Insediamento WHERE nomeInsediamento = \"" + nomeInsediamento + "\" ";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            String toReturn = "";
+            while(result.next()) {
+                toReturn = result.getString("nomeFazione");
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return "";
+        }
+    }
+
+    private String getNomeInsediamento(final String nomeInsediamento, final String nomeFazione) {
+        if (isAlredyUsed(nomeInsediamento, nomeFazione)) {
+            return getNomeInsediamento(nomeInsediamento + "0", nomeFazione);
+        } else {
+            return nomeInsediamento;
+        }
+    }
+
+    private boolean isAlredyUsed(final String nomeInsediamento, final String nomeFazione) {
+        final String query = "SELECT nomeInsediamento FROM insediamento WHERE nomeInsediamento = \"" + nomeInsediamento +
+            "\" AND nomeFazione = \"" + nomeFazione + "\"";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<String> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(result.getString("nomeInsediamento"));
+            }
+            return toReturn.size() > 0;
+        } catch (final SQLException e) {
+            return false;
         }
     }
 }

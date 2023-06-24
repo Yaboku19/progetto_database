@@ -74,4 +74,6 @@ public interface View {
     List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione);
 
     List<String> getGuerrieriInsediamentoFromNomeFazione(String nomeFazione);
+
+    List<String> getGuerrieriAltruiInsediamentoFromNomeFazione(String nomeFazione);
 }

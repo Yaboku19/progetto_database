@@ -133,7 +133,10 @@ public class FazioneViewController {
     @FXML
     void attaccare(MouseEvent event) {
         controller.creaTask(codiceAttacare, nomeFazioneText.getText(),
-            Optional.ofNullable(attaccareDecider.getValue()),Optional.empty(), Optional.empty(), 1);
+            Optional.ofNullable(attaccareDecider.getValue() == null 
+                    ? attaccareDecider.getValue()
+                    : attaccareDecider.getValue().replaceAll(" .*", "")
+                    ),Optional.empty(), Optional.empty(), 1);
     }
 
     @FXML
@@ -170,7 +173,10 @@ public class FazioneViewController {
 
     @FXML
     void getGuerrieriAltrui(MouseEvent event) {
-
+        infoFiled.setText("");
+        for(var value : controller.getGuerrieriAltruiInsediamentoFromNomeFazione(nomeFazioneText.getText())) {
+            infoFiled.appendText(" Insediamento: " + value + "\n");
+        }
     }
 
     @FXML

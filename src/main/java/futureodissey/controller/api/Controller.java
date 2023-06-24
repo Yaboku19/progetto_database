@@ -32,4 +32,6 @@ public interface Controller {
     List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione);
 
     List<String> getGuerrieriInsediamentoFromNomeFazione(String nomeFazione);
+
+    List<String> getGuerrieriAltruiInsediamentoFromNomeFazione(String nomeFazione);
 }
