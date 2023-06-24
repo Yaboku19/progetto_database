@@ -183,4 +183,9 @@ public class ViewImpl implements View {
     public List<String> getLavoratoriInsediamentoFromNomeFazione(final String nomeFazione) {
         return controller.getLavoratoriInsediamentoFromNomeFazione(nomeFazione);
     }
+
+    @Override
+    public List<String> getGuerrieriInsediamentoFromNomeFazione(String nomeFazione) {
+        return controller.getGuerrieriInsediamentoFromNomeFazione(nomeFazione);
+    }
 }

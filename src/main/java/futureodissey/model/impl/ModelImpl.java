@@ -514,15 +514,33 @@ public class ModelImpl implements Model{
 
     @Override
     public List<String> getLavoratoriInsediamentoFromNomeFazione(final String nomeFazione) {
-        final String query = "SELECT I.nomeInsediamento, count(*) AS numLavoratori " +
-                "FROM lavoratore L, insediamento I " +
-                "WHERE L.nomeInsediamento = I.nomeInsediamento AND I.nomeFazione = \"" + nomeFazione + "\" " +
-                "group by I.nomeInsediamento;";
+        final String query = "SELECT nomeInsediamento, count(*) AS numLavoratori " +
+                "FROM lavoratore " +
+                "WHERE nomeFazione = \"" + nomeFazione + "\" " +
+                "group by nomeInsediamento;";
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final ResultSet result = statement.executeQuery();
             List<String> toReturn = new ArrayList<>();
             while(result.next()) {
                 toReturn.add(result.getString("nomeInsediamento") + " " + result.getString("numLavoratori"));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    @Override
+    public List<String> getGuerrieriInsediamentoFromNomeFazione(final String nomeFazione) {
+        final String query = "select nomeInsediamento, count(*) AS numGuerrieri " +
+	        "from guerriero where nomeFazione = \"" + nomeFazione + "\"" +
+            "group by nomeInsediamento";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<String> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add((result.getString("nomeInsediamento") == null ? "Esercito" : result.getString("nomeInsediamento")) +
+                    " " + result.getString("numGuerrieri"));
             }
             return toReturn;
         } catch (final SQLException e) {

@@ -31,4 +31,6 @@ public interface Model {
     void executeTask();
 
     List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione);
+
+    List<String> getGuerrieriInsediamentoFromNomeFazione(String nomeFazione);
 }

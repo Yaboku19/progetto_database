@@ -162,7 +162,10 @@ public class FazioneViewController {
 
     @FXML
     void getGuerrieri(MouseEvent event) {
-
+        infoFiled.setText("");
+        for(var value : controller.getGuerrieriInsediamentoFromNomeFazione(nomeFazioneText.getText())) {
+            infoFiled.appendText(" Insediamento: " + value + "\n");
+        }
     }
 
     @FXML

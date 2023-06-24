@@ -77,7 +77,7 @@ public class ControllerImpl implements Controller {
     public void fazione(String nomeFazione, String NomeCapitano, boolean isAdd) {
         addRemove(new Fazione(nomeFazione, NomeCapitano), isAdd);
         for (var value : model.getAllElement(RisorsaTable.class)) {
-            addRemove(new Disponibilita((String) value.getKey(), nomeFazione, 30), isAdd);
+            addRemove(new Disponibilita((String) value.getKey(), nomeFazione, 50), isAdd);
         }
     }
 
@@ -146,5 +146,10 @@ public class ControllerImpl implements Controller {
     @Override
     public List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione) {
         return model.getLavoratoriInsediamentoFromNomeFazione(nomeFazione);
+    }
+
+    @Override
+    public List<String> getGuerrieriInsediamentoFromNomeFazione(String nomeFazione) {
+        return model.getGuerrieriInsediamentoFromNomeFazione(nomeFazione);
     }
 }

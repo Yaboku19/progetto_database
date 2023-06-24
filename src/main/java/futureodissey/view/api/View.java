@@ -72,4 +72,6 @@ public interface View {
     void executeTask();
 
     List<String> getLavoratoriInsediamentoFromNomeFazione(String nomeFazione);
+
+    List<String> getGuerrieriInsediamentoFromNomeFazione(String nomeFazione);
 }
