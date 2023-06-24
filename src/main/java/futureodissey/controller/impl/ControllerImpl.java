@@ -123,8 +123,8 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public List<String> getInsediamentoRisorsaAltruiFromFazione(String nomeFazione) {
-        return model.getInsediamentoRisorsaAltruiFromNomeFazione(nomeFazione);
+    public List<String> getPianetaRisorsaAltruiFromFazione(String nomeFazione) {
+        return model.getPianetaRisorsaAltruiFromNomeFazione(nomeFazione);
     }
 
     @Override

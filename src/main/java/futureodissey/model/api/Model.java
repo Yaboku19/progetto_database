@@ -21,7 +21,7 @@ public interface Model {
 
     List<Pianeta> getFreePianeta();
 
-    List<String> getInsediamentoRisorsaAltruiFromNomeFazione (String nomeFazione);
+    List<String> getPianetaRisorsaAltruiFromNomeFazione (String nomeFazione);
 
     void creaTask(int codiceTask, String nomeFazione, Optional<String> nomeInsediamento1,
         Optional<String> nomeInsediamento2, Optional<String> nomePianeta, final int num);
@@ -35,4 +35,5 @@ public interface Model {
     List<String> getGuerrieriInsediamentoFromNomeFazione(String nomeFazione);
 
     List<String> getGuerrieriAltruiInsediamentoFromNomeFazione(String nomeFazione);
+
 }

@@ -159,8 +159,8 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public List<String> getNomeInsediamentoRisorsaAltruiFromFazione(final String nomeFazione) {
-        return controller.getInsediamentoRisorsaAltruiFromFazione(nomeFazione);
+    public List<String> getNomePianetaRisorsaAltruiFromFazione(final String nomeFazione) {
+        return controller.getPianetaRisorsaAltruiFromFazione(nomeFazione);
     }
 
     @Override

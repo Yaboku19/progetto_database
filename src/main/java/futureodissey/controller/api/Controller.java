@@ -20,7 +20,7 @@ public interface Controller {
 
     List<String> getNomePianetaNomeRisorsaFree();
 
-    List<String> getInsediamentoRisorsaAltruiFromFazione(String nomeFazione);
+    List<String> getPianetaRisorsaAltruiFromFazione(String nomeFazione);
 
     List<Task> getTaskFromNomeFazione (String nomeFazione);
 

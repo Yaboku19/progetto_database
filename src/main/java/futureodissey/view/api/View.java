@@ -62,7 +62,7 @@ public interface View {
 
     List<String> getNomePianetaNomeRisorseFree();
 
-    List<String> getNomeInsediamentoRisorsaAltruiFromFazione(String nomeFazione);
+    List<String> getNomePianetaRisorsaAltruiFromFazione(String nomeFazione);
 
     List<Task> getTaskFromNomeFazione(String nomeFazione);
 

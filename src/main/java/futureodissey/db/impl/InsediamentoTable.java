@@ -117,15 +117,15 @@ public class InsediamentoTable extends AbstractTable<Insediamento> implements Ta
         }
     }
 
-    public List<String> getNomeFazioneAltruiFromNomeFAzione(final String NomeFazione, final PianetaTable pianeta) {
-        final String query = "SELECT I."+ key2 + ", P." + pianeta.getRisorsa() + " FROM " + tableName + 
+    public List<String> getNomePianetaAltruiFromNomeFAzione(final String NomeFazione, final PianetaTable pianeta) {
+        final String query = "SELECT I."+ this.pianeta + ", P." + pianeta.getRisorsa() + " FROM " + tableName + 
             " I, " + pianeta.getTableName() + " P WHERE " + key1 + " != \"" + NomeFazione + "\" and I." + 
             this.pianeta + " = P." + pianeta.getKey();
         try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
             final ResultSet result = statement.executeQuery();
             List<String> toReturn = new ArrayList<>();
             while(result.next()) {
-                toReturn.add(result.getString(key2) + " " +
+                toReturn.add(result.getString(this.pianeta) + " " +
                     result.getString(pianeta.getRisorsa()));
             }
             return toReturn;

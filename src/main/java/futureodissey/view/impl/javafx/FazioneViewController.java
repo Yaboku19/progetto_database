@@ -133,10 +133,9 @@ public class FazioneViewController {
     @FXML
     void attaccare(MouseEvent event) {
         controller.creaTask(codiceAttacare, nomeFazioneText.getText(),
-            Optional.ofNullable(attaccareDecider.getValue() == null 
+            Optional.empty(), Optional.empty(), Optional.ofNullable(attaccareDecider.getValue() == null 
                     ? attaccareDecider.getValue()
-                    : attaccareDecider.getValue().replaceAll(" .*", "")
-                    ),Optional.empty(), Optional.empty(), 1);
+                    : attaccareDecider.getValue().replaceAll(" .*", "")), 1);
     }
 
     @FXML
@@ -348,6 +347,6 @@ public class FazioneViewController {
     void setAttaccareDecider() {
         attaccareDecider.getItems().clear();
         attaccareDecider.getItems().addAll(
-            controller.getNomeInsediamentoRisorsaAltruiFromFazione(nomeFazioneText.getText()));
+            controller.getNomePianetaRisorsaAltruiFromFazione(nomeFazioneText.getText()));
     }
 }
