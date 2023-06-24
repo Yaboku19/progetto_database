@@ -663,4 +663,37 @@ public class ModelImpl implements Model{
             return "";
         }
     }
+
+    @Override
+    public String getMaxRisorsa() {
+        final String query = 
+        "select F.*, D.nomeRisorsa, D.quantita " +
+	        "from fazione F, disponibilita D " +
+            "where F.nomeFazione = D.nomeFazione and D.nomeRisorsa = ( " +
+		        "select R.nomeRisorsa " +
+			        "from task T, tasktype Ts, richiesta R " +
+			        "where T.codiceTaskType = Ts.codiceTaskType and Ts.codiceTaskType = R.codiceTaskType " +
+			        "group by R.nomeRisorsa " +
+			        "having sum(R.quantita) = ( " +
+				        "select sum(R.quantita) as somma " +
+					        "from task T, tasktype Ts, richiesta R " +
+					        "where T.codiceTaskType = Ts.codiceTaskType and Ts.codiceTaskType = R.codiceTaskType " +
+					        "group by R.nomeRisorsa " +
+					        "order by 1 desc " +
+					        "limit 1)) " +
+		    "order by D.quantita desc " +
+            "limit 1";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            String toReturn = "";
+            while(result.next()) {
+                toReturn = result.getString("nomeFazione") + " "+ result.getString("nomeCapitano") + " " +
+                    result.getString("nomeRisorsa") + " " + result.getString("quantita");
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return "";
+        }
+    }
+
 }

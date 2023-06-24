@@ -36,4 +36,6 @@ public interface Model {
 
     List<String> getGuerrieriAltruiInsediamentoFromNomeFazione(String nomeFazione);
 
+    String getMaxRisorsa();
+
 }
