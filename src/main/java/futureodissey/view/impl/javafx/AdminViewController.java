@@ -118,7 +118,10 @@ public class AdminViewController {
 
     @FXML
     void getMaxRisorsa(MouseEvent event) {
-        fazioneList.appendText("\n\n" + controller.getMaxRisorsa());
+        fazioneList.appendText("\n\n");
+        for (var string : controller.getMaxRisorsa()) {
+            fazioneList.appendText(string + "\n");
+        }
     }
 
 }

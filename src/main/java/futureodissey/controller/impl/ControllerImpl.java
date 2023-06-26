@@ -24,17 +24,14 @@ import futureodissey.model.impl.rowtype.Richiesta;
 import futureodissey.model.impl.rowtype.Risorsa;
 import futureodissey.model.impl.rowtype.Task;
 import futureodissey.model.impl.rowtype.TaskType;
-import futureodissey.view.api.View;
 
 public class ControllerImpl implements Controller {
-    private final View view;
     private final String username = "root";
     private final String password = "Emanuele2002!";
     private final String dbName = "futureodissey";
     private final Model model;
 
-    public ControllerImpl(View view) {
-        this.view = view;
+    public ControllerImpl() {
         model = new ModelImpl(username, password, dbName);
         try {
             initialize();
@@ -76,8 +73,12 @@ public class ControllerImpl implements Controller {
     @Override
     public void fazione(String nomeFazione, String NomeCapitano, boolean isAdd) {
         addRemove(new Fazione(nomeFazione, NomeCapitano), isAdd);
-        for (var value : model.getAllElement(RisorsaTable.class)) {
-            addRemove(new Disponibilita((String) value.getKey(), nomeFazione, 50), isAdd);
+        if (isAdd) {
+            for (var value : model.getAllElement(RisorsaTable.class)) {
+                addRemove(new Disponibilita((String) value.getKey(), nomeFazione, 50), isAdd);
+            }
+        } else {
+            model.removeNation(nomeFazione);
         }
     }
 
@@ -159,7 +160,7 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public String getMaxRisorsa() {
+    public List<String> getMaxRisorsa() {
         return model.getMaxRisorsa();
     }
 }

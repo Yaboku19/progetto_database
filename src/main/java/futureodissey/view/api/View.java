@@ -77,5 +77,5 @@ public interface View {
 
     List<String> getGuerrieriAltruiInsediamentoFromNomeFazione(String nomeFazione);
 
-    String getMaxRisorsa();
+    List<String> getMaxRisorsa();
 }

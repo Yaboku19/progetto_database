@@ -36,7 +36,7 @@ public class ViewImpl implements View {
         try {
             root = loader.load();
             mainViewController = loader.getController();
-            controller = new ControllerImpl(this);
+            controller = new ControllerImpl();
             mainViewController.setViewController(this);
             final Scene mainViewScene = new Scene(root);
             stage.setTitle("Future-Odissey");
@@ -195,7 +195,7 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public String getMaxRisorsa() {
+    public List<String> getMaxRisorsa() {
         return controller.getMaxRisorsa();
     }
 }

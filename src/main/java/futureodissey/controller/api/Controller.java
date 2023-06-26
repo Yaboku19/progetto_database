@@ -35,5 +35,5 @@ public interface Controller {
 
     List<String> getGuerrieriAltruiInsediamentoFromNomeFazione(String nomeFazione);
 
-    String getMaxRisorsa();
+    List<String> getMaxRisorsa();
 }
