@@ -8,6 +8,7 @@ import futureodissey.model.api.rowtype.RowType;
 import futureodissey.model.impl.rowtype.Pianeta;
 import futureodissey.model.impl.rowtype.Task;
 
+@SuppressWarnings({"rawtypes"})
 public interface Model {
     void addElement(RowType<? extends Object> row);
 

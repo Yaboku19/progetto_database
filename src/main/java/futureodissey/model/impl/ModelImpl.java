@@ -31,7 +31,7 @@ import futureodissey.model.impl.rowtype.Pianeta;
 import futureodissey.model.impl.rowtype.Task;
 import javafx.util.Pair;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class ModelImpl implements Model{
     private final ConnectionProvider connectionProvider;
     private final Connection connection;
