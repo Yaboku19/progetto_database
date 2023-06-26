@@ -696,7 +696,143 @@ public class ModelImpl implements Model{
 
     @Override
     public void removeNation(final String nomeFazione) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeNation'");
+        var lavoratoreList = lavoratoreToremove(nomeFazione);
+        var guerrieroList = guerrieroToremove(nomeFazione);
+        var insediamentoList = insediamentoToremove(nomeFazione);
+        var taskList = taskToremove(nomeFazione);
+        var disponibilitaList = disponibilitaToremove(nomeFazione);
+        for (var value : lavoratoreList) {
+            tableList
+                .stream()
+                .filter(t -> t.getClass().equals(LavoratoreTable.class))
+                .map(t -> (LavoratoreTable) t)
+                .findFirst()
+                .get().delete(value.getKey());
+        }
+        
+        for (var value : guerrieroList) {
+            tableList
+                .stream()
+                .filter(t -> t.getClass().equals(GuerrieroTable.class))
+                .map(t -> (GuerrieroTable) t)
+                .findFirst()
+                .get().delete(value.getKey());
+        }
+
+        for (var value : insediamentoList) {
+            tableList
+                .stream()
+                .filter(t -> t.getClass().equals(InsediamentoTable.class))
+                .map(t -> (InsediamentoTable) t)
+                .findFirst()
+                .get().delete(value.getKey());
+        }
+
+        for (var value : taskList) {
+            tableList
+                .stream()
+                .filter(t -> t.getClass().equals(TaskTable.class))
+                .map(t -> (TaskTable) t)
+                .findFirst()
+                .get().delete(value.getKey());
+        }
+
+        for (var value : disponibilitaList) {
+            tableList
+                .stream()
+                .filter(t -> t.getClass().equals(DisponibilitaTable.class))
+                .map(t -> (DisponibilitaTable) t)
+                .findFirst()
+                .get().delete(value.getKey());
+        }
+    }
+
+    private List<Lavoratore> lavoratoreToremove(final String nomeFazione) {
+        final String query = "select * from lavoratore where nomeFazione = '" + nomeFazione + "'";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<Lavoratore> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(new Lavoratore(
+                    result.getInt("codicePersona"), 
+                    result.getString("nomeFazione"),
+                    result.getString("nomeInsediamento")));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private List<Guerriero> guerrieroToremove(final String nomeFazione) {
+        final String query = "select * from guerriero where nomeFazione = '" + nomeFazione + "'";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<Guerriero> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(new Guerriero(
+                    result.getInt("codicePersona"), 
+                    result.getString("nomeFazione"),
+                    Optional.of(result.getString("nomeInsediamento"))));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private List<Task> taskToremove(final String nomeFazione) {
+        final String query = "select * from task where nomeFazione = '" + nomeFazione + "'";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<Task> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(new Task(
+                    result.getString("nomeFazione"), 
+                    result.getInt("codiceTask"),
+                    result.getInt("codiceTaskType"),
+                    Optional.ofNullable(result.getString("nomeInsediamento1")),
+                    Optional.ofNullable(result.getString("nomeInsediamento2")),
+                    Optional.ofNullable(result.getString("nomePianeta"))));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private List<Insediamento> insediamentoToremove(final String nomeFazione) {
+       final String query = "select * from insediamento where nomeFazione = '" + nomeFazione + "'";
+       try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<Insediamento> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(new Insediamento(
+                    result.getString("nomeFazione"), 
+                    result.getString("nomeInsediamento"),
+                    result.getString("nomePianeta")));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
+       
+    }
+
+    private List<Disponibilita> disponibilitaToremove(final String nomeFazione) {
+        final String query = "select * from disponibilita where nomeFazione = '" + nomeFazione + "'";
+        try (final PreparedStatement statement = this.connection.prepareStatement(query)) {
+            final ResultSet result = statement.executeQuery();
+            List<Disponibilita> toReturn = new ArrayList<>();
+            while(result.next()) {
+                toReturn.add(new Disponibilita(
+                    result.getString("nomeRisorsa"), 
+                    result.getString("nomeFazione"),
+                    result.getInt("quantita")));
+            }
+            return toReturn;
+        } catch (final SQLException e) {
+            return new ArrayList<>();
+        }
     }
 }
